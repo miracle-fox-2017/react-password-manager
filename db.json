@@ -1,0 +1,10 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "jonathan",
+      "password": "jonathan",
+      "url": "http://hacktiv8.com"
+    }
+  ]
+}
