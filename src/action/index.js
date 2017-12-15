@@ -10,10 +10,15 @@ export const getAllContacts = (contacts) => {
 
 export const getUserData = (dispatch) => {
   return (dispatch) => {
-    db.ref().child('/profile').once('value')
+    db.ref().child('/contacts/profile').once('value')
     .then((snapshot) => {
       console.log('getUserData', snapshot.val())
-      dispatch(getAllContacts(snapshot.val()))
+      let contacts = []
+      snapshot.forEach(a => {
+        console.log('looping di foreach', a.val())
+        contacts.push(a.val())
+      })
+      dispatch(getAllContacts(contacts))
     })
     .catch(err => console.error(err))
   }
@@ -21,7 +26,7 @@ export const getUserData = (dispatch) => {
 
 export const sendUserData = (contact) => {
   return (dispatch) => {
-    db.ref('/profile').set({
+    db.ref('/contacts/profile').push({
       url: contact.url,
       username: contact.username,
       password: contact.password

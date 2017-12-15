@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import { getAllContacts, getUserData, sendUserData } from '../action'
+import { sendUserData } from '../action'
+import ProfileCard from './ProfileCard'
 
 class HomePage extends Component {
   constructor(props) {
@@ -30,14 +31,10 @@ class HomePage extends Component {
     this.props.sendContact(newProfile)
   }
 
-  componentWillMount() {
-    this.props.fetchContact()
-  }
-
   render () {
     return (
+      <div>
       <form className="container">
-        {JSON.stringify(this.props.contacts)}
         <fieldset>
           <legend>Password Form</legend>
             <div className="form-group">
@@ -66,6 +63,12 @@ class HomePage extends Component {
              onClick={() => this.inputProfile()}>Save</button>
         </fieldset>
       </form>
+      <div className="row">
+        <div className="col-md-12">
+          <ProfileCard />
+        </div>
+      </div>
+      </div>
     )
   }
 }
@@ -79,9 +82,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchContact: () => dispatch(getUserData()),
-    sendContact: (contact) => dispatch(sendUserData(contact)),
-    contact: (contacts) => dispatch(getAllContacts(contacts))
+    sendContact: (contact) => dispatch(sendUserData(contact))
   }
 }
 
