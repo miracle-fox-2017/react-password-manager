@@ -4,4 +4,4 @@ class Layout extends Component{
 
 }
 
-export default Layout
+export default Layout 
