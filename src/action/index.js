@@ -10,7 +10,7 @@ export const getAllContacts = (contacts) => {
 
 export const getUserData = (dispatch) => {
   return (dispatch) => {
-    db.ref().child('speed').once('value')
+    db.ref().child('/profile').once('value')
     .then((snapshot) => {
       console.log('getUserData', snapshot.val())
       dispatch(getAllContacts(snapshot.val()))
@@ -19,12 +19,13 @@ export const getUserData = (dispatch) => {
   }
 }
 
-export const sendUserData = () => {
+export const sendUserData = (contact) => {
   return (dispatch) => {
-    db.ref('/passwordmanagement').push({
-      url: 'http://hacktiv8.com',
-      username: 'yonathan',
-      password: 'yonathan'
+    db.ref('/profile').set({
+      url: contact.url,
+      username: contact.username,
+      password: contact.password
     })
+    dispatch(getUserData())
   }
 }
