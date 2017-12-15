@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import db from '../db'
+import { snapshotToArray } from '../helpers/helper'
+import SiteItemRow from './SiteItemRow'
+import { connect } from 'react-redux'
+import {fetchSites } from '../actions/siteAction'
 
 class PassWordList extends Component {
 	constructor(props) {
 	  super(props);
 
-	  this.state = {};
+	  this.state = {
+	  	sites: []
+	  };
 	}
 
 	render() {
@@ -27,26 +33,49 @@ class PassWordList extends Component {
 						</thead>
 
 						<tbody>
-							<tr>
-								<td>google.com</td>
-								<td>madman</td>
-								<td>123233</td>
-								<td>22-12-2017</td>
-								<td>25-12-2017</td>
-								<td>
-									<a href="#" className="btn btn-info">Edit</a>
-								</td>
-							</tr>
+							{
+								Array.from(this.props.sites).map((site, index) => {
+									return (
+										<SiteItemRow key={index} site={site}/>
+									)
+								})
+							}
 						</tbody>
+
 					</table>
 				</div>
 			</div>
 		)
 	}
 
-	componentDidMount() {
+	componentWillReceiveProps(nextProps) {
+		console.log('nextProps--------', nextProps)
+		/*this.setState({
+			sites : nextProps.sites
+		})*/
+	}
 
+	componentDidMount() {
+		/*db.ref('/vaults').on('value', (snapshot) => {
+			this.setState({
+				sites: snapshotToArray(snapshot)
+			})
+		})*/
+		this.props.loadSiteAccounts()
 	}
 }
 
-export default PassWordList
+const mapStatetoProps = (state) => {
+	console.log('mapStatetoProps----', state.siteReducer)
+	return {
+		sites: state.siteReducer
+	}
+}
+
+const mapDispatchtoProps = (dispatch) => {
+	return {
+		loadSiteAccounts : () => dispatch(fetchSites())
+	}
+}
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(PassWordList)

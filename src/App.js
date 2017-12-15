@@ -20,6 +20,8 @@ class App extends Component {
             <div className="routeWrap">
               <Route exact path='/' render= { () => (<IndexPage><PasswordList/></IndexPage>) } />
               <Route exact path='/add' render= { () => (<IndexPage><PasswordWidget/></IndexPage>) } />
+              <Route exact path='/edit/:siteId' render= { (props) => (<IndexPage><PasswordWidget {...props}/></IndexPage>) } />
+              <Route exact path='/delete/:siteId' render= { () => (<IndexPage><PasswordWidget/></IndexPage>) } />
             </div>
           </Router>
         </div>

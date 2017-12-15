@@ -1,3 +1,5 @@
+import { snapshotToArray } from '../helpers/helper'
+
 const initialState = {
 	sites : [{
 		owner: '',
@@ -11,11 +13,12 @@ const initialState = {
 
 export const siteReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case 'FETCH_ACCOUNT_SUCCESS':
-			const sites = state.sites.concat(action.payload.sites)
-			return { ...state, sites: sites };
+		case 'FETCH_SITE_SUCCESS':
+			console.log('FETCH_SITE_SUCCESS', snapshotToArray(action.payload.sites))
+			const sites = snapshotToArray(action.payload.sites)
+			return sites;
 
-		case 'ADD_NEW_ACCOUNT_SUCCESS':
+		case 'ADD_NEW_SITE_SUCCESS':
 			const newAccount = state.sites.push(action.payload.newAccount)
 			return { ...state, sites: newAccount }
 

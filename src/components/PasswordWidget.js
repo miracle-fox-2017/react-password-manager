@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import db from '../db'
+import { checkNullUndefined } from '../helpers/helper'
 
 class PasswordWidget extends Component {
 	constructor(props) {
 	  super(props);
-
+	  console.log(props.location.state.username)
 	  this.state = {
 	  	siteId: '',
-	  	siteUrl: '',
-	  	siteUsername: '',
-	  	sitePassword: '',
+	  	siteUrl: !Object.keys(props).length ? '' : props.location.state.url,
+	  	siteUsername: !Object.keys(props).length ? '' : props.location.state.username,
+	  	sitePassword: !Object.keys(props).length ? '' : props.location.state.password,
 	  	isUppercaseValid: false,
 	  	isLowecaseValid: false,
 	  	isNumberValid: false,
@@ -154,27 +155,30 @@ class PasswordWidget extends Component {
 	}
 
 	render() {
+		const propsMatch = checkNullUndefined(this.props.match)
+		const id = propsMatch !== '' ? propsMatch.params.siteId : '';
+
 		return (
 			<div className="row inputSiteForm">
 				<div className="col-md-8 col-md-offset-2">
 					<form action="#" id="newSiteForm">
 						<div className="form-group">
-							<input type="text" className="form-control" id="siteId" name="siteId" readOnly/>
+							<input value={id} type="text" className="form-control" id="siteId" name="siteId" readOnly/>
 						</div>
 
 						<div className="form-group">
 							<label>URL</label>
-							<input type="url" className="form-control" id="siteUrl" name="siteUrl" onChange={(e) => this.handleFormInput(e)}/>
+							<input type="url" value={this.state.siteUrl} className="form-control" id="siteUrl" name="siteUrl" onChange={(e) => this.handleFormInput(e)}/>
 						</div>
 
 						<div className="form-group">
 							<label>Username</label>
-							<input type="text" className="form-control" id="siteUsername" name="siteUsername" onChange={(e) => this.handleFormInput(e)}/>
+							<input value={this.state.siteUsername} type="text" className="form-control" id="siteUsername" name="siteUsername" onChange={(e) => this.handleFormInput(e)}/>
 						</div>
 
 						<div className="form-group">
 							<label>Password</label>
-							<input type="password" className="form-control" id="sitePassword" name="sitePassword" onChange={(e) => this.handleFormInput(e)}/>
+							<input value={this.state.sitePassword} type="text" className="form-control" id="sitePassword" name="sitePassword" onChange={(e) => this.handleFormInput(e)}/>
 						</div>
 
 						<div className="form-group">
@@ -196,6 +200,10 @@ class PasswordWidget extends Component {
 				</div>
 			</div>
 		)
+	}
+
+	componentWillMount() {
+		// this.validatePasswordInput(e)
 	}
 }
 
