@@ -31,12 +31,16 @@
   margin-bottom: 20px;
 }
 
-.inputAccountForm .form-group {
+.inputSiteForm .form-group {
   text-align: left;
 }
 
-.inputAccountForm label {
+.inputSiteForm label {
   font-weight: bold;
+}
+
+.u-full-width {
+  width: 100%
 }
 
 @keyframes App-logo-spin {

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import { accountReducer } from './accountReducer'
+import { siteReducer } from './siteReducer'
 
 const rootReducer = combineReducers({
-	accountReducer
+	siteReducer
 })
 
 export default rootReducer

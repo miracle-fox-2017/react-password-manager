@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import db from '../db'
 
 class PasswordWidget extends Component {
 	constructor(props) {
 	  super(props);
 
 	  this.state = {
-	  	accountId: '',
+	  	siteId: '',
 	  	siteUrl: '',
 	  	siteUsername: '',
 	  	sitePassword: '',
@@ -17,16 +18,40 @@ class PasswordWidget extends Component {
 	  };
 	}
 
-	saveAccount(e) {
+	saveSite(e) {
 		e.preventDefault()
 
 		if (this.state.isUppercaseValid && this.state.isLowecaseValid &&
 			this.state.isNumberValid && this.state.isSpecialValid && this.state.isLengthValid) {
-			alert("Save Account")
-	} else {
-		alert("Password validation unmet! Please use more secure password!")
+			let siteData = {
+				createdAt: new Date().toISOString(),
+				updatedAt: new Date().toISOString(),
+				owner: 'USER',
+				url: this.state.siteUrl,
+				username: this.state.siteUsername,
+				password: this.state.sitePassword
+			}
+
+			console.log(siteData)
+			this.resetForm()
+
+			var newSite = db.ref('/vaults').push(siteData).key
+
+			alert('Site saved: '+newSite)
+		} else {
+			alert('Password validation unmet! Please use more secure password!')
+		}
 	}
 
+	resetForm() {
+		this.setState({
+			siteId: '',
+	  	siteUrl: '',
+	  	siteUsername: '',
+	  	sitePassword: '',
+		})
+
+		document.querySelector('#newSiteForm').reset()
 	}
 
 	handleFormInput(e) {
@@ -130,11 +155,11 @@ class PasswordWidget extends Component {
 
 	render() {
 		return (
-			<div className="row inputAccountForm">
+			<div className="row inputSiteForm">
 				<div className="col-md-8 col-md-offset-2">
-					<form action="#" id="newAccountForm">
+					<form action="#" id="newSiteForm">
 						<div className="form-group">
-							<input type="text" className="form-control" id="accountId" name="accountId" readOnly/>
+							<input type="text" className="form-control" id="siteId" name="siteId" readOnly/>
 						</div>
 
 						<div className="form-group">
@@ -165,7 +190,7 @@ class PasswordWidget extends Component {
 						</div>
 
 						<div className="form-group">
-							<button className="btn btn-lg btn-success" onClick={(e) => this.saveAccount(e)}>Save</button>
+							<button className="btn u-full-width btn-info" onClick={(e) => this.saveSite(e)}>Save</button>
 						</div>
 					</form>
 				</div>

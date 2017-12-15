@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import db from '../db'
 
 class PassWordList extends Component {
 	constructor(props) {
@@ -41,6 +42,10 @@ class PassWordList extends Component {
 				</div>
 			</div>
 		)
+	}
+
+	componentDidMount() {
+
 	}
 }
 
