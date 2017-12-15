@@ -1,9 +1,25 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-function Home() {
+function Home(props) {
   return (
-    <h1> ini Home </h1>
+    <div>
+      <h1> ini Home </h1>
+      { JSON.stringify(props.listPassword) }
+    </div>
   )
 }
 
-export default Home
+const mapStateToProps = state => {
+  return {
+    listPassword: state.passwordManager.passwordStore
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
