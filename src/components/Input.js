@@ -30,6 +30,12 @@ class Input extends Component {
     state[e.target.name]= e.target.value
     this.setState(state)
   }
+  onChangesValidation = (e) => {
+    console.log(e.target.value, 'DTATA')
+    let state = this.state.form
+    state[e.target.name]= e.target.value
+    this.setState(state)
+  }
   render() {
     return (
       <div>
@@ -65,7 +71,7 @@ class Input extends Component {
               name='password' 
               type='password' 
               value={ this.state.form.password } 
-              onDOMChange={ this.onChanges } 
+              onDOMChange={ this.onChangesValidation } 
               />
           </FormField>
           <Footer 
