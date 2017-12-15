@@ -1,16 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Home extends Component {
-  constructor() {
-    super()
-
-  }
-
-  render() {
-    return (
-      <h1> ini Home </h1>
-    )
-  }
+function Home() {
+  return (
+    <h1> ini Home </h1>
+  )
 }
 
 export default Home
