@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import db from '../db'
 import { checkNullUndefined } from '../helpers/helper'
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
 
 class PasswordWidget extends Component {
 	constructor(props) {
@@ -15,7 +16,8 @@ class PasswordWidget extends Component {
 	  	isLowecaseValid: false,
 	  	isNumberValid: false,
 	  	isSpecialValid: false,
-	  	isLengthValid: false
+			isLengthValid: false,
+			doneUpsert: false
 	  };
 	}
 
@@ -48,9 +50,13 @@ class PasswordWidget extends Component {
 				});
 			}
 			
-			alert('Site saved')
+			this.setState({
+				doneUpsert : true
+			})
+
+			// alert('Site saved')
 		} else {
-			alert('Password validation unmet! Please use more secure password!')
+			alert('Password validation failed! Please use more secure password!')
 		}
 	}
 
@@ -70,97 +76,70 @@ class PasswordWidget extends Component {
 			[e.target.name] : e.target.value
 		})
 
-		this.validatePasswordInput(e)
+		if (e.target.name === 'sitePassword') {
+			this.validatePasswordInput(e.target.value)
+		}
 	}
 
-	validatePasswordInput(e) {
-		if (e.target.name === 'sitePassword') {
-			const password = e.target.value
-			const checkUppercase = document.querySelector("#check-uppercase")
-			const checkLowercase = document.querySelector("#check-lowercase")
-			const checkLength = document.querySelector("#check-length")
-			const checkNumber = document.querySelector("#check-number")
-			const checkSpecial = document.querySelector("#check-special")
+	validatePasswordInput(password) {
+		const lowerCaseRegex = /[a-z]/g;
+		const upperCaseRegex = /[A-Z]/g;
+		const numberRegex = /[0-9]/g;
+		const specialRegex = /[#?!@$%^&*-]/g;
 
-			const lowerCaseRegex = /[a-z]/g;
-			const upperCaseRegex = /[A-Z]/g;
-			const numberRegex = /[0-9]/g;
-			const specialRegex = /[#?!@$%^&*-]/g;
+		if (password.match(lowerCaseRegex)) {
+			this.setState({
+				isLowecaseValid: true
+			})
 
-			if(password.match(lowerCaseRegex)) {
-				checkLowercase.classList.remove("alert-danger");
-				checkLowercase.classList.add("alert-success");
-				this.setState({
-					isLowecaseValid : true
-				})
+		} else {
+			this.setState({
+				isLowecaseValid: false
+			})
+		}
 
-			} else {
-				checkLowercase.classList.remove("alert-success");
-				checkLowercase.classList.add("alert-danger");
-				this.setState({
-					isLowecaseValid : false
-				})
-			}
+		if (password.match(upperCaseRegex)) {
+			this.setState({
+				isUppercaseValid: true
+			})
 
-			if(password.match(upperCaseRegex)) {
-				checkUppercase.classList.remove("alert-danger");
-				checkUppercase.classList.add("alert-success");
-				this.setState({
-					isUppercaseValid : true
-				})
+		} else {
+			this.setState({
+				isUppercaseValid: false
+			})
+		}
 
-			} else {
-				checkUppercase.classList.remove("alert-success");
-				checkUppercase.classList.add("alert-danger");
-				this.setState({
-					isUppercaseValid : false
-				})
-			}
+		if (password.match(numberRegex)) {
+			this.setState({
+				isNumberValid: true
+			})
 
-			if(password.match(numberRegex)) {
-				checkNumber.classList.remove("alert-danger");
-				checkNumber.classList.add("alert-success");
-				this.setState({
-					isNumberValid : true
-				})
+		} else {
+			this.setState({
+				isNumberValid: false
+			})
+		}
 
-			} else {
-				checkNumber.classList.remove("alert-success");
-				checkNumber.classList.add("alert-danger");
-				this.setState({
-					isNumberValid : false
-				})
-			}
+		if (password.match(specialRegex)) {
+			this.setState({
+				isSpecialValid: true
+			})
 
-			if(password.match(specialRegex)) {
-				checkSpecial.classList.remove("alert-danger");
-				checkSpecial.classList.add("alert-success");
-				this.setState({
-					isSpecialValid : true
-				})
+		} else {
+			this.setState({
+				isSpecialValid: false
+			})
+		}
 
-			} else {
-				checkSpecial.classList.remove("alert-success");
-				checkSpecial.classList.add("alert-danger");
-				this.setState({
-					isSpecialValid : false
-				})
-			}
+		if (password.length > 5) {
+			this.setState({
+				isLengthValid: true
+			})
 
-			if (password.length > 5) {
-				checkLength.classList.add("alert-success");
-				checkLength.classList.remove("alert-danger");
-				this.setState({
-					isLengthValid : true
-				})
-
-			} else {
-				checkLength.classList.remove("alert-success");
-				checkLength.classList.add("alert-danger");
-				this.setState({
-					isLengthValid : false
-				})
-			}
+		} else {
+			this.setState({
+				isLengthValid: false
+			})
 		}
 	}
 
@@ -192,17 +171,21 @@ class PasswordWidget extends Component {
 							<h4>Password Strength:</h4>
 							<br/>
 
-							<div className="alert alert-danger" id="check-uppercase">Password harus memiliki setidaknya satu karakter huruf besar (upper-case).</div>
-							<div className="alert alert-danger" id="check-lowercase">Password harus memiliki setidaknya satu karakter huruf kecil (lower-case).</div>
-							<div className="alert alert-danger" id="check-special">Password harus memiliki setidaknya satu karakter spesial (#?!@$%^&*-).</div>
-							<div className="alert alert-danger" id="check-number">Password harus memiliki setidaknya satu angka.</div>
-							<div className="alert alert-danger" id="check-length">Password harus memiliki panjang (length) lebih dari 5 karakter.</div>
+							<div className={this.state.isUppercaseValid ? 'alert alert-success' : 'alert alert-danger'} id="check-uppercase">Password harus memiliki setidaknya satu karakter huruf besar (upper-case).</div>
+							<div className={this.state.isLowecaseValid ? 'alert alert-success' : 'alert alert-danger'} id="check-lowercase">Password harus memiliki setidaknya satu karakter huruf kecil (lower-case).</div>
+							<div className={this.state.isSpecialValid ? 'alert alert-success' : 'alert alert-danger'}id="check-special">Password harus memiliki setidaknya satu karakter spesial (#?!@$%^&*-).</div>
+							<div className={this.state.isNumberValid ? 'alert alert-success' : 'alert alert-danger'}id="check-number">Password harus memiliki setidaknya satu angka.</div>
+							<div className={this.state.isLengthValid ? 'alert alert-success' : 'alert alert-danger'}id="check-length">Password harus memiliki panjang (length) lebih dari 5 karakter.</div>
 
 						</div>
 
 						<div className="form-group">
 							<button className="btn u-full-width btn-info" onClick={(e) => this.saveSite(e)}>Save</button>
 						</div>
+
+						{this.state.doneUpsert && (
+							<Redirect to={'/'} />
+						)}
 					</form>
 				</div>
 			</div>
@@ -210,7 +193,7 @@ class PasswordWidget extends Component {
 	}
 
 	componentWillMount() {
-		// this.validatePasswordInput(e)
+		this.validatePasswordInput(this.state.sitePassword)
 	}
 }
 
