@@ -1,9 +1,5 @@
 const intialState = {
   pms: [{
-      url: '',
-      owner: '',
-      username: '',
-      password: ''
   }]
 }
 
@@ -13,7 +9,7 @@ const pmReducer = (state=intialState,action) => {
 			const newPms = state.pms.concat(action.payload.pms)
 			return {...state, pms: newPms}
 		case 'GET_PMS':
-			return {...state, pms: action.payload.pms}			
+			return {...state, pms: action.payload.pms}					
 		default:
 			return state
 	}

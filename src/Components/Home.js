@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getPmFromFirebase } from '../actions/pm'
 import { add_pm } from '../actions/pm'
 import PmList from './PmList'
+import { search_pm } from '../actions/pm'
 
 class Home extends Component {
 	constructor() {
@@ -16,19 +17,31 @@ class Home extends Component {
 			checkUC: 'alert alert-dismissible alert-danger',
 			checkNum: 'alert alert-dismissible alert-danger',
 			checkLength: 'alert alert-dismissible alert-danger',
-			checkSpecial: 'alert alert-dismissible alert-danger'
+			checkSpecial: 'alert alert-dismissible alert-danger',
+			initPM: []
 		}
+	}
+
+	filterList(event) {
+		this.props.search_pm(event.target.value)
+	}
+
+	componentWillReceiveProps(nextProps) {
+	    this.setState({initPMS: nextProps.pms})
 	}
 
 	changeHandler(event){
 		this.setState({
 			[event.target.name] : event.target.value
 		})
-
 	}
 
 	passwordHandler(event){
-		  // Validate lowercase letters
+		  // Validate lowercase letters	
+		  this.setState({
+		  	[event.target.name] : event.target.value
+		  })
+		  
 		  var lowerCaseLetters = /[a-z]/g;
 		  if(event.target.value.match(lowerCaseLetters)) {  
 		   this.setState({
@@ -68,7 +81,7 @@ class Home extends Component {
 		  if(event.target.value.length > 5) {
 		  	this.setState({
 		  		checkLength: 'alert alert-dismissible alert-success'
-		  	})
+		  	})	  	
 		  } else {
 		  	this.setState({
 		  		checkLength: 'alert alert-dismissible alert-danger'
@@ -81,26 +94,39 @@ class Home extends Component {
 		   this.setState({
 		   	checkSpecial: 'alert alert-dismissible alert-success'
 		   })
+		   
 		  } else {
 		   this.setState({
 		   	checkSpecial: 'alert alert-dismissible alert-danger'
 		   })
-		  }		  
+		  }		 
 	}
 
-	savePM() {
-    const newPM = {
-		url: this.state.url,
-		owner: this.state.owner,
-		username: this.state.username,
-		password: this.state.password
-    }			
-		add_pm(newPM)	
+	savePM() {		
+	if( this.state.checkLC      === 'alert alert-dismissible alert-success' &&
+		this.state.checkUC      === 'alert alert-dismissible alert-success' &&
+		this.state.checkNum     === 'alert alert-dismissible alert-success' &&
+		this.state.checkLength  === 'alert alert-dismissible alert-success' &&
+		this.state.checkSpecial === 'alert alert-dismissible alert-success'
+	  ){
+	    const newPM = {
+			url: this.state.url,
+			owner: this.state.owner,
+			username: this.state.username,
+			password: this.state.password,
+			createdAt: new Date().toISOString(),
+			updatedAt: null
+	    }				    	
+			add_pm(newPM)	
+		}else{
+			alert('Please follow Password Rule')
+		}
 	}
 	render() {
 		return (
 			<div className="home">
 			<button className="btn btn-info btn-md" data-toggle="modal" data-target="#addPassword">Add Password</button>
+			<input type="text" className="form-control form-control-lg" placeholder="Search" onChange={(e) => this.filterList(e)}/>
 			  <table className="table table-hover">
 			  <thead>
 			    <tr>
@@ -108,12 +134,13 @@ class Home extends Component {
 			      <td className="table-info" >owner</td>
 			      <td className="table-info" >username</td>
 			      <td className="table-info" >password</td>
+			      <td className="table-info" ></td>
 			    </tr>
 			   </thead> 
 			    <tbody>
-					{this.props.pms.map((pm,i) => {
+					{this.props.pms.map((pm,index) => {
 						return(
-							<PmList pmList={pm} key={i} />
+							<PmList key={index} pmList={pm}  />
 						)
 					})}
 				</tbody>	 	
@@ -161,7 +188,7 @@ class Home extends Component {
 
 				      </div>
 				      <div className="modal-footer">
-				        <button onClick={() => this.savePM()}type="button" data-dismiss="modal" className="btn btn-primary">Submit</button>
+				        <button onClick={() => this.savePM()}type="button" data-dismiss='modal' className="btn btn-primary">Submit</button>
 				        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
 				      </div>
 				    </div>
@@ -171,8 +198,8 @@ class Home extends Component {
 		)
 	}
 
-	componentDidMount() {
-		this.props.getPmFromFirebase()
+	componentDidMount() {	
+		this.props.getPmFromFirebase()	
 	}
 }
 
@@ -184,7 +211,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		getPmFromFirebase: () => dispatch(getPmFromFirebase())
+		getPmFromFirebase: () => dispatch(getPmFromFirebase()),
+		search_pm: (searchPM) => dispatch(search_pm(searchPM))
 	}
 }
 

@@ -19,13 +19,20 @@ export const get_pm = (pms) => {
 	}
 }
 
+export const delete_pm = (pmKey) => {
+	db.ref('pms').child(pmKey).remove()
+}
+
 export const add_pm = (AddedPm) => {
-	db.ref('pms').push({
+	var postData = {
 		url: AddedPm.url,
 		owner: AddedPm.owner,
 		username: AddedPm.username,
-		password: AddedPm.password
-	})
+		password: AddedPm.password,
+		createdAt: AddedPm.createdAt,
+		updatedAt: null
+	}
+	db.ref('pms').push(postData)
 	return {
 		type: "ADD_PM",
 		payload: {
@@ -34,13 +41,37 @@ export const add_pm = (AddedPm) => {
 	}
 }
 
+export const search_pm = (searchUrl) => {
+	return (dispatch) => {
+		db.ref('pms').on('value', function(snapshot) {
+			let pms = []
+			snapshot.forEach(snap => {
+				let pm = snap.val();
+				pm.key = snap.key;
+				pms.push(pm)
+			})
+			var searchPM = pms.filter(function(pm) {
+			 	return pm.url.toLowerCase().search(
+			 		searchUrl.toLowerCase()
+			 	) !== -1;
+			})
+			if(searchUrl.length === 0){
+				dispatch(getPmFromFirebase())
+			}
+				dispatch(get_pm(searchPM))				
+		})		
+	}
+}
+
 export const getPmFromFirebase = () => {
 	return (dispatch, getState) => {
 		db.ref('pms').on('value', function(snapshot) {
-			let pms= []
-			for (let pm in snapshot.val()){
-				pms.push(snapshot.val()[pm])
-			}
+			let pms = []
+			snapshot.forEach(snap => {
+				let pm = snap.val();
+				pm.key = snap.key;
+				pms.push(pm)
+			})
 			dispatch(get_pm(pms))
 		})
 	}
