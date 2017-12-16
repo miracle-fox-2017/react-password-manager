@@ -1,4 +1,4 @@
-const addPassword = (payload) => {
+const addPassword = payload => {
   return ({
     type: 'ADD_PASSWORD',
     payload: payload

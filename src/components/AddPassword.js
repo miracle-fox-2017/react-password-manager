@@ -51,10 +51,15 @@ class AddPassword extends Component {
 
     return (
       <div className="container" style={containerFix}>
-        <div className="field">
-          <label className="label">URL</label>
+        <label className="label">URL</label>
+        <div className="field has-addons">
+          <p className="control">
+            <a className="button is-static">
+              http://
+            </a>
+          </p>
           <div className="control">
-            <input value={this.state.url} className="input" type="text" placeholder="http://hacktiv8.com" onChange={ (e) => this.setState({ url: e.target.value }) } />
+            <input value={this.state.url} className="input" type="text" placeholder="hacktiv8.com" onChange={ (e) => this.setState({ url: e.target.value }) } />
           </div>
         </div>
         <div className="field">

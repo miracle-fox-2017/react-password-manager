@@ -1,16 +1,16 @@
 const initialState = {
   passwordStore: [{
     id: "1",
-    url: "helooooo",
-    username: "asdasda",
-    password: "asdasda",
+    url: "capung.com",
+    username: "capung",
+    password: "tempur",
     createdAt: new Date(),
     updatedAt: ''
   },{
     id: "2",
-    url: "heloooooxxx",
-    username: "asdasdaasda",
-    password: "asdasdadsasda",
+    url: "lebah.com",
+    username: "lebah",
+    password: "movie",
     createdAt: new Date(),
     updatedAt: ''
   }]

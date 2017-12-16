@@ -60,8 +60,13 @@ class Home extends Component {
             <label className="label">Find by URL</label>
           </div>
           <div className="field has-addons">
+            <p className="control">
+              <a className="button is-static">
+                http://
+              </a>
+            </p>
             <div className="control">
-              <input value={this.state.url} className="input" type="text" placeholder="http://hacktiv8.com" onChange={ (e) => this.setState({ url: e.target.value }) } />
+              <input value={this.state.url} className="input" type="text" placeholder="hacktiv8.com" onChange={ (e) => this.setState({ url: e.target.value }) } />
             </div>
             <div className="control">
               <button onClick={this.submitHandler} className="button is-info"><i className="fa fa-search" aria-hidden="true"></i></button>
@@ -89,7 +94,7 @@ class Home extends Component {
                     <th>{i+1}</th>
                     <td>{password.url}</td>
                     <td>{password.username}</td>
-                    <td>{password.password}</td>
+                    <td>{password.password.substring(0, 2) + '*****' + password.password.substring(password.password.length-2, password.password.length)}</td>
                     <td>{password.createdAt.toString()}</td>
                     <td>{password.updatedAt.toString()}</td>
                     <td>
