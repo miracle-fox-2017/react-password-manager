@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import passwordAction from '../actions/actionPasswordManager'
+import { Redirect } from 'react-router'
 
 const containerFix = {
   marginTop: '10px'
@@ -13,7 +13,8 @@ class AddPassword extends Component {
     this.state = {
       url: '',
       username: '',
-      password: ''
+      password: '',
+      status: false
     }
     this.submitHandler = this.submitHandler.bind(this)
   }
@@ -23,7 +24,8 @@ class AddPassword extends Component {
     this.setState({
       url: '',
       username: '',
-      password: ''
+      password: '',
+      status: true
     })
   }
 
@@ -32,41 +34,12 @@ class AddPassword extends Component {
   }
 
   render() {
+    const redirect = this.state.status
+    if (redirect) {
+      return <Redirect to="/" />
+    }
     return (
       <div className="container" style={containerFix}>
-        <div className="column is-half is-offset-one-quarter">
-          <table className="table is-hoverable" style={{textAlign: 'center'}}>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Url</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              { this.props.getPassword.map((password, i) => {
-                return (
-                  <tr key={password.id}>
-                    <th>{i+1}</th>
-                    <td>{password.url}</td>
-                    <td>{password.username}</td>
-                    <td>{password.password}</td>
-                    <td>
-                      <Link to={"/edit/"+password.id} className="button is-warning is-small">
-                        Edit
-                      </Link>
-                      <a className="button is-danger is-small" onClick={ () => this.deleteHandler(password)}>
-                        Delete
-                      </a>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
         <div className="field">
           <label className="label">URL</label>
           <div className="control">

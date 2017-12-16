@@ -20,12 +20,12 @@ const reducer = (state = initialState, action) => {
       return {...state, passwordStore: newArr}
     case 'REMOVE_PASSWORD':
       let newArrs = state.passwordStore.filter(function(pass) {
-        return pass.url !== action.payload.url
+        return pass.id !== action.payload.id
       })
       return {...state, passwordStore: newArrs}
     case 'EDIT_PASSWORD':
       let newPassword = state.passwordStore.map(pass => {
-        if(pass.id == action.payload.id){
+        if(pass.id === action.payload.id){
           return action.payload
         }
         return pass

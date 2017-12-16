@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import passwordAction from '../actions/actionPasswordManager'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
 
 class Edit extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class Edit extends Component {
       id: '',
       url: '',
       username: '',
-      password: ''
+      password: '',
+      status: false
     }
 
     this.componentWillMount = this.componentWillMount.bind(this)
@@ -30,9 +32,16 @@ class Edit extends Component {
 
   submitHandler() {
     this.props.setEditedPassword(this.state)
+    this.setState({
+      status: true
+    })
   }
 
   render() {
+    const redirect = this.state.status
+    if (redirect) {
+      return <Redirect to='/'/>
+    }
     return (
       <div className="container">
         <h1 className="title is-2">Edit Your Password </h1>

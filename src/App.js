@@ -5,7 +5,7 @@ import store from './store'
 import 'bulma/css/bulma.css'
 import TheNavBar from './components/TheNavBar'
 import Home from './components/Home'
-import Edit from './components/Edit'
+import EditPassword from './components/EditPassword'
 import AddPassword from './components/AddPassword'
 
 class App extends Component {
@@ -17,8 +17,8 @@ class App extends Component {
             <div>
               <TheNavBar />
               <Route exact path="/" component={Home} />
-              <Route path="/edit/:id" component={Edit} />
               <Route exact path="/add" component={AddPassword}/>
+              <Route path="/edit/:id" component={EditPassword} />
             </div>
           </Router>
         </div>
