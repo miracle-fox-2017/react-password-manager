@@ -1,6 +1,8 @@
-const addPassword = {
-  type: 'ADD_PASSWORD',
-  payload: []
+const addPassword = (payload) => {
+  return ({
+    type: 'ADD_PASSWORD',
+    payload: payload  
+  })
 }
 
 const getPassword = {
@@ -8,12 +10,13 @@ const getPassword = {
 }
 
 const removePassword = {
-  type: 'REMOVE_PASSWORD',
-  payload
+  type: 'REMOVE_PASSWORD'
 }
 
 const actions = {
-  addPassword
+  addPassword,
+  getPassword,
+  removePassword
 }
 
 export default actions

@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import passwordAction from '../actions/actionPasswordManager'
 
 const containerFix = {
   marginTop: '10px'
@@ -12,18 +14,18 @@ class AddPassword extends Component {
       username: '',
       password: ''
     }
+    console.log(props)
     this.submitHandler = this.submitHandler.bind(this)
   }
 
   submitHandler() {
-    console.log('hi', this.state)
+    this.props.addPassword(this.state)
   }
 
   render() {
     return (
       <div className="container" style={containerFix}>
-
-
+        {JSON.stringify(this.props.getPassword)}
         <div className="field">
           <label className="label">URL</label>
           <div className="control">
@@ -66,4 +68,17 @@ class AddPassword extends Component {
   }
 }
 
-export default AddPassword
+const mapStateToProps = (state) => {
+  console.log(state.passwordManager.passwordStore)
+  return {
+    getPassword: state.passwordManager.passwordStore
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addPassword: (payload) => dispatch(passwordAction.addPassword(payload))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPassword)
