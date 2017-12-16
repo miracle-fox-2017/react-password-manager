@@ -21,19 +21,21 @@ class Navbar extends Component {
     const { activeMenu } = this.props
 
     return (
-      <Container>
+      <div>
         <Grid.Row>
-          <Menu stackable>
-            <Menu.Item>
-              <img src='http://www.gcpvd.org/wp-content/uploads/2015/02/square-p-01.png' alt='logo'/>
-            </Menu.Item>
-            <Menu.Item as={Link} to='/' name='home' active={activeMenu === 'home'} onClick={() => this.handleItemClick('home')} />
-            <Menu.Item as={Link} to='/add' name='add new' active={activeMenu === 'addnew'} onClick={() => this.handleItemClick('addnew')} />
-            <Menu.Menu position='right'>
+          <Menu stackable borderless className='navbar'>
+            <Container>
               <Menu.Item>
-                <Input icon='search' placeholder='Search...' />
+                <img src='http://www.gcpvd.org/wp-content/uploads/2015/02/square-p-01.png' alt='logo'/>
               </Menu.Item>
-            </Menu.Menu>
+              <Menu.Item as={Link} to='/' name='home' active={activeMenu === 'home'} onClick={() => this.handleItemClick('home')} />
+              <Menu.Item as={Link} to='/add' name='add new' active={activeMenu === 'addnew'} onClick={() => this.handleItemClick('addnew')} />
+              <Menu.Menu position='right'>
+                <Menu.Item>
+                  <Input icon='search' placeholder='Search...' />
+                </Menu.Item>
+              </Menu.Menu>
+            </Container>
           </Menu>
         </Grid.Row>
         <Grid.Row>
@@ -42,7 +44,7 @@ class Navbar extends Component {
             {this.props.children}
           </Grid.Column>
         </Grid.Row>
-      </Container>
+      </div>
     )
   }
 }

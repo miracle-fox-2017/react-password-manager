@@ -1,8 +1,9 @@
 import React from 'react'
-import { Table } from 'semantic-ui-react'
+import { Table, Button } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 const TableExampleSelectableRow = (props) => (
-  <Table celled selectable>
+  <Table celled selectable unstackable color={'orange'}>
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>URL</Table.HeaderCell>
@@ -10,6 +11,7 @@ const TableExampleSelectableRow = (props) => (
         <Table.HeaderCell>Password</Table.HeaderCell>
         <Table.HeaderCell>CreatedAt</Table.HeaderCell>
         <Table.HeaderCell>UpdatedAt</Table.HeaderCell>
+        <Table.HeaderCell width={2}></Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
@@ -21,6 +23,12 @@ const TableExampleSelectableRow = (props) => (
                   <Table.Cell>{user.password}</Table.Cell>
                   <Table.Cell>{user.createdAt}</Table.Cell>
                   <Table.Cell>{user.updatedAt}</Table.Cell>
+                  <Table.Cell>
+                    <Button.Group fluid>
+                      <Button positive as={Link} to={'/edit/'+user.id}>Edit</Button>
+                      <Button negative as={Link} to={'/delete/'+user.id}>Delete</Button>
+                    </Button.Group>
+                  </Table.Cell>
                 </Table.Row>
       })}
     </Table.Body>

@@ -6,7 +6,7 @@ import Table from './Table'
 const HomePage = (props) => {
   return (
     <Container>
-      <Header as='h3' dividing>
+      <Header as='h2' dividing>
         Password List
       </Header>
       <Table users={props.users} />
@@ -20,6 +20,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = null
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps, null)(HomePage)
