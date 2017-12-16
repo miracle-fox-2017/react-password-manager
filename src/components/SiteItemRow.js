@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import db from '../db'
 
 export default class SiteItemRow extends Component {
 	constructor(props) {
 	  super(props);
 
 	  this.state = {};
+	}
+
+	doDeleteSite(key) {
+		alert(`${key} Task Deleted`)
+		db.ref('/vaults').child(key).remove();
 	}
 
 	render() {
@@ -31,7 +37,7 @@ export default class SiteItemRow extends Component {
 						Edit
 					</Link>
 
-					<Link className="btn btn-danger" to={{ pathname: `/delete/${this.props.site.key}` }}>Delete</Link>
+					<a className="btn btn-danger" onClick={() => this.doDeleteSite(this.props.site.key)}>Delete</a>
 				</td>
 			</tr>
 		)

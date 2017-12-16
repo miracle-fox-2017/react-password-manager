@@ -17,3 +17,11 @@ export const checkNullUndefined = (data) => {
 
 	return ''
 }
+
+export const searchSite = (sources = [], query) => {
+    return Array.from(sources).filter((site) => {
+        var regex = new RegExp(query, 'i');
+
+        return site.url.match(regex);
+    })
+}

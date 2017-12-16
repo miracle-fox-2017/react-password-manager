@@ -1,4 +1,4 @@
-import { snapshotToArray } from '../helpers/helper'
+import { snapshotToArray, searchSite } from '../helpers/helper'
 
 const initialState = {
 	sites : [{
@@ -8,7 +8,8 @@ const initialState = {
 		password: '',
 		createdAt: new Date(),
 		updatedAt: null
-	}]
+	}],
+	queriedSites: []
 }
 
 export const siteReducer = (state = initialState, action) => {
@@ -21,7 +22,7 @@ export const siteReducer = (state = initialState, action) => {
 		case 'ADD_NEW_SITE_SUCCESS':
 			const newAccount = state.sites.push(action.payload.newAccount)
 			return { ...state, sites: newAccount }
-
+			
 		default:
 
 			return state;

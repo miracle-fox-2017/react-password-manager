@@ -4,8 +4,8 @@ import { checkNullUndefined } from '../helpers/helper'
 
 class PasswordWidget extends Component {
 	constructor(props) {
-	  super(props);
-	  console.log(props.location.state.username)
+		super(props);
+		
 	  this.state = {
 			siteId: !Object.keys(props).length ? '' : props.match.params.siteId,
 	  	siteUrl: !Object.keys(props).length ? '' : props.location.state.url,

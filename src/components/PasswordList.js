@@ -1,24 +1,48 @@
 import React, { Component } from 'react'
 import db from '../db'
-import { snapshotToArray } from '../helpers/helper'
+import { snapshotToArray, searchSite } from '../helpers/helper'
 import SiteItemRow from './SiteItemRow'
 import { connect } from 'react-redux'
-import {fetchSites } from '../actions/siteAction'
+import { fetchSites, searchSiteStore } from '../actions/siteAction'
 
 class PassWordList extends Component {
 	constructor(props) {
-	  super(props);
-
+		super(props);
+		
 	  this.state = {
-	  	sites: []
+			sites: [],
+			initSites: []
 	  };
+	}
+
+	doSearchSites(e) {
+		const query = e.target.value;
+		const newSite = searchSite(this.state.sites, query)
+		const initSites = this.state.initSites
+
+		if (query.length >= 1) {
+			this.setState({
+				sites: newSite
+			})
+		} else {
+			this.setState({
+				sites: initSites
+			})
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			sites: nextProps.sites,
+			initSites: nextProps.sites
+		})
 	}
 
 	render() {
 		return (
 			<div className="row">
 				<div className="col-md-12">
-					<input type="text" className="form-control searchPassword" placeholder="Search here..." name="searchAccount" id="searchAccount"/>
+					<input type="text" onKeyUp={(e) => this.doSearchSites(e)} className="form-control searchPassword" placeholder="Search here..." name="searchAccount" id="searchAccount"/>
 					
 					<table className="table table-stripped password-table">
 						<thead>
@@ -31,10 +55,9 @@ class PassWordList extends Component {
 								<td>Action</td>
 							</tr>
 						</thead>
-
 						<tbody>
 							{
-								Array.from(this.props.sites).map((site, index) => {
+								this.state.sites.map((site, index) => {
 									return (
 										<SiteItemRow key={index} site={site}/>
 									)
@@ -48,27 +71,14 @@ class PassWordList extends Component {
 		)
 	}
 
-	componentWillReceiveProps(nextProps) {
-		console.log('nextProps--------', nextProps)
-		/*this.setState({
-			sites : nextProps.sites
-		})*/
-	}
-
 	componentDidMount() {
-		/*db.ref('/vaults').on('value', (snapshot) => {
-			this.setState({
-				sites: snapshotToArray(snapshot)
-			})
-		})*/
 		this.props.loadSiteAccounts()
 	}
 }
 
 const mapStatetoProps = (state) => {
-	console.log('mapStatetoProps----', state.siteReducer)
 	return {
-		sites: state.siteReducer
+		sites: state.siteReducer,
 	}
 }
 
