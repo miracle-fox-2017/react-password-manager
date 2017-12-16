@@ -24,8 +24,13 @@ const reducer = (state = initialState, action) => {
       })
       return {...state, passwordStore: newArrs}
     case 'EDIT_PASSWORD':
-      console.log(action)
-      return state
+      let newPassword = state.passwordStore.map(pass => {
+        if(pass.id == action.payload.id){
+          return action.payload
+        }
+        return pass
+      })
+      return {...state, passwordStore: newPassword}
     default:
       return state
   }

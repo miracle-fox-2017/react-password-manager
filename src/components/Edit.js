@@ -13,6 +13,7 @@ class Edit extends Component {
     }
 
     this.componentWillMount = this.componentWillMount.bind(this)
+    this.submitHandler = this.submitHandler.bind(this)
   }
 
   componentWillMount() {
@@ -25,6 +26,10 @@ class Edit extends Component {
       username: willEditPassword[0].username,
       password: willEditPassword[0].password
     })
+  }
+
+  submitHandler() {
+    this.props.setEditedPassword(this.state)
   }
 
   render() {
