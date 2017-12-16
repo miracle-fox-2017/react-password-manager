@@ -80,18 +80,22 @@ tanggal (date) {
 }
 
 addUser (e) {
-  let form = {
-    url : this.state.url,
-    username: this.state.username,
-    password: this.state.password,
-    createdAt: this.tanggal(new Date()),
-    updatedAt: this.tanggal(new Date())
-  }
-  console.log('isi form', form);
+  if (this.state.lowerCase && this.state.upperCase && this.state.specialCase && this.state.minimalCase && this.state.lengthCase) {
+    let form = {
+      url : this.state.url,
+      username: this.state.username,
+      password: this.state.password,
+      createdAt: this.tanggal(new Date()),
+      updatedAt: this.tanggal(new Date())
+    }
     this.props.postUser(form)
     this.setDefault()
     e.preventDefault()
-
+  } else {
+    console.log('GAGAL POST KARENA VALIDATION');
+    this.setDefault()
+    e.preventDefault()
+  }
 }
 
 setDefault (e) {
