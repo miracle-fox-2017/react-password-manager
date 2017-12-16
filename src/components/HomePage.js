@@ -1,16 +1,22 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
+import { Container, Header } from 'semantic-ui-react'
+import Table from './Table'
 
 const HomePage = (props) => {
   return (
-    <h1>{JSON.stringify(props.users)}</h1>
+    <Container>
+      <Header as='h3' dividing>
+        Password List
+      </Header>
+      <Table users={props.users} />
+    </Container>
   )
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
-    users: state.homeReducers.users
+    users: state.home.users
   }
 }
 

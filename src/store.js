@@ -1,8 +1,10 @@
 import { createStore, combineReducers } from 'redux'
-import homeReducers from './reducers/homeReducers'
+import home from './reducers/home'
+import navbar from './reducers/navbar'
 
 const appReducers = combineReducers({
-  homeReducers
+  home,
+  navbar
 })
 
 const store = createStore(appReducers)

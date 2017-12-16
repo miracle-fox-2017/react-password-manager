@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { Container } from 'semantic-ui-react'
 import store from './store'
 
 import HomePage from './components/HomePage'
@@ -15,12 +14,9 @@ class App extends Component {
       <Provider store={ store }>
         <Router>
           <div className="App">
-            <Container>
-              <Navbar/>
-              <Route exact path='/' component={ HomePage }/>
-              <Route path="/add" component={ AddPage }/>
+              <Route exact path='/' render={(props) => <Navbar><HomePage/></Navbar>}/>
+              <Route path="/add" render={(props) => <Navbar><AddPage/></Navbar>}/>
               <Route path="/edit/:id" component={ EditPage }/>
-            </Container>
           </div>
         </Router>
       </Provider>
