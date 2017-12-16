@@ -19,7 +19,7 @@ class PassWordList extends Component {
 			<div className="row">
 				<div className="col-md-12">
 					<input type="text" className="form-control searchPassword" placeholder="Search here..." name="searchAccount" id="searchAccount"/>
-
+					
 					<table className="table table-stripped password-table">
 						<thead>
 							<tr>

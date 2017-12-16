@@ -7,7 +7,7 @@ class PasswordWidget extends Component {
 	  super(props);
 	  console.log(props.location.state.username)
 	  this.state = {
-	  	siteId: '',
+			siteId: !Object.keys(props).length ? '' : props.match.params.siteId,
 	  	siteUrl: !Object.keys(props).length ? '' : props.location.state.url,
 	  	siteUsername: !Object.keys(props).length ? '' : props.location.state.username,
 	  	sitePassword: !Object.keys(props).length ? '' : props.location.state.password,
@@ -33,12 +33,22 @@ class PasswordWidget extends Component {
 				password: this.state.sitePassword
 			}
 
-			console.log(siteData)
 			this.resetForm()
+			
+			if (this.state.siteId === '') {
+				db.ref('/vaults').push(siteData).key
 
-			var newSite = db.ref('/vaults').push(siteData).key
-
-			alert('Site saved: '+newSite)
+			} else {
+				db.ref(`/vaults/${this.state.siteId}`).update({
+					updatedAt: new Date().toISOString(),
+					owner: 'USER',
+					url: this.state.siteUrl,
+					username: this.state.siteUsername,
+					password: this.state.sitePassword
+				});
+			}
+			
+			alert('Site saved')
 		} else {
 			alert('Password validation unmet! Please use more secure password!')
 		}
@@ -155,15 +165,12 @@ class PasswordWidget extends Component {
 	}
 
 	render() {
-		const propsMatch = checkNullUndefined(this.props.match)
-		const id = propsMatch !== '' ? propsMatch.params.siteId : '';
-
 		return (
 			<div className="row inputSiteForm">
 				<div className="col-md-8 col-md-offset-2">
 					<form action="#" id="newSiteForm">
 						<div className="form-group">
-							<input value={id} type="text" className="form-control" id="siteId" name="siteId" readOnly/>
+							<input value={this.state.siteId} type="text" className="form-control" id="siteId" name="siteId" readOnly/>
 						</div>
 
 						<div className="form-group">
