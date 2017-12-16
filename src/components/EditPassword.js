@@ -42,6 +42,17 @@ class Edit extends Component {
     if (redirect) {
       return <Redirect to='/'/>
     }
+
+    let testLower = /[a-z]/.test(this.state.password)
+    let testUpper = /[A-Z]/.test(this.state.password)
+    let testSpecial = /[$&+,:;=?@#|'<>.^*()%!-]/.test(this.state.password)
+    let testNumber = /[0-9]/.test(this.state.password)
+    let testLength = this.state.password.length > 5
+    let passwordStrength = 'is-danger'
+    if(testLower && testUpper && testSpecial && testNumber && testLength){
+      passwordStrength = 'is-success'
+    }
+
     return (
       <div className="container">
         <h1 className="title is-2">Edit Your Password </h1>
@@ -63,12 +74,13 @@ class Edit extends Component {
             <input value={this.state.password} className="input" type="password" placeholder="********" onChange={ (e) => this.setState({ password: e.target.value }) }/>
           </div>
         </div>
-        <div className="notification is-danger">
-          <p>[ ] Password harus memiliki setidaknya satu karakter huruf besar (upper case)</p>
-          <p>[ ] Password harus memiliki setidaknya satu karakter huruf kecil (lower case)</p>
-          <p>[ ] Password harus memiliki setidaknya satu karakter spesial ( !@#$%^... )</p>
-          <p>[ ] Password harus memiliki setidaknya satu angka</p>
-          <p>[ ] Password harus memiliki panjang lebih dari 5 karakter</p>
+        <div className={`notification ${passwordStrength}`}>
+          <h1 className="title is-5">Password Strength</h1>
+          <p>[{ testUpper ? <i className="fa fa-check" aria-hidden="true"></i> : <i className="fa fa-times" aria-hidden="true"></i> }] Password harus memiliki setidaknya satu karakter huruf besar (upper case)</p>
+          <p>[{ testLower ? <i className="fa fa-check" aria-hidden="true"></i> : <i className="fa fa-times" aria-hidden="true"></i> }] Password harus memiliki setidaknya satu karakter huruf kecil (lower case)</p>
+          <p>[{ testSpecial ? <i className="fa fa-check" aria-hidden="true"></i> : <i className="fa fa-times" aria-hidden="true"></i> }] Password harus memiliki setidaknya satu karakter spesial ( !@#$%^... )</p>
+          <p>[{ testNumber ? <i className="fa fa-check" aria-hidden="true"></i> : <i className="fa fa-times" aria-hidden="true"></i> }] Password harus memiliki setidaknya satu angka</p>
+          <p>[{ testLength ? <i className="fa fa-check" aria-hidden="true"></i> : <i className="fa fa-times" aria-hidden="true"></i> }] Password harus memiliki panjang lebih dari 5 karakter</p>
         </div>
         <div className="field is-grouped">
           <div className="control">
