@@ -27,7 +27,7 @@ function TheNavBar() {
             <i className="fa fa-home" aria-hidden="true"></i> Home
           </Link>
           <Link to="/add" className="navbar-item">
-            <i className="fa fa-key" aria-hidden="true"></i>Add
+            <i className="fa fa-key" aria-hidden="true"></i> Add
           </Link>
         </div>
       </div>

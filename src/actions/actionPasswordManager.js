@@ -1,7 +1,7 @@
 const addPassword = (payload) => {
   return ({
     type: 'ADD_PASSWORD',
-    payload: payload  
+    payload: payload
   })
 }
 
@@ -9,8 +9,11 @@ const getPassword = {
   type: 'GET_PASSWORD'
 }
 
-const removePassword = {
-  type: 'REMOVE_PASSWORD'
+const removePassword = (payload) => {
+  return ({
+    type: 'REMOVE_PASSWORD',
+    payload: payload
+  })
 }
 
 const actions = {

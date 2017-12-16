@@ -14,7 +14,6 @@ class AddPassword extends Component {
       username: '',
       password: ''
     }
-    console.log(props)
     this.submitHandler = this.submitHandler.bind(this)
   }
 
@@ -22,31 +21,64 @@ class AddPassword extends Component {
     this.props.addPassword(this.state)
   }
 
+  deleteHandler(item) {
+    this.props.removePassword(item)
+  }
+
   render() {
     return (
       <div className="container" style={containerFix}>
-        {JSON.stringify(this.props.getPassword)}
+        <div className="column is-half is-offset-one-quarter">
+          <table className="table is-hoverable" style={{textAlign: 'center'}}>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Url</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              { this.props.getPassword.map((password, i) => {
+                return (
+                  <tr key={i}>
+                    <th>{i+1}</th>
+                    <td>{password.url}</td>
+                    <td>{password.username}</td>
+                    <td>{password.password}</td>
+                    <td>
+                      <a className="button is-warning is-small">
+                        Edit
+                      </a>
+                      <a className="button is-danger is-small" onClick={ () => this.deleteHandler(password)}>
+                        Delete
+                      </a>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
         <div className="field">
           <label className="label">URL</label>
           <div className="control">
             <input className="input" type="text" placeholder="http://hacktiv8.com" onChange={ (e) => this.setState({ url: e.target.value }) } />
           </div>
         </div>
-
         <div className="field">
           <label className="label">Username</label>
           <div className="control">
             <input className="input" type="text" placeholder="username" onChange={ (e) => this.setState({ username: e.target.value }) } />
           </div>
         </div>
-
         <div className="field">
           <label className="label">Password</label>
           <div className="control">
             <input className="input" type="password" placeholder="********" onChange={ (e) => this.setState({ password: e.target.value }) }/>
           </div>
         </div>
-
         <div className="notification is-danger">
           <p>[ ] Password harus memiliki setidaknya satu karakter huruf besar (upper case)</p>
           <p>[ ] Password harus memiliki setidaknya satu karakter huruf kecil (lower case)</p>
@@ -54,7 +86,6 @@ class AddPassword extends Component {
           <p>[ ] Password harus memiliki setidaknya satu angka</p>
           <p>[ ] Password harus memiliki panjang lebih dari 5 karakter</p>
         </div>
-
         <div className="field is-grouped">
           <div className="control">
             <button onClick={this.submitHandler} className="button is-link">Submit</button>
@@ -69,7 +100,6 @@ class AddPassword extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.passwordManager.passwordStore)
   return {
     getPassword: state.passwordManager.passwordStore
   }
@@ -77,7 +107,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addPassword: (payload) => dispatch(passwordAction.addPassword(payload))
+    addPassword: (payload) => dispatch(passwordAction.addPassword(payload)),
+    removePassword: (payload) => dispatch(passwordAction.removePassword(payload))
   }
 }
 
