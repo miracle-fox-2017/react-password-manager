@@ -24,15 +24,6 @@ class Navbar extends React.Component {
               <li><Link to="/">Home</Link></li>
               <li><Link to="/form">Register</Link></li>
             </ul>
-            <form className="navbar-form navbar-left" role="search">
-              <div className="form-group">
-                <input className="form-control" placeholder="Search" type="text"/>
-              </div>
-              <button type="submit" className="btn btn-default">Submit</button>
-            </form>
-            <ul className="nav navbar-nav navbar-right">
-              <li><a href="#">Login</a></li>
-            </ul>
           </div>
         </div>
         </nav>

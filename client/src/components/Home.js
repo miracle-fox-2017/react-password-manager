@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { get_user_all } from '../actions/'
+import { get_user_all } from '../actions/index'
 
 
 class Home extends React.Component {
@@ -12,6 +12,7 @@ class Home extends React.Component {
   }
 
   componentWillMount () {
+    console.log('masuk sini');
     this.props.get_user_all()
   }
 
@@ -30,7 +31,8 @@ class Home extends React.Component {
                   </div>
               </div>
           </div>
-          <div className="row">
+          
+          <div className="container">
           <table border="2px">
             <thead>
               <tr>
@@ -42,13 +44,7 @@ class Home extends React.Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>HARY</td>
-                <td>HARY123</td>
-                <td>10:10</td>
-                <td>23:10</td>
-              </tr>
+              {this.props.user}
             </tbody>
           </table>
         </div>
@@ -58,9 +54,9 @@ class Home extends React.Component {
 }
 
 const mapState = (state) => {
-  console.log('INI STATE', state.user);
+  console.log('INI DI STATE', state);
   return {
-    user: state.user
+    user: state.Form.form
   }
 }
 

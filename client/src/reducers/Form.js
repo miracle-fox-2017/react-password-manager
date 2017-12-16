@@ -1,12 +1,13 @@
 const initialState = {
-  form: []
+  form: [],
 }
 
 const Form = (state=initialState, action) => {
   switch (action.type) {
-    case 'ADD_USER':
-    state.form = action.payload.form
-    return {...state}
+    case 'GET_USER':
+      console.log('isi data REDUCERS', action.payload.data);
+      state.form = action.payload.data
+       return {...state}
     default:
      return state
   }

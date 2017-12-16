@@ -11,7 +11,6 @@ constructor (props) {
     url: "",
     username: "",
     password: "",
-    createdAt: new Date(),
     upperCase: false, // KARAKTER HURUF BESAR
     lowerCase: false, // KARAKTER HURUF KECIL
     specialCase: false, // KARAKTER SPECIAL
@@ -48,23 +47,23 @@ changePassword (e) {
   const statusrgXLengthCase = rgXLengthCase.test(this.state.password)
 
   //KONDISI
-  if (statusrgXLengthCase === true) {
+  if (statusrgXLengthCase) {
     this.setState({lengthCase: true})
   }
 
-  if (statusrgXUpperCase === true) {
+  if (statusrgXUpperCase) {
     this.setState({upperCase: true})
   }
 
-  if (statusrgXLowerCase === true) {
+  if (statusrgXLowerCase) {
     this.setState({lowerCase: true})
   }
 
-  if (statusrgXMinimalCase === true) {
+  if (statusrgXMinimalCase) {
     this.setState({minimalCase: true})
   }
 
-  if (statusrgXSpecialCase === true) {
+  if (statusrgXSpecialCase) {
     this.setState({specialCase: true})
   }
 }
@@ -76,7 +75,7 @@ tanggal (date) {
     var year = date.getFullYear();
     var hours = date.getHours();
     var minutes = date.getMinutes()
-    return day +' '+ monthNames[monthIndex] +' '+ year +' '+' | '+hours +':'+ minutes;
+    return day +' '+ monthNames[monthIndex] +' '+ year +' '+' pukul '+hours +':'+ minutes;
 }
 
 addUser (e) {
@@ -89,10 +88,11 @@ addUser (e) {
       updatedAt: this.tanggal(new Date())
     }
     this.props.postUser(form)
+    alert('Success Added to Firebase')
     this.setDefault()
     e.preventDefault()
   } else {
-    console.log('GAGAL POST KARENA VALIDATION');
+    alert('GAGAL POST KARENA VALIDATION');
     this.setDefault()
     e.preventDefault()
   }
@@ -176,7 +176,6 @@ render () {
           </tr>
         </table>
       </div>
-
     </div>
   )
  }
