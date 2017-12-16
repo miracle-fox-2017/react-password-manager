@@ -17,17 +17,12 @@ class Home extends Component {
 			checkUC: 'alert alert-dismissible alert-danger',
 			checkNum: 'alert alert-dismissible alert-danger',
 			checkLength: 'alert alert-dismissible alert-danger',
-			checkSpecial: 'alert alert-dismissible alert-danger',
-			initPM: []
+			checkSpecial: 'alert alert-dismissible alert-danger'
 		}
 	}
 
 	filterList(event) {
 		this.props.search_pm(event.target.value)
-	}
-
-	componentWillReceiveProps(nextProps) {
-	    this.setState({initPMS: nextProps.pms})
 	}
 
 	changeHandler(event){
@@ -36,6 +31,14 @@ class Home extends Component {
 		})
 	}
 
+	clearState() {
+		this.setState({
+			url: '',
+			owner: '',
+			username: '',
+			password: ''
+		})			
+	}
 	passwordHandler(event){
 		  // Validate lowercase letters	
 		  this.setState({
@@ -102,7 +105,8 @@ class Home extends Component {
 		  }		 
 	}
 
-	savePM() {		
+	savePM(e) {		
+	e.preventDefault()
 	if( this.state.checkLC      === 'alert alert-dismissible alert-success' &&
 		this.state.checkUC      === 'alert alert-dismissible alert-success' &&
 		this.state.checkNum     === 'alert alert-dismissible alert-success' &&
@@ -118,6 +122,7 @@ class Home extends Component {
 			updatedAt: null
 	    }				    	
 			add_pm(newPM)	
+			this.clearState()
 		}else{
 			alert('Please follow Password Rule')
 		}
@@ -134,7 +139,8 @@ class Home extends Component {
 			      <td className="table-info" >owner</td>
 			      <td className="table-info" >username</td>
 			      <td className="table-info" >password</td>
-			      <td className="table-info" ></td>
+			      <td className="table-info" > Edit </td>
+			      <td className="table-info" > Delete </td> 
 			    </tr>
 			   </thead> 
 			    <tbody>
@@ -188,7 +194,7 @@ class Home extends Component {
 
 				      </div>
 				      <div className="modal-footer">
-				        <button onClick={() => this.savePM()}type="button" data-dismiss='modal' className="btn btn-primary">Submit</button>
+				        <button onClick={(e) => this.savePM(e)}type="button" data-dismiss='modal' className="btn btn-primary">Submit</button>
 				        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
 				      </div>
 				    </div>

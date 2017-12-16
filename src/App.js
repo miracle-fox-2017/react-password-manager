@@ -5,6 +5,7 @@ import logo from './logo.svg';
 import './App.css';
 import store from './store'
 import Home from './Components/Home'
+import EditPm from './Components/EditPm'
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
               <h1 className="App-title">Welcome to React</h1>
             </header>
             <Route exact path='/' component={Home}/>
+            <Route path='/pm/:pmId' render={ (props) => <EditPm {...props} /> } />
           </div>
         </Router>
       </Provider>

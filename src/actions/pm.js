@@ -23,6 +23,10 @@ export const delete_pm = (pmKey) => {
 	db.ref('pms').child(pmKey).remove()
 }
 
+export const update_pm = (updatedPm, pmKey) => {
+	db.ref('pms').child(pmKey).update(updatedPm)
+}
+
 export const add_pm = (AddedPm) => {
 	var postData = {
 		url: AddedPm.url,
