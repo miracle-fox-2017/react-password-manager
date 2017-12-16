@@ -66,3 +66,9 @@ export const getUserAPI = () => {
     })
   }
 }
+
+export const postUser = (form) => {
+  return (dispatch) => {
+    return firebase.database().ref('reactpwdmngr/user').push(form)
+  }
+}
