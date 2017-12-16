@@ -18,36 +18,43 @@ class Home extends React.Component {
 
   render () {
     return (
-        <div className="container">
-          <div className="row">
-               <div id="custom-search-input">
-                  <div className="input-group col-md-12">
-                      <input type="text" className="  search-query form-control" placeholder="Search" />
-                      <span className="input-group-btn">
-                          <button className="btn btn-danger" type="button">
-                              <span className=" glyphicon glyphicon-search"></span>
-                          </button>
-                      </span>
-                  </div>
+        <div className="container-fluid">
+           <div id="custom-search-input">
+              <div className="input-group col-md-12">
+                  <input type="text" className="  search-query form-control" placeholder="Search" />
+                  <span className="input-group-btn">
+                      <button className="btn btn-danger" type="button">
+                          <span className=" glyphicon glyphicon-search"></span>
+                      </button>
+                  </span>
               </div>
-          </div>
-          
-          <div className="container">
-          <table border="2px">
-            <thead>
-              <tr>
-                <th>URL</th>
-                <th>USERNAME</th>
-                <th>PASSWORD</th>
-                <th>CREATEDAT</th>
-                <th>UPDATEDAT</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.props.user}
-            </tbody>
-          </table>
-        </div>
+            </div>
+
+            <h2>Basic Table</h2>
+            <table className="table" border="2px">
+              <thead>
+                <tr>
+                  <th>URL</th>
+                  <th>USERNAME</th>
+                  <th>PASSWORD</th>
+                  <th>CREATEDAT</th>
+                  <th>UPDATEAT</th>
+                  <th colspan="2">ACTION</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                  <td>John</td>
+                  <td>John</td>
+                  <th><span className=" glyphicon glyphicon-pencil"></span></th>
+                  <th><span className=" glyphicon glyphicon-trash"></span></th>
+                </tr>
+              </tbody>
+            </table>
+
       </div>
     )
   }

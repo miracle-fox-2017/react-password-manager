@@ -75,7 +75,7 @@ tanggal (date) {
     var year = date.getFullYear();
     var hours = date.getHours();
     var minutes = date.getMinutes()
-    return day +' '+ monthNames[monthIndex] +' '+ year +' '+' pukul '+hours +':'+ minutes;
+    return day +' '+ monthNames[monthIndex] +' '+ year +' pukul '+hours +':'+ minutes;
 }
 
 addUser (e) {
