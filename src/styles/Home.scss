@@ -1,0 +1,49 @@
+@import "common";
+
+.home-wrapper {
+  width: 90%;
+  padding: 0;
+  margin: auto;
+  padding: 15px;
+  overflow: hidden;
+  max-width: 800px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #FFF;
+  margin: 100px auto 75px auto;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.05);
+  li {
+    padding: 15px;
+    list-style: none;
+    box-sizing: border-box;
+    transition-duration: 0.3s;
+    div {
+      padding: 0;
+    }
+  }
+  li:hover {
+    border-radius: 5px;
+    background-color: #F1F1F1;
+  }
+  span {
+    display: block;
+  }
+  .info-label {
+    color: #555;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+    font-family: "Roboto";
+  }
+  .info-value {
+    font-size: 16px;
+    margin: 5px 0 10px 0;
+    font-family: "Roboto";
+  }
+  .action-group {
+    button {
+      outline: none;
+      margin-right: 5px;
+    }
+  }
+}
