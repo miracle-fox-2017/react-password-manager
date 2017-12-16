@@ -1,72 +1,36 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
 import passwordAction from '../actions/actionPasswordManager'
+import { connect } from 'react-redux'
 
-const containerFix = {
-  marginTop: '10px'
-}
-
-class AddPassword extends Component {
+class Edit extends Component {
   constructor(props) {
     super()
     this.state = {
+      id: '',
       url: '',
       username: '',
       password: ''
     }
-    this.submitHandler = this.submitHandler.bind(this)
+
+    this.componentWillMount = this.componentWillMount.bind(this)
   }
 
-  submitHandler() {
-    this.props.addPassword(this.state)
-    this.setState({
-      url: '',
-      username: '',
-      password: ''
+  componentWillMount() {
+    let willEditPassword = this.props.getOnePassword.filter((password) => {
+      return password.id === this.props.match.params.id
     })
-  }
-
-  deleteHandler(item) {
-    this.props.removePassword(item)
+    this.setState({
+      id: willEditPassword[0].id,
+      url: willEditPassword[0].url,
+      username: willEditPassword[0].username,
+      password: willEditPassword[0].password
+    })
   }
 
   render() {
     return (
-      <div className="container" style={containerFix}>
-        <div className="column is-half is-offset-one-quarter">
-          <table className="table is-hoverable" style={{textAlign: 'center'}}>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Url</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              { this.props.getPassword.map((password, i) => {
-                return (
-                  <tr key={password.id}>
-                    <th>{i+1}</th>
-                    <td>{password.url}</td>
-                    <td>{password.username}</td>
-                    <td>{password.password}</td>
-                    <td>
-                      <Link to={"/edit/"+password.id} className="button is-warning is-small">
-                        Edit
-                      </Link>
-                      <a className="button is-danger is-small" onClick={ () => this.deleteHandler(password)}>
-                        Delete
-                      </a>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
+      <div className="container">
+        <h1 className="title is-2">Edit Your Password </h1>
         <div className="field">
           <label className="label">URL</label>
           <div className="control">
@@ -105,17 +69,16 @@ class AddPassword extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    getPassword: state.passwordManager.passwordStore
-  }
+const mapStateToProps = state => {
+  return ({
+    getOnePassword: state.passwordManager.passwordStore
+  })
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addPassword: (payload) => dispatch(passwordAction.addPassword(payload)),
-    removePassword: (payload) => dispatch(passwordAction.removePassword(payload))
-  }
+const mapDispatchToProps = dispatch => {
+  return ({
+    setEditedPassword: (payload) => dispatch(passwordAction.editPassword(payload))
+  })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddPassword)
+export default connect(mapStateToProps, mapDispatchToProps)(Edit)
