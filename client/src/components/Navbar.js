@@ -21,8 +21,8 @@ class Navbar extends React.Component {
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
-              <li><Link to="/">Home </Link></li>
-              <li><Link to="/form">Register </Link></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/form">Register</Link></li>
             </ul>
             <form className="navbar-form navbar-left" role="search">
               <div className="form-group">
