@@ -17,6 +17,7 @@ class AddPassword extends Component {
       status: false
     }
     this.submitHandler = this.submitHandler.bind(this)
+    this.cancelHandler = this.cancelHandler.bind(this)
   }
 
   submitHandler() {
@@ -25,12 +26,17 @@ class AddPassword extends Component {
       url: '',
       username: '',
       password: '',
-      status: false
+      status: true
     })
   }
 
-  deleteHandler(item) {
-    this.props.removePassword(item)
+  cancelHandler(){
+    this.setState({
+      url: '',
+      username: '',
+      password: '',
+      status: true
+    })
   }
 
   render() {
@@ -87,7 +93,7 @@ class AddPassword extends Component {
             <button onClick={this.submitHandler} className="button is-link">Submit</button>
           </div>
           <div className="control">
-            <button className="button is-text">Cancel</button>
+            <button onClick={this.cancelHandler} className="button is-text">Cancel</button>
           </div>
         </div>
       </div>

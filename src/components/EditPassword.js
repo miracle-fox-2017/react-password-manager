@@ -16,25 +16,41 @@ class Edit extends Component {
 
     this.componentWillMount = this.componentWillMount.bind(this)
     this.submitHandler = this.submitHandler.bind(this)
+    this.cancelHandler = this.cancelHandler.bind(this)
   }
 
   componentWillMount() {
-    let willEditPassword = this.props.getOnePassword.filter((password) => {
-      return password.id === this.props.match.params.id
-    })
-    this.setState({
-      id: willEditPassword[0].id,
-      url: willEditPassword[0].url,
-      username: willEditPassword[0].username,
-      password: willEditPassword[0].password,
-      createdAt: willEditPassword[0].createdAt,
-      updatedAt: willEditPassword[0].updatedAt
-    })
+    if(this.props.getOnePassword.length === 0){
+      this.setState({
+        status: true
+      })
+    } else {
+      let willEditPassword = this.props.getOnePassword.filter((password) => {
+        return password.id === this.props.match.params.id
+      })
+      this.setState({
+        id: willEditPassword[0].id,
+        url: willEditPassword[0].url,
+        username: willEditPassword[0].username,
+        password: willEditPassword[0].password,
+        createdAt: willEditPassword[0].createdAt,
+        updatedAt: willEditPassword[0].updatedAt
+      })
+    }
   }
 
   submitHandler() {
     this.props.setEditedPassword(this.state)
     this.setState({
+      status: true
+    })
+  }
+
+  cancelHandler(){
+    this.setState({
+      url: '',
+      username: '',
+      password: '',
       status: true
     })
   }
@@ -94,7 +110,7 @@ class Edit extends Component {
             <button onClick={this.submitHandler} className="button is-link">Submit</button>
           </div>
           <div className="control">
-            <button className="button is-text">Cancel</button>
+            <button onClick={this.cancelHandler} className="button is-text">Cancel</button>
           </div>
         </div>
       </div>
@@ -110,6 +126,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return ({
+    getPasswords: () => dispatch(passwordAction.getPassword()),
     setEditedPassword: (payload) => dispatch(passwordAction.editPassword(payload))
   })
 }
