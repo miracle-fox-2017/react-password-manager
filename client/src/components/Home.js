@@ -1,30 +1,40 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { get_user_all } from '../actions/index'
-//TESTER
 import firebase from 'firebase'
-import { config } from '../config'
-
 class Home extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      url: '',
+      url : '',
       username: '',
       password: '',
       createdAt: '',
-      updatedAt: '',
-      data: []
+      updatedAt: ''
     }
-    this.app = firebase.initializeApp(config)
-    this.database = this.app.database().ref().child('reactpwdmngr/user')
+  }
+  //ANEH DI APP MAU
+  componentDidMount () {
+      return firebase.database().ref().child('reactpwdmngr/user').on('value', snapshot => {
+        let obj = []
+        for (var idx in snapshot.val()) {
+          obj.push({
+            id: idx,
+            url: snapshot.val()[idx].url,
+            username: snapshot.val()[idx].username,
+            password: snapshot.val()[idx].password,
+            createdAt: snapshot.val()[idx].createdAt,
+            updatedAt: snapshot.val()[idx].updatedAt
+          })
+        }
+        // dispatch(get_user_all(obj))
+        console.log('isi obj', obj);
+      })
   }
 
-  componentDidMount () {
-    this.database.on('value', snapshot => {
-      console.log('INI SNAPSHOT', snapshot);
-
-    })
+  componentWillMount () {
+    console.log('INI DI WILL MOUNT');
+    this.props.get_user_all()
   }
 
   render () {
@@ -55,7 +65,7 @@ class Home extends React.Component {
               </thead>
               <tbody>
                 <tr>
-                  <td>{this.state.data}</td>
+                  <td>{this.state.url}</td>
                   <td>Doe</td>
                   <td>john@example.com</td>
                   <td>John</td>
@@ -71,11 +81,16 @@ class Home extends React.Component {
 }
 
 const mapState = (state) => {
-
+  console.log('INI DI STATE', state);
+  return {
+    user: state.Form.form
+  }
 }
 
 const mapAction = (dispatch) => {
-
+  return {
+    get_user_all: () => dispatch(get_user_all())
+  }
 }
 
-export default connect (null,null)(Home)
+export default connect (mapState,mapAction)(Home)
