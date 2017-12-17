@@ -38,15 +38,7 @@ class Tablepassword extends Component {
     else {
       this.props.searchallpassword(this.state.cari)
     }
-
-    var regex = new RegExp(this.state.cari, 'i')
-
-    var baru = Object.keys(this.props.passwordlist).filter((key) => {
-      return regex.test(this.props.passwordlist[key].URL)
-    }).map((kunci) => {
-      return this.props.passwordlist[kunci]
-    })
-    console.log(baru)
+    
   }
 
   validatefield
