@@ -24,9 +24,10 @@ class Home extends Component {
   }
   render(){
     return(
-      <div>
+      <div className="home-wrapper">
         <Modal editValue={this.state.editValue}/>
-        <ul className="home-wrapper">
+        <input type="text" className="search-input" placeholder="Search"/>
+        <ul className="list-wrapper">
           {this.props.accounts.map((account,i) => {
             return(
               <li key={i}>
