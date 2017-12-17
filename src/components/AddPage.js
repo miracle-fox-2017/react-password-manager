@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Header, Form, Button, Grid, Segment, Message, Progress } from 'semantic-ui-react'
+import firebase, { messaging } from 'firebase'
 
 class AddPage extends Component {
   constructor() {
@@ -17,10 +18,10 @@ class AddPage extends Component {
 
   inputHandle({target}) {
     let messages = [],
-        passwordStrength = 85,
-        colorMeter = 'red'
+        colorMeter,
+        passwordStrength
+
     if(target.name === 'password') {
-      
       let lowerCase = /[a-z]/g,
           upperCase = /[A-Z]/g,
           number = /[0-9]/g,
@@ -30,6 +31,9 @@ class AddPage extends Component {
           msgNumber = 'You must include number in your password.',
           msgSpecial = 'You must include special character in your password.',
           msgLength = 'Password length minimal 5 character.';
+
+      colorMeter = 'red',
+      passwordStrength = 85;
           
       if(!target.value.match(lowerCase)) {
         if(messages.indexOf(msgLower) === -1) messages.push(msgLower)
@@ -77,13 +81,39 @@ class AddPage extends Component {
     this.setState({
       [target.name]: target.value,
       messages: messages,
-      passwordStrength: passwordStrength,
-      colorMeter: colorMeter
+      passwordStrength: passwordStrength || 0,
+      colorMeter: colorMeter || 'grey'
     })
   }
   
   submitData() {
+    let db = firebase.database()
+    let newData = {
+      url: this.state.url,
+      username: this.state.username,
+      password: this.state.password,
+      createdAt: new Date()
+    }
+
     this.state.messages.length > 0 ? this.setState({msgVis: true}) : this.setState({msgVis: false})
+
+    if(newData.url && newData.username && newData.password && !this.state.messages.length) {
+      db.ref('passwordlist/').push(newData);
+      this.setState({
+        url: '',
+        username: '',
+        password: '',
+        messages: []
+      })
+    } else {
+      let msg = 'Please fill all required fields!!'
+      let messages = this.state.messages
+      if(messages.indexOf(msg) === -1) messages.push(msg)
+      this.setState({
+        messages: messages,
+        msgVis: true
+      })
+    }
   }
 
   render() {
@@ -102,21 +132,21 @@ class AddPage extends Component {
               <Form>
                 <Form.Field required>
                   <label>URL</label>
-                  <input name='url' placeholder='URL Web/Application' onChange={(e) => this.inputHandle(e)}/>
+                  <input name='url' placeholder='URL Web/Application' value={this.state.url} onChange={(e) => this.inputHandle(e)}/>
                 </Form.Field>
                 <Form.Field required>
                   <label>Username</label>
-                  <input name='username' placeholder='Username' onChange={(e) => this.inputHandle(e)}/>
+                  <input name='username' placeholder='Username' value={this.state.username} onChange={(e) => this.inputHandle(e)}/>
                 </Form.Field>
                 <Form.Field required>
                   <label>Password</label>
-                  <input name='password' placeholder='Password' type='password' onChange={(e) => this.inputHandle(e)}/>
+                  <input name='password' placeholder='Password' type='password' value={this.state.password} onChange={(e) => this.inputHandle(e)}/>
                   <Progress color={this.state.colorMeter} percent={this.state.passwordStrength} size='tiny'/>
                 </Form.Field>
                 <Message
                   error
                   visible={this.state.msgVis}
-                  header='There was some errors with your input password'
+                  header='There was some errors'
                   list={this.state.messages}
                 />
                 <Button type='submit' color='orange' onClick={(e) => this.submitData(e)}>Submit</Button>
