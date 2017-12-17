@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Container, Header, Form, Button, Grid, Segment, Message, Progress } from 'semantic-ui-react'
 import firebase from 'firebase'
 
@@ -150,7 +151,7 @@ class AddPage extends Component {
                   header='There was some errors'
                   list={this.state.messages}
                 />
-                <Button type='submit' color='orange' onClick={(e) => this.submitData(e)}>Submit</Button>
+                <Button as={Link} to='/' type='submit' color='orange' onClick={(e) => this.submitData(e)}>Submit</Button>
               </Form>
               </Segment>
             </Grid.Column>
