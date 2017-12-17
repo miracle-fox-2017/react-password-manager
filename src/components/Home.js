@@ -12,7 +12,7 @@ class Home extends Component {
     super()
     this.state = {
       allPassword: [],
-      url: ''
+      url: '',
     }
     this.submitHandler = this.submitHandler.bind(this)
     this.clearUrl = this.clearUrl.bind(this)
@@ -47,9 +47,10 @@ class Home extends Component {
   }
 
   componentWillMount(){
-    this.setState({
-      allPassword: this.props.getPassword
-    })
+    this.props.getPasswords()
+    // this.setState({
+    //   allPassword: this.props.getPassword
+    // })
   }
 
   render() {
@@ -88,9 +89,9 @@ class Home extends Component {
               </tr>
             </thead>
             <tbody>
-              { this.state.allPassword.map((password, i) => {
+              { this.props.getPassword.map((password, i) => {
                 return (
-                  <tr key={password.id}>
+                  <tr key={i+password.id}>
                     <th>{i+1}</th>
                     <td>{password.url}</td>
                     <td>{password.username}</td>
@@ -124,6 +125,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getPasswords: () => dispatch(passwordAction.getPassword()),
     addPassword: (payload) => dispatch(passwordAction.addPassword(payload)),
     removePassword: (payload) => dispatch(passwordAction.removePassword(payload))
   }

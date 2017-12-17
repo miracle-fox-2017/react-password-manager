@@ -25,7 +25,7 @@ class AddPassword extends Component {
       url: '',
       username: '',
       password: '',
-      status: true
+      status: false
     })
   }
 

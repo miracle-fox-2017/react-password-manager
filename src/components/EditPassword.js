@@ -26,7 +26,9 @@ class Edit extends Component {
       id: willEditPassword[0].id,
       url: willEditPassword[0].url,
       username: willEditPassword[0].username,
-      password: willEditPassword[0].password
+      password: willEditPassword[0].password,
+      createdAt: willEditPassword[0].createdAt,
+      updatedAt: willEditPassword[0].updatedAt
     })
   }
 
