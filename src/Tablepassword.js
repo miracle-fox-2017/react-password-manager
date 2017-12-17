@@ -52,8 +52,8 @@ class Tablepassword extends Component {
                         <td>{this.props.passwordlist[key].URL}</td>
                         <td>{this.props.passwordlist[key].username}</td>
                         <td>{this.props.passwordlist[key].password}</td>
-                        <td>{new Date(this.props.passwordlist[key].createdat).toDateString()}</td>
-                        <td>{new Date(this.props.passwordlist[key].updatedat).toDateString()}</td>
+                        <td>{new Date(this.props.passwordlist[key].createdat).toLocaleDateString()}</td>
+                        <td>{new Date(this.props.passwordlist[key].updatedat).toLocaleDateString()}</td>
                         <td><button type="button" className="btn btn-danger" onClick={() => this.handledelete(key)} style={{marginRight:20}}>delete</button><Link to={{pathname: key, state: {editpass: this.props.passwordlist[key], key: key}}}><button type="button" className="btn btn-danger" data-toggle="modal" data-target="editmodal">edit</button></Link></td>
                       </tr>
                     )
