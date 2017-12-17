@@ -30,7 +30,6 @@ export const siteReducer = (state = initialState, action) => {
 			
 			Array.from(state).map(site => {
 				if (site.key === action.payload.key) {
-					console.log(site.key)
 					site.owner = payload.owner
 					site.username = payload.username
 					site.password = payload.password
