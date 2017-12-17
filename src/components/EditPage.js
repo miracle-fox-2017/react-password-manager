@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
 import FormPage from './Form'
-import { Container, Grid, Header } from 'semantic-ui-react'
+import { Container, Grid, Header, Loader } from 'semantic-ui-react'
 
 class EditPage extends Component {
   constructor() {
@@ -27,7 +27,7 @@ class EditPage extends Component {
     if(this.state.user) {
       content = <FormPage user={this.state.user} id={this.state.id}/>
     } else {
-      content = <h1>'loading...'</h1>
+      content = <Loader active inline='centered' />
     }
     return (
       <Container>

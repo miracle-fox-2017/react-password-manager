@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Header } from 'semantic-ui-react'
+import { Container, Header, Loader } from 'semantic-ui-react'
 import Table from './Table'
 import { getUsers } from '../actions/homeActions'
-import firebase from 'firebase'
 
 class HomePage extends Component {
   componentWillMount() {
@@ -11,12 +10,18 @@ class HomePage extends Component {
   }
 
   render() {
+    let content
+    if(this.props.users) {
+      content = <Table users={this.props.users} />      
+    } else {
+      content = <Loader active inline='centered' />
+    }
     return (
       <Container>
         <Header as='h2' dividing>
           Password List
         </Header>
-        <Table users={this.props.users} />
+        {content}
       </Container>
     )
   }

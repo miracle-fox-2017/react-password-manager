@@ -1,5 +1,5 @@
 const initialState = {
-  users: []
+  users: ''
 }
 
 const homeReducers = (state = initialState, action) => {

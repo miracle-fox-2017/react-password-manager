@@ -8,7 +8,6 @@ export const users = (payload) => {
 }
 
 export const getUsers = (dispatch) => {
-  let dbRef = firebase.database().ref().child('passwordlist')
   firebase.database().ref().child('passwordlist').on('value', snap => {
     var returnArr = []
       snap.forEach(function(childSnapshot) {

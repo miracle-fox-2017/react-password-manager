@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Container, Header, Form, Button, Grid, Segment, Message, Progress } from 'semantic-ui-react'
+import { Header, Form, Button, Segment, Message, Progress } from 'semantic-ui-react'
 import firebase from 'firebase'
 
 class FormPage extends Component {
@@ -33,7 +33,7 @@ class FormPage extends Component {
           msgSpecial = 'You must include special character in your password.',
           msgLength = 'Password length minimal 5 character.';
 
-      colorMeter = 'red',
+      colorMeter = 'red';
       passwordStrength = 85;
           
       if(!target.value.match(lowerCase)) {
