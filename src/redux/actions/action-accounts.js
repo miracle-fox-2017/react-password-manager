@@ -28,7 +28,30 @@ export const addNewAccount = (account) => {
   }
 }
 
-export const deleteAccountFirebase = (targetId) => {
+export const editAccount = (account) => {
+  return (dispatch,getState) => {
+    const newAccounts = getState().reducerAccounts.accounts.map(each => {
+      if(each.id === account.id){
+        each.website = account.website
+        each.username = account.username
+        each.password = account.password
+      }
+      return each;
+    });
+    db.ref(`${getState().reducerAccounts.loggedin}/${account.id}`).update({
+      website : account.website,
+      username : account.username,
+      password : account.password
+    }).then(() => {
+      dispatch({
+        type : 'UPDATE_ACCOUNTS',
+        newAccounts
+      })
+    });
+  }
+}
+
+export const deleteAccount = (targetId) => {
   return (dispatch,getState) => {
     const newAccounts = getState().reducerAccounts.accounts.filter(account => {
       return account.id !== targetId

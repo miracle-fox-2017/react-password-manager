@@ -1,7 +1,20 @@
 @import "common";
+@import "input-wrapper";
 
 .modal-wrapper {
-  button {
-    outline: none;
+  .modal-body {
+    @include input-wrapper;
+    .validator-wrapper {
+      padding: 0;
+      li {
+        padding: 10px;
+        font-size: 14px;
+        list-style: none;
+        font-weight: bold;
+        margin: 10px 0 0 0;
+        box-sizing: border-box;
+        font-family: "Roboto Condensed",sans-serif;
+      }
+    }
   }
 }

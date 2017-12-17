@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 
-import {deleteAccountFirebase} from '../redux/actions/action-accounts';
+import {deleteAccount} from '../redux/actions/action-accounts';
 import Modal from './Modal';
 import './Home.css';
 
@@ -10,10 +10,10 @@ class Home extends Component {
     super();
     this.state = {
       editValue : {
-        id : null,
-        website : null,
-        username : null,
-        password : null
+        id : '',
+        website : '',
+        username : '',
+        password : ''
       }
     }
   }
@@ -63,7 +63,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteAccount : (targetId) => dispatch(deleteAccountFirebase(targetId))
+    deleteAccount : (targetId) => dispatch(deleteAccount(targetId))
   }
 }
 

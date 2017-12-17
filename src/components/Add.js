@@ -14,9 +14,9 @@ class Add extends Component {
       inputform : {
         website : 'default',
         username : 'default',
-        password : 'default'
+        password : ''
       },
-      disallowButton : false,
+      disallowButton : true,
       passwordValidator : [
         false,
         false,
@@ -70,6 +70,15 @@ class Add extends Component {
         checkSpecialchar ? this.changeValidatorState(2,true) : this.changeValidatorState(2,false);
         checkNumeric ? this.changeValidatorState(3,true) : this.changeValidatorState(3,false);
         checkLength ? this.changeValidatorState(4,true) : this.changeValidatorState(4,false);
+        if(this.state.passwordValidator.indexOf(false) === -1){
+          this.setState({
+            disallowButton : false
+          });
+        }else{
+          this.setState({
+            disallowButton : true
+          });
+        }
         break;
       default:
         console.log('Wrong type!');
@@ -88,7 +97,7 @@ class Add extends Component {
         <button className="btn btn-primary" onClick={() => this.props.addNewAccount(this.state.inputform)} disabled={this.state.disallowButton}>Save</button>
         <ul className="validator-wrapper">
           <Validator classes={this.state.passwordValidator[0]} message="Password memiliki minimal satu huruf besar (A-Z)"/>
-          <Validator classes={this.state.passwordValidator[1]} message="Password memiliki minimal satu huruf kecil (a-z)</"/>
+          <Validator classes={this.state.passwordValidator[1]} message="Password memiliki minimal satu huruf kecil (a-z)"/>
           <Validator classes={this.state.passwordValidator[2]} message="Password memiliki minimal satu karakter spesial (#$@!&%)"/>
           <Validator classes={this.state.passwordValidator[3]} message="Password memiliki minimal satu angka (0-9)"/>
           <Validator classes={this.state.passwordValidator[4]} message="Password memiliki minimal panjang 5 karakter"/>

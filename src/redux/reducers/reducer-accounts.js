@@ -11,6 +11,8 @@ const reducer = (state=initialState,action) => {
       let newContacts = state.accounts;
       newContacts.push(action.account);
       return {...state,accounts:newContacts}
+    case 'UPDATE_ACCOUNTS':
+      return {...state,accounts:action.newAccounts};
     case 'DELETE_ACCOUNT':
       return {...state,accounts:action.newAccounts}
     default:
