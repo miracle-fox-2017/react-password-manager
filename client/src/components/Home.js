@@ -1,19 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { get_user_all } from '../actions/index'
-
+//TESTER
+import firebase from 'firebase'
+import { config } from '../config'
 
 class Home extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-
+      url: '',
+      username: '',
+      password: '',
+      createdAt: '',
+      updatedAt: '',
+      data: []
     }
+    this.app = firebase.initializeApp(config)
+    this.database = this.app.database().ref().child('reactpwdmngr/user')
   }
 
-  componentWillMount () {
-    console.log('masuk sini');
-    this.props.get_user_all()
+  componentDidMount () {
+    this.database.on('value', snapshot => {
+      console.log('INI SNAPSHOT', snapshot);
+
+    })
   }
 
   render () {
@@ -39,12 +50,12 @@ class Home extends React.Component {
                   <th>PASSWORD</th>
                   <th>CREATEDAT</th>
                   <th>UPDATEAT</th>
-                  <th colspan="2">ACTION</th>
+                  <th colSpan="2">ACTION</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>John</td>
+                  <td>{this.state.data}</td>
                   <td>Doe</td>
                   <td>john@example.com</td>
                   <td>John</td>
@@ -54,23 +65,17 @@ class Home extends React.Component {
                 </tr>
               </tbody>
             </table>
-
       </div>
     )
   }
 }
 
 const mapState = (state) => {
-  console.log('INI DI STATE', state);
-  return {
-    user: state.Form.form
-  }
+
 }
 
 const mapAction = (dispatch) => {
-  return {
-    get_user_all: () => dispatch(get_user_all())
-  }
+
 }
 
-export default connect (mapState,mapAction)(Home)
+export default connect (null,null)(Home)

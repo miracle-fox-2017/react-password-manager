@@ -1,6 +1,5 @@
-import React from 'react'
 import { createStore, applyMiddleware } from 'redux'
-import listReducer from '../reducers/index'
+import listReducer from '../reducers'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 

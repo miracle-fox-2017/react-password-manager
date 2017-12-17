@@ -1,5 +1,7 @@
 import axios from 'axios'
-import * as firebase from 'firebase'
+import firebase from 'firebase'
+import { config } from '../config'
+
 
 export const get_user_all = (data) => {
   console.log('INI DATA DI ACTION', data);
@@ -40,26 +42,24 @@ export const edit_user = (data) => {
 }
 
 
-export const getUserFromFirebase = (user) => {
+export const getUserAPI = (getuser) => {
   return (dispatch) => {
     return firebase.database().ref().child('reactpwdmngr/user').on('value', snapshot => {
-      console.log('INI DATABASENYA',snapshot.val())
-      let temp = []
-      for (var idx in snapshot.val()) {
-        temp.push({
-          id: idx,
-          url: snapshot.val()[idx].url,
-          username: snapshot.val()[idx].username,
-          password: snapshot.val()[idx].password,
-          createdAt: snapshot.val()[idx].createdAt,
-          updatedAt: snapshot.val()[idx].updatedAt
-        })
-      }
-      dispatch(get_user_all(temp))
+      let data = []
+        for(var idx in snapshot.val()) {
+          data.push({
+            id: idx,
+            url:  snapshot.val().url,
+            username: snapshot.val().username,
+            password: snapshot.val().password,
+            createdAt: snapshot.val().createdAt,
+            updatedAt: snapshot.val().updatedAt
+          })
+        }
+        dispatch(get_user_all(data))
     })
   }
 }
-
 
 export const postUser = (form) => {
   return (dispatch) => {
