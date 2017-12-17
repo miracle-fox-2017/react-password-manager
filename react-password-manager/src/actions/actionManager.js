@@ -8,11 +8,15 @@ const actionManager = (accounts) => {
 }
 
 export const postAccount = (account) => {
-  return dispatch => {
-    // console.log(payload)
-    axios.post('http://localhost:3003/accounts', account)
+  return (dispatch, getState) => {
+    axios.post('http://localhost:3003/accounts', account, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
     .then(({ data }) => {
-       dispatch(actionManager(data))
+      alert('Insert Success')
+       dispatch(getAccounts())
     })
     .catch(err => { 
       console.log(err)
@@ -21,12 +25,29 @@ export const postAccount = (account) => {
 }
 
 export const getAccounts = () => {
-  console.log('-==========masuk action')
   return dispatch => {
     axios.get('http://localhost:3003/accounts')
     .then(({ data }) => {
-      console.log('axios', data)
       dispatch(actionManager(data))
     })
+  }
+}
+
+export const deleteAccount = (id) => {
+  return dispatch => {
+    axios.delete(`http://localhost:3003/accounts/${id}`)
+    .then(({ data }) => {
+       dispatch(getAccounts())
+       alert('Deleted')
+    })
+    .catch(err => { 
+      console.log(err)
+    })
+  }
+}
+
+export const editAccount = (id) => {
+  return dispatch => {
+    axios.put(`http://localhost:3003/accounts/${id}`)
   }
 }

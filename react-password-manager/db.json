@@ -1,30 +1,6 @@
 {
   "accounts": [
     {
-      "id": 1,
-      "url": "json-server",
-      "username": "typicode",
-      "password": "123"
-    },
-    {
-      "id": "f6550399-6bca-5135-8cf9-f2f4ec242292",
-      "url": "aaa",
-      "username": "1111",
-      "password": "2222"
-    },
-    {
-      "id": "277461c0-e89e-5da2-a70d-911d6d47d867",
-      "url": "aaa",
-      "username": "11112",
-      "password": "222"
-    },
-    {
-      "id": "d82826fc-6059-5f38-8af3-c773cf756c40",
-      "url": "ayam",
-      "username": "123",
-      "password": "321"
-    },
-    {
       "id": "a02dedf7-9fc3-59f3-8fa3-641d61f72df4",
       "url": "aaaa",
       "username": "aa",
@@ -45,6 +21,22 @@
       "username": "123",
       "password": "321",
       "createdAt": "2017-12-17T13:51:14.971Z",
+      "updatedAt": ""
+    },
+    {
+      "id": "e27f7c7f-2b90-5237-aef0-d93db6e347b1",
+      "url": "tes",
+      "username": "123",
+      "password": "321",
+      "createdAt": "2017-12-17T14:05:42.785Z",
+      "updatedAt": ""
+    },
+    {
+      "id": "47dcf836-f77c-51f8-af16-feb23b609acf",
+      "url": "aaaa",
+      "username": "aaaa",
+      "password": "aa",
+      "createdAt": "2017-12-17T14:35:23.172Z",
       "updatedAt": ""
     }
   ]
