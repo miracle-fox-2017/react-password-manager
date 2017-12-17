@@ -43,7 +43,7 @@ class ProfileItem extends Component {
                         <td>{profile.url}</td>
                         <td>{profile.username}</td>
                         <td>{profile.password}</td>
-                        <td>{new Date(profile.createdAt).toISOString()}</td>
+                        <td>{profile.createdAt}</td>
                         <td>{profile.updatedAt}</td>
                         <td>
                           <button className="btn btn-danger" onClick={() => this.deleteData(profile.key)}>Delete</button>

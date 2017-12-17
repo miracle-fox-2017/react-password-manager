@@ -23,13 +23,16 @@ export const fetchDataProfile = () => {
   }
 }
 export const inputNewDataProfile = (newData) => {
+ let newDate = new Date()
+ let createdAt = newDate.toString()
+
   return (dispatch) => {
     dbRef.push({
       url: newData.url,
       username: newData.username,
       password: newData.password,
-      createdAt: newData.createdAt,
-      updatedAt: newData.updatedAt
+      createdAt: createdAt,
+      updatedAt: ""
     })
   }
 }

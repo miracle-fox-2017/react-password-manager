@@ -13,9 +13,7 @@ class Home extends Component {
       profile: {
         url: '',
         username: '',
-        password: '',
-        createdAt: Date.now(),
-        updatedAt: ''
+        password: ''
       },
       upperCase: false,
       lowerCase: false,
