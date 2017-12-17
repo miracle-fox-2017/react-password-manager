@@ -15,21 +15,21 @@ class Navbar extends Component{
               <div className="collapse navbar-collapse" id="navbarColor01">
                 <ul className="navbar-nav mr-auto">
                   <li className="nav-item active">
-                    <Link to='/' className="nav-link" >Home </Link>
+                    <Link to='/form' className="nav-link" >Home </Link>
                   </li>
                   <li className="nav-item">
                     <Link to='/list' className="nav-link" >Form List </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="#">Pricing</a>
+                    <Link to='/form' className="nav-link">FormNew</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="#">About</a>
+                    <Link to='/list' className="nav-link">About</Link>
                   </li>
                 </ul>
               </div>
             </nav>
-            <Route path="/" component={Form}></Route>
+            <Route path="/form" component={Form}></Route>
             <Route path="/list" component={FormList}></Route>
           </div>
         )
