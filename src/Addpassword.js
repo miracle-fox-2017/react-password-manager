@@ -100,7 +100,7 @@ class Addpassword extends Component {
 
   render() {
     if(this.state.visiblehurufbesar) {
-      var pesanbesar = <p id="emailHelp" class="form-text text-muted">Password harus memiliki setidaknya 1 huruf kecil</p>
+      var pesanbesar = <p id="emailHelp" class="form-text text-muted">Password harus memiliki setidaknya 1 huruf besar</p>
     }
 
     if(this.state.visiblehurufkecil) {
