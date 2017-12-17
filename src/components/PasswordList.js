@@ -44,7 +44,7 @@ class PassWordList extends Component {
 				<div className="col-md-12">
 					<input type="text" onKeyUp={(e) => this.doSearchSites(e)} className="form-control searchPassword" placeholder="Search here..." name="searchAccount" id="searchAccount"/>
 					
-					<table className="table table-stripped password-table">
+					<table className="table table-stripped table-bordered password-table">
 						<thead>
 							<tr>
 								<td>URL</td>

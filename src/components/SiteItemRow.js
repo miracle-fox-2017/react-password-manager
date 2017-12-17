@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import db from '../db'
+import { connect } from 'react-redux' 
+import { deleteSite, updateSite } from '../actions/siteAction'
 
-export default class SiteItemRow extends Component {
+class SiteItemRow extends Component {
 	constructor(props) {
 	  super(props);
 
@@ -10,8 +12,9 @@ export default class SiteItemRow extends Component {
 	}
 
 	doDeleteSite(key) {
-		alert(`${key} Task Deleted`)
-		db.ref('/vaults').child(key).remove();
+		alert(`${key} Site Deleted`)
+
+		this.props.removeSite(key)
 	}
 
 	render() {
@@ -43,3 +46,17 @@ export default class SiteItemRow extends Component {
 		)
 	}
 }
+
+const mapStateToProps = (state) => {
+	return {
+		sites: state.siteReducer
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		removeSite: key => dispatch(deleteSite(key)) 
+	}
+}
+
+export default connect(null, mapDispatchToProps)(SiteItemRow)

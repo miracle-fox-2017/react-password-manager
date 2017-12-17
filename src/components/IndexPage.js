@@ -15,7 +15,7 @@ class IndexPage extends Component {
 					<h1 className="App-title">
 						<Link style={{ color: '#fff' }} to='/'>Omni Pass</Link>
 
-						<Link style={{marginLeft: '20px' }} className="btn btn-success" to={{
+						<Link className="btn btn-new-site btn-success" to={{
 							pathname: `/add`}}>
 							Add Site
 						</Link>

@@ -10,12 +10,12 @@ export const snapshotToArray = snapshot => {
     return returnArr;
 };
 
-export const checkNullUndefined = (data) => {
+export const isNullOrUndefined = (data) => {
 	if (data !== null && typeof data !== 'undefined') {
-		return data
+		return false
 	}
 
-	return ''
+	return true
 }
 
 export const searchSite = (sources = [], query) => {
