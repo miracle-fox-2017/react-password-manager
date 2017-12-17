@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Menu, Button, Header, Image, Modal, Form } from 'semantic-ui-react'
+import { Menu, Button, Modal, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { addData, watchUsersData } from '../actions'
 
@@ -7,7 +7,6 @@ class MenuExampleSecondary extends Component {
   constructor() {
     super()
     this.state = {
-      activeItem: 'home',
       open: false,
       url: '',
       username: '',
@@ -37,7 +36,7 @@ class MenuExampleSecondary extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
-    const { activeItem, open, dimmer } = this.state
+    const { open, dimmer } = this.state
     return (
     <div>
       <Menu secondary>
