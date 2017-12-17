@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './../App.css';
 import Header from './Header'
+import ButtonListProfile from './ButtonListProfile'
+
 import { connect } from 'react-redux'
-import { inputNewDataProfile} from '../actions/profileAction'
+import { inputNewDataProfile } from '../actions/profileAction'
 class Home extends Component {
   constructor() {
     super()
@@ -12,8 +14,8 @@ class Home extends Component {
         url: '',
         username: '',
         password: '',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        createdAt: Date.now(),
+        updatedAt: ''
       }
     }
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -29,6 +31,14 @@ class Home extends Component {
   inputDataProfile(event) {
     event.preventDefault()
     this.props.inputDataProfile(this.state.profile)
+    alert('Inserted 1 data...')
+    this.setState({
+      profile: {
+        url: '',
+        username: '',
+        password: ''
+      }
+    })
   }
 
   render() {
@@ -36,13 +46,14 @@ class Home extends Component {
     return (
       <div className="App">
         <Header />
+        <ButtonListProfile />
         <div className="container">
           <div className="row row-centered">
             <div className="col-md-6 col-centered">
               <form onSubmit={this.inputDataProfile} className="inputForm">
                 <div className="form-group">
                   URL:
-                    <input type="text" className="form-control" placeholder="Enter URL" name="url" value={this.state.url} onChange={this.handleInputChange} />
+                    <input type="text" className="form-control" placeholder="Enter URL" name="url" value={this.state.profile.url} onChange={this.handleInputChange} />
                 </div>
                 <div className="form-group">
                   Username:

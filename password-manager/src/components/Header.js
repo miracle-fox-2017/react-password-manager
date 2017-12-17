@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Search from './Search'
 import './../App.css';
 
 class Header extends Component {
@@ -9,7 +8,6 @@ class Header extends Component {
         <header className="App-header ">
           <h1 className="App-title">Password Manager</h1>
         </header>
-        <Search />
       </div>
     );
   }

@@ -4,8 +4,8 @@ const initialState = {
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "":
-      break;
+    case "get_data":
+      return { ...state, profile: action.payload }
     default:
       return state
   }

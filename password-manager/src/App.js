@@ -4,13 +4,17 @@ import { Provider } from 'react-redux'
 import store from './store'
 import './App.css';
 import Home from './components/Home'
+import DataListProfile from './components/DataListProfile'
 
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <Router>
-          <Route path="/" component={Home} />
+          <div>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/list" component={DataListProfile} />
+          </div>
         </Router>
       </Provider>
     );
