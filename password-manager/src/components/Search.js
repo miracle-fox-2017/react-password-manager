@@ -33,7 +33,7 @@ class Search extends Component {
       <div className="text-center">
         <form>
           <div className="form-inline">
-            <input type="text" className="form-control" placeholder="Search by url" value={this.state.keyword} onChange={this.handleChange} />
+            <input type="text" className="form-control" placeholder="Search by username" value={this.state.keyword} onChange={this.handleChange} />
             <button type="button" className="btn btn-default" onClick={this.handleSubmit}>
               <span className="glyphicon glyphicon-search"></span>
             </button>

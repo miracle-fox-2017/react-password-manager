@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './../App.css';
 import Header from './Header'
-import ButtonListProfile from './ButtonListProfile'
-
 import { connect } from 'react-redux'
 import { inputNewDataProfile } from '../actions/profileAction'
+import ButtonListProfile from './ButtonListProfile'
+import PasswordWidget from './PasswordWidget'
+
 class Home extends Component {
   constructor() {
     super()
@@ -129,14 +130,7 @@ class Home extends Component {
                     <input type="password" className="form-control" name="password" placeholder="Enter password" value={this.state.profile.password} onChange={this.handleInputChange} />
                 </div>
               </form>
-              <fieldset  style={{ margin: "20px 0px" }} className="checkbox text-left">
-                <p className="text-center">Password Strength :</p>
-                <input type="checkbox" checked={this.state.upperCase} /> Password harus memiliki setidaknya satu karakter huruf besar (upper-case)<br />
-                <input type="checkbox" checked={this.state.lowerCase} /> Password harus memiliki setidaknya satu karakter huruf kecil (lower-case)<br />
-                <input type="checkbox" checked={this.state.specialCharacter} /> Password harus memiliki setidaknya satu karakter spesial (#$%@!%&..)<br />
-                <input type="checkbox" checked={this.state.oneNumber} /> Password harus memiliki setidaknya satu angka<br />
-                <input type="checkbox" checked={this.state.fiveChar} /> Password harus memiliki panjang (length) lebih dari 5 karakter<br />
-              </fieldset>
+             <PasswordWidget upperCase={this.state.upperCase} lowerCase={this.state.lowerCase} oneNumber={this.state.oneNumber} specialCharacter={this.state.specialCharacter} fiveChar={this.state.fiveChar} onChange={this.handleInputChange}/>
               <button type="submit" className="btn btn-default" onClick={this.inputDataProfile}>Save</button>
             </div>
           </div>

@@ -5,7 +5,7 @@ import store from './store'
 import './App.css';
 import Home from './components/Home'
 import DataListProfile from './components/DataListProfile'
-// import SearchResult from './components/SearchResult'
+import EditData from './components/EditData'
 
 class App extends Component {
   render() {
@@ -15,7 +15,7 @@ class App extends Component {
           <div>
             <Route exact path="/" component={Home} />
             <Route exact path="/list" component={DataListProfile} />
-           
+           <Route exact path="/list/:key" component={EditData} />
           </div>
         </Router>
       </Provider>

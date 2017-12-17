@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import './../App.css';
 import { deleteDataProfile } from '../actions/profileAction'
-import EditData from './EditData'
+
 class ProfileItem extends Component {
   constructor() {
     super()
@@ -49,7 +50,9 @@ class ProfileItem extends Component {
                           <button className="btn btn-danger" onClick={() => this.deleteData(profile.key)}>Delete</button>
                         </td>
                         <td>
-                          <button className="btn btn-info" data-toggle="modal" onClick={() => this.editaData(profile)} data-target="#myModal">Edit Data</button>
+                          <Link to={`/list/${profile.key}`}>
+                            <button className="btn btn-info" >Edit Data</button>
+                          </Link>
                         </td>
 
                       </tr>
@@ -57,7 +60,6 @@ class ProfileItem extends Component {
                   })}
                 </tbody>
               </table>
-              <EditData profile={this.state.profileedit} />
             </div>
           </div>
         </div>

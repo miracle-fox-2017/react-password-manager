@@ -23,8 +23,8 @@ export const fetchDataProfile = () => {
   }
 }
 export const inputNewDataProfile = (newData) => {
- let newDate = new Date()
- let createdAt = newDate.toString()
+  let newDate = new Date()
+  let createdAt = newDate.toString()
 
   return (dispatch) => {
     dbRef.push({
@@ -32,7 +32,7 @@ export const inputNewDataProfile = (newData) => {
       username: newData.username,
       password: newData.password,
       createdAt: createdAt,
-      updatedAt: ""
+      updatedAt: newData.updatedAt || ""
     })
   }
 }
@@ -50,7 +50,7 @@ export const getDataKeyword = (keyword) => {
     if (keyword === '') {
       dispatch(fetchDataProfile())
     } else {
-      dbRef.orderByChild('url').equalTo(`${keyword}`).on("value", function (snapshot) {
+      dbRef.orderByChild('username').equalTo(`${keyword}`).on("value", function (snapshot) {
         snapshot.forEach((dataProfile) => {
           let newProfile = dataProfile.val()
           newProfile.key = dataProfile.key
@@ -59,5 +59,20 @@ export const getDataKeyword = (keyword) => {
         dispatch(getDataProfile(profile))
       })
     }
+  }
+}
+
+export const updateData = (newData) => {
+  let newDate = new Date()
+  let updatedAt = newDate.toString()
+
+  return (dispatch) => {
+    dbRef.child(newData.key).update({
+      url: newData.url,
+      username: newData.username,
+      password: newData.password,
+      createdAt: newData.createdAt,
+      updatedAt: updatedAt
+    })
   }
 }
