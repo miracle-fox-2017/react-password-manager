@@ -65,11 +65,19 @@ const removePassword = payload => {
   }
 }
 
+const findPassword = payload => {
+  return ({
+    type: 'FIND_PASSWORD',
+    payload: payload
+  })
+}
+
 const actions = {
   addPassword,
   getPassword,
   editPassword,
-  removePassword
+  removePassword,
+  findPassword
 }
 
 export default actions

@@ -44,6 +44,8 @@ const reducer = (state = initialState, action) => {
         return pass
       })
       return {...state, passwordStore: newPassword}
+    case 'FIND_PASSWORD':
+      return {...state, passwordStore: action.payload}
     default:
       return state
   }

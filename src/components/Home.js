@@ -19,13 +19,10 @@ class Home extends Component {
   }
 
   submitHandler(url) {
-    let newManipulator = this.state.allPassword.filter(password => {
+    let newManipulator = this.props.getPassword.filter(password => {
       return password.url === this.state.url
     })
-    this.setState({
-      url: '',
-      allPassword: newManipulator
-    })
+    this.props.findPassword(newManipulator)
   }
 
   deleteHandler(item) {
@@ -40,17 +37,14 @@ class Home extends Component {
   }
 
   clearUrl(){
+    this.props.getPasswords()
     this.setState({
-      url: '',
-      allPassword: this.props.getPassword
+      url: ''
     })
   }
 
   componentWillMount(){
     this.props.getPasswords()
-    // this.setState({
-    //   allPassword: this.props.getPassword
-    // })
   }
 
   render() {
@@ -127,7 +121,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getPasswords: () => dispatch(passwordAction.getPassword()),
     addPassword: (payload) => dispatch(passwordAction.addPassword(payload)),
-    removePassword: (payload) => dispatch(passwordAction.removePassword(payload))
+    removePassword: (payload) => dispatch(passwordAction.removePassword(payload)),
+    findPassword: (payload) => dispatch(passwordAction.findPassword(payload))
   }
 }
 
