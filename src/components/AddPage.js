@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Header, Form, Button, Grid, Segment, Message, Progress } from 'semantic-ui-react'
-import firebase, { messaging } from 'firebase'
+import firebase from 'firebase'
 
 class AddPage extends Component {
   constructor() {
@@ -88,11 +88,12 @@ class AddPage extends Component {
   
   submitData() {
     let db = firebase.database()
+    let date = Date.now()
     let newData = {
       url: this.state.url,
       username: this.state.username,
       password: this.state.password,
-      createdAt: new Date()
+      createdAt: new Date(date).toISOString()
     }
 
     this.state.messages.length > 0 ? this.setState({msgVis: true}) : this.setState({msgVis: false})

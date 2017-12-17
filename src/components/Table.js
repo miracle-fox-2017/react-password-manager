@@ -17,7 +17,7 @@ const TableExampleSelectableRow = (props) => (
 
     <Table.Body>
       {props.users.map(user => {
-        return  <Table.Row key={user.id}>
+        return  <Table.Row key={user.key}>
                   <Table.Cell>{user.url}</Table.Cell>
                   <Table.Cell>{user.username}</Table.Cell>
                   <Table.Cell>{user.password}</Table.Cell>
