@@ -33,7 +33,7 @@ export function searchallpassword(cari) {
   return dispatch => {
     passManager.orderByChild('URL').equalTo(cari).on('value', snapshot => {
       console.log('yuhu',snapshot.val());
-      dispatch(searchpassword(snapshot.val()))
+      dispatch(searchpassword(cari))
     })
   }
 }
