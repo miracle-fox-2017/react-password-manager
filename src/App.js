@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import store from './store'
-import firebase from 'firebase'
+// import * as firebase from 'firebase'
 import Home from "./components/Home";
 import Input from "./components/Input";
 import App from 'grommet/components/App';
@@ -18,16 +18,6 @@ const padding = {
 }
 
 class Apps extends Component {
-  constructor () {
-    super()
-    let config = {
-      apiKey: "AIzaSyCCRX9837cZkHpxQBoM-7Ntoob01pUE7Tw",
-      authDomain: "usermanager-ef8a3.firebaseapp.com",
-      databaseURL: "https://usermanager-ef8a3.firebaseio.com",
-      projectId: "usermanager-ef8a3"
-    };
-    firebase.initializeApp(config);
-  }
   render() {
     return (
       <div>
