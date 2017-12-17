@@ -2,8 +2,18 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {fetchallpassword} from './actions/passwordlist'
 import {deletepassword} from './actions/passwordlist'
+import {searchallpassword} from './actions/passwordlist'
+import {Link} from 'react-router-dom'
 
 class Tablepassword extends Component {
+
+  constructor() {
+    super()
+
+    this.state = {
+      cari: ''
+    }
+  }
 
   componentWillMount() {
     this.props.fetchallpassword()
@@ -13,9 +23,57 @@ class Tablepassword extends Component {
     this.props.deletepassword(key)
   }
 
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    })
+    console.log(this.state.cari)
+  }
+
+  handleSearch = (e) => {
+    e.preventDefault()
+    if(this.state.cari == '') {
+      this.props.fetchallpassword()
+    }
+    else {
+      this.props.searchallpassword(this.state.cari)
+    }
+  }
+
+  validatefield
+
   render() {
+    var bodytable
+    if(this.props.passwordlist) {
+      bodytable =           <tbody>
+                  {Object.keys(this.props.passwordlist).map((key) => {
+                    return (
+                      <tr key={key}>
+                        <td>{this.props.passwordlist[key].URL}</td>
+                        <td>{this.props.passwordlist[key].username}</td>
+                        <td>{this.props.passwordlist[key].password}</td>
+                        <td>{this.props.passwordlist[key].createdat}</td>
+                        <td>{this.props.passwordlist[key].updatedat}</td>
+                        <td><button type="button" className="btn btn-danger" onClick={() => this.handledelete(key)} style={{marginRight:20}}>delete</button><Link to={{pathname: key, state: {editpass: this.props.passwordlist[key], key: key}}}><button type="button" className="btn btn-danger" data-toggle="modal" data-target="editmodal">edit</button></Link></td>
+                      </tr>                 
+                    )
+                  })}
+                </tbody>
+    } else {
+      bodytable = <tbody></tbody>
+    }
     return (
       <div style={{marginTop:40+'px'}}>
+        <form onSubmit={this.handleSearch}>
+          <fieldset>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Search</label>
+              <input type="text" class="form-control" name="cari" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value={this.state.cari} onChange={this.handleChange}/>
+              <small id="emailHelp" class="form-text text-muted">Masukkan kata kunci pencarian</small>
+              <button type="submit" className="btn btn-primary">cari</button>
+            </div>
+          </fieldset>
+        </form>
         <table className="table table-hover">
           <thead>
             <tr className="table-danger">
@@ -28,48 +86,14 @@ class Tablepassword extends Component {
 
             </tr>
           </thead>
-          <tbody>
-            {Object.keys(this.props.passwordlist).map((key) => {
-              return (
-                <tr key={key}>
-                  <td>{this.props.passwordlist[key].URL}</td>
-                  <td>{this.props.passwordlist[key].username}</td>
-                  <td>{this.props.passwordlist[key].password}</td>
-                  <td>{this.props.passwordlist[key].createdat}</td>
-                  <td>{this.props.passwordlist[key].updatedat}</td>
-                  <td><button type="button" className="btn btn-danger" onClick={() => this.handledelete(key)}>delete</button></td>
-                  <td><button type="button" className="btn btn-danger" data-toggle="modal" data-target="editmodal">edit</button></td>
-                </tr>
-              )
-            })}
-          </tbody>
+          {bodytable}
         </table>
-        <div className="modal fade" id="editmodal">
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Modal title</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <p>Modal body text goes here.</p>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-primary">Save changes</button>
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log('ini dari tablecomponent', state.passwordlistReducer.passwordlist['-L0QEShhexcqlvSZc25T']);
   return {
     passwordlist: state.passwordlistReducer.passwordlist
   }
@@ -78,7 +102,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchallpassword: () => dispatch(fetchallpassword()),
-    deletepassword: (key) => dispatch(deletepassword(key))
+    deletepassword: (key) => dispatch(deletepassword(key)),
+    searchallpassword: (cari) => dispatch(searchallpassword(cari))
   }
 }
 

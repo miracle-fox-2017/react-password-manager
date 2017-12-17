@@ -11,10 +11,29 @@ export const getpasswordlist = (passwordlist) => {
   }
 }
 
-export function fetchallpassword(dispatch) {
+export const searchpassword = (search) => {
+  return {
+    type: 'SEARCH_PASSWORD',
+    payload: {
+      search
+    }
+  }
+}
+
+export function fetchallpassword() {
   return dispatch => {
     passManager.on('value', snapshot => {
       dispatch(getpasswordlist(snapshot.val()))
+    })
+  }
+}
+
+export function searchallpassword(cari) {
+  console.log(cari)
+  return dispatch => {
+    passManager.orderByChild('URL').equalTo(cari).on('value', snapshot => {
+      console.log('yuhu',snapshot.val());
+      dispatch(searchpassword(snapshot.val()))
     })
   }
 }
@@ -36,5 +55,16 @@ export function savepassword(newpass) {
 export function deletepassword(key) {
   return dispatch => {
     passManager.child(key).remove()
+  }
+}
+
+export function updatepassword(newpass, key) {
+  return dispatch => {
+    passManager.child(key).update({
+      URL: newpass.URL,
+      username: newpass.username,
+      password: newpass.password,
+      updatedat: Date.now()
+    })
   }
 }
