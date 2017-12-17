@@ -7,6 +7,8 @@ const actionManager = (accounts) => {
   }
 }
 
+
+
 export const postAccount = (account) => {
   return (dispatch, getState) => {
     axios.post('http://localhost:3003/accounts', account, {
@@ -24,6 +26,8 @@ export const postAccount = (account) => {
   }
 }
 
+
+
 export const getAccounts = () => {
   return dispatch => {
     axios.get('http://localhost:3003/accounts')
@@ -32,6 +36,8 @@ export const getAccounts = () => {
     })
   }
 }
+
+
 
 export const deleteAccount = (id) => {
   return dispatch => {
@@ -46,8 +52,17 @@ export const deleteAccount = (id) => {
   }
 }
 
-export const editAccount = (id) => {
+
+
+export const editAccount = (id, account) => {
   return dispatch => {
-    axios.put(`http://localhost:3003/accounts/${id}`)
+    axios.put(`http://localhost:3003/accounts/${id}`, account, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(({data}) =>{
+      dispatch(getAccounts())
+    })
   }
 }

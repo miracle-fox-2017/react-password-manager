@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getAccounts, deleteAccount } from '../actions/actionManager'
+import { getAccounts, deleteAccount, editAccount } from '../actions/actionManager'
 import Form from '../components/Form'
 // import { EditModal } from '../components/EditModal'
 class TableWidget extends React.Component{
   constructor() {
     super ()
     this.state = {
-      accounts: {
+      account: {
         id: '',
         url: '',
         username: '',
@@ -17,35 +17,42 @@ class TableWidget extends React.Component{
         updatedAt: ''
       }
     }
-   
+    this.onChangeState = this.onChangeState.bind(this)
+    this.setHandleEdit = this.setHandleEdit.bind(this)
   }
 
   onClickDelete (id) {
     this.props.onDelete(id)
   }
 
-  onClickEdit (e) {
+  onClickEdit (index) {
     this.setState({
-      accounts: {
-        id: e.id,
-        url: e.url,
-        username: e.username,
-        password: e.password,
-        createdAt: e.createdAt,
+      account: {
+        id: this.props.accounts[index].id,
+        url: this.props.accounts[index].url,
+        username: this.props.accounts[index].username,
+        password: this.props.accounts[index].password,
+        createdAt: this.props.accounts[index].createdAt,
         updatedAt: new Date()
       }
     })
+
   }
 
-  setHandleEdit (event) {
-    console.log(event)
+  setHandleEdit (e) {
+    e.preventDefault();
+    // console.log(this.state.account)
+    this.props.editTheAccount(this.state.account.id, this.state.account)
   }
 
-  onChangeState (event) {
-    console.log(event)
+  onChangeState (e) {
+    let state = this.state.account
+    state[e.target.name] = e.target.value
+   
+    this.setState(state)
   }
   render () {
-    console.log(this.state)
+    const { url, username, password} = this.state.account
     return (
       <div className="container-fluid">
       <Form/>
@@ -70,7 +77,7 @@ class TableWidget extends React.Component{
                 <td>{account.createdAt}</td>
                 <td>{account.updatedAt}</td>
                 <td><button type="button" className="btn btn-danger" onClick={(id) => {this.onClickDelete(account.id)}}>Delete</button> 
-                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={(data) => {this.onClickEdit(account)}}>
+                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={(data) => {this.onClickEdit(index)}}>
                     Edit
                   </button>
                 </td>
@@ -80,7 +87,7 @@ class TableWidget extends React.Component{
         </tbody>
       </table> 
       <div> 
-      <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
@@ -94,15 +101,15 @@ class TableWidget extends React.Component{
                   <fieldset>
                     <div className="form-group">
                       <label>URL</label>
-                      <input type="text" className="form-control" name="url" value={this.state.accounts.url} onChange= {this.onChangeState}/>
+                      <input type="text" className="form-control" name="url" value={url} onChange= {this.onChangeState}/>
                     </div>
                     <div className="form-group">
                       <label>Uername</label>
-                      <input type="text" className="form-control" name="username" value={this.state.accounts.username} onChange= {this.onChangeState}/>
+                      <input type="text" className="form-control" name="username" value={username} onChange= {this.onChangeState}/>
                     </div>
                     <div className="form-group">
                       <label>Password</label>
-                      <input type="password" className="form-control" name="password" value={this.state.accounts.password} onChange= {this.onChangeState}/>
+                      <input type="password" className="form-control" name="password" value={password} onChange= {this.onChangeState}/>
                     </div>
                     <button className="ui button" type="submit">Save</button>
                   </fieldset>
@@ -110,7 +117,6 @@ class TableWidget extends React.Component{
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>
@@ -138,7 +144,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getAllAccounts: () => dispatch(getAccounts()),
-  onDelete: (id) => dispatch(deleteAccount(id))
+  onDelete: (id) => dispatch(deleteAccount(id)),
+  editTheAccount: (id, newAccount) => dispatch(editAccount(id, newAccount))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableWidget)

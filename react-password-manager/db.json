@@ -2,26 +2,27 @@
   "accounts": [
     {
       "id": "a02dedf7-9fc3-59f3-8fa3-641d61f72df4",
-      "url": "aaaa",
-      "username": "aa",
+      "url": "alamak",
+      "username": "oke",
       "password": "aa",
-      "createdAt": "2017-12-17T03:13:41.348Z"
+      "createdAt": "2017-12-17T03:13:41.348Z",
+      "updatedAt": "2017-12-17T16:49:19.874Z"
     },
     {
       "id": "a9cbd8e2-4cb4-5d15-8aee-1a440d4c85c2",
-      "url": "tes",
-      "username": "123",
+      "url": "https://v4-alpha.getbootstrap.com",
+      "username": "hacktiv8",
       "password": "8761",
       "createdAt": "2017-12-17T13:49:20.626Z",
-      "updatedAt": ""
+      "updatedAt": "2017-12-17T16:49:44.689Z"
     },
     {
       "id": "251a0445-46ee-5459-950a-508207d5b580",
-      "url": "ayam",
-      "username": "123",
+      "url": "https://www.toptal.com",
+      "username": "hacktiv",
       "password": "321",
       "createdAt": "2017-12-17T13:51:14.971Z",
-      "updatedAt": ""
+      "updatedAt": "2017-12-17T16:50:27.687Z"
     },
     {
       "id": "e27f7c7f-2b90-5237-aef0-d93db6e347b1",
