@@ -25,7 +25,7 @@ class EditPage extends Component {
   render() {
     let content
     if(this.state.user) {
-      content = <FormPage user={this.state.user} id={this.state.id}/>
+      content = <FormPage user={this.state.user} id={this.state.id} props={this.props}/>
     } else {
       content = <Loader active inline='centered' />
     }

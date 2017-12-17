@@ -15,7 +15,7 @@ class App extends Component {
         <Router>
           <div className="App">
               <Route exact path='/' render={(props) => <Navbar><HomePage/></Navbar>}/>
-              <Route path="/add" render={(props) => <Navbar><AddPage/></Navbar>}/>
+              <Route path="/add" render={(props) => <Navbar><AddPage props={props}/></Navbar>}/>
               <Route path="/edit/:id" render={(props) => <Navbar><EditPage id={props}/></Navbar>}/>
           </div>
         </Router>

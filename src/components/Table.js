@@ -14,7 +14,7 @@ class TableExampleSelectableRow extends Component {
       <Table celled selectable unstackable color={'orange'}>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>URL</Table.HeaderCell>
+            <Table.HeaderCell width={3}>URL</Table.HeaderCell>
             <Table.HeaderCell>Username</Table.HeaderCell>
             <Table.HeaderCell>Password</Table.HeaderCell>
             <Table.HeaderCell>CreatedAt</Table.HeaderCell>

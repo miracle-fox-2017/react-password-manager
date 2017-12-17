@@ -109,8 +109,10 @@ class FormPage extends Component {
     if(newData.url && newData.username && newData.password && !this.state.messages.length) {
       if(this.props.user) {
         db.ref('passwordlist/'+this.props.id).update(updateData)
+        this.props.props.id.history.push('/')
       } else {
         db.ref('passwordlist/').push(newData);
+        this.props.props.history.push('/')
       }
       this.setState({
         url: '',
@@ -170,7 +172,7 @@ class FormPage extends Component {
             header='There was some errors'
             list={this.state.messages}
           />
-          <Button as={Link} to='/' type='submit' color='orange' onClick={(e) => this.submitData(e)}>Submit</Button>
+          <Button type='submit' color='orange' onClick={(e) => this.submitData(e)}>Submit</Button>
         </Form>
       </Segment>
     )
