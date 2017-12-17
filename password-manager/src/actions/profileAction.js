@@ -40,3 +40,19 @@ export const deleteDataProfile = (keyProfile) => {
     dispatch(fetchDataProfile())
   }
 }
+
+export const getDataKeyword = (keyword) => {
+  let profile = []
+  return (dispatch) => {
+    if (keyword === '') {
+      dispatch(fetchDataProfile())
+    } else {
+      dbRef.orderByChild('url').equalTo(`${keyword}`).on("value", function (snapshot) {
+        snapshot.forEach((dataProfile) => {
+          profile.push(dataProfile.val())
+        })
+        dispatch(getDataProfile(profile))
+      })
+    }
+  }
+}

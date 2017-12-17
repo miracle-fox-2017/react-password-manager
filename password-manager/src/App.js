@@ -5,6 +5,7 @@ import store from './store'
 import './App.css';
 import Home from './components/Home'
 import DataListProfile from './components/DataListProfile'
+// import SearchResult from './components/SearchResult'
 
 class App extends Component {
   render() {
@@ -12,8 +13,8 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/list" component={DataListProfile} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/list" component={DataListProfile} />
           </div>
         </Router>
       </Provider>

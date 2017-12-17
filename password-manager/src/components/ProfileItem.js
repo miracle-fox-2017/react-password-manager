@@ -2,11 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import './../App.css';
 import { deleteDataProfile } from '../actions/profileAction'
-
+import EditData from './EditData'
 class ProfileItem extends Component {
-
+  constructor() {
+    super()
+    this.state = {
+      profileedit: ''
+    }
+  }
   deleteData(keyProfile) {
     this.props.deleteData(keyProfile)
+  }
+
+  editaData(profile) {
+    this.setState({
+      profileedit: profile
+    })
   }
   render() {
     return (
@@ -38,13 +49,15 @@ class ProfileItem extends Component {
                           <button className="btn btn-danger" onClick={() => this.deleteData(profile.key)}>Delete</button>
                         </td>
                         <td>
-                          <button className="btn btn-warning">Edit</button>
+                          <button className="btn btn-info" data-toggle="modal" onClick={() => this.editaData(profile)} data-target="#myModal">Edit Data</button>
                         </td>
+
                       </tr>
                     )
                   })}
                 </tbody>
               </table>
+              <EditData profile={this.state.profileedit} />
             </div>
           </div>
         </div>

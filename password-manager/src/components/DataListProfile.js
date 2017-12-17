@@ -15,7 +15,7 @@ class DataListProfile extends Component {
       <div className="text-center">
         <Header />
         <Back />
-        <Search />
+        <Search profiles={this.props.profile} />
         <ProfileItem profiles={this.props.profile} />
       </div>
     )
