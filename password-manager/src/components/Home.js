@@ -16,7 +16,12 @@ class Home extends Component {
         password: '',
         createdAt: Date.now(),
         updatedAt: ''
-      }
+      },
+      upperCase: false,
+      lowerCase: false,
+      specialCharacter: false,
+      oneNumber: false,
+      fiveChar: false
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.inputDataProfile = this.inputDataProfile.bind(this)
@@ -27,18 +32,80 @@ class Home extends Component {
     this.setState({
       profile
     })
+    let password = this.state.profile.password
+
+    if (event.target.name === "password") {
+      this.checkPassword(password)
+    }
+  }
+
+  checkPassword(password) {
+    if ((/[A-Z]/.test(password))) {
+      this.setState({
+        upperCase: true
+      })
+    } else {
+      this.setState({
+        upperCase: false
+      })
+    }
+    if ((/[a-z]/.test(password))) {
+      this.setState({
+        lowerCase: true
+      })
+    } else {
+      this.setState({
+        lowerCase: false
+      })
+    }
+    if ((/[$-/:-?{-~@#!"^_`[\]]/.test(password))) {
+      this.setState({
+        specialCharacter: true
+      })
+    } else {
+      this.setState({
+        specialCharacter: false
+      })
+    }
+    if ((/[0-9]/.test(password))) {
+      this.setState({
+        oneNumber: true
+      })
+    } else {
+      this.setState({
+        oneNumber: false
+      })
+    }
+    if (/.{6}$/.test(password)) {
+      this.setState({
+        fiveChar: true
+      })
+    } else {
+      this.setState({
+        fiveChar: false
+      })
+    }
   }
   inputDataProfile(event) {
     event.preventDefault()
-    this.props.inputDataProfile(this.state.profile)
-    alert('Inserted 1 data...')
-    this.setState({
-      profile: {
-        url: '',
-        username: '',
-        password: ''
-      }
-    })
+    if (this.state.fiveChar && this.state.lowerCase && this.state.upperCase && this.state.oneNumber && this.state.specialCharacter) {
+      this.props.inputDataProfile(this.state.profile)
+      alert('Inserted 1 data...')
+      this.setState({
+        profile: {
+          url: '',
+          username: '',
+          password: ''
+        },
+        fiveChar: false,
+        lowerCase: false,
+        upperCase: false,
+        oneNumber: false,
+        specialCharacter: false
+      })
+    } else {
+      alert("Your password is not strength!")
+    }
   }
 
   render() {
@@ -50,7 +117,7 @@ class Home extends Component {
         <div className="container">
           <div className="row row-centered">
             <div className="col-md-6 col-centered">
-              <form onSubmit={this.inputDataProfile} className="inputForm">
+              <form className="inputForm">
                 <div className="form-group">
                   URL:
                     <input type="text" className="form-control" placeholder="Enter URL" name="url" value={this.state.profile.url} onChange={this.handleInputChange} />
@@ -63,8 +130,16 @@ class Home extends Component {
                   Password:
                     <input type="password" className="form-control" name="password" placeholder="Enter password" value={this.state.profile.password} onChange={this.handleInputChange} />
                 </div>
-                <button type="submit" className="btn btn-default">Save</button>
               </form>
+              <fieldset  style={{ margin: "20px 0px" }} className="checkbox text-left">
+                <p className="text-center">Password Strength :</p>
+                <input type="checkbox" checked={this.state.upperCase} /> Password harus memiliki setidaknya satu karakter huruf besar (upper-case)<br />
+                <input type="checkbox" checked={this.state.lowerCase} /> Password harus memiliki setidaknya satu karakter huruf kecil (lower-case)<br />
+                <input type="checkbox" checked={this.state.specialCharacter} /> Password harus memiliki setidaknya satu karakter spesial (#$%@!%&..)<br />
+                <input type="checkbox" checked={this.state.oneNumber} /> Password harus memiliki setidaknya satu angka<br />
+                <input type="checkbox" checked={this.state.fiveChar} /> Password harus memiliki panjang (length) lebih dari 5 karakter<br />
+              </fieldset>
+              <button type="submit" className="btn btn-default" onClick={this.inputDataProfile}>Save</button>
             </div>
           </div>
         </div>

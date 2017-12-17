@@ -49,7 +49,9 @@ export const getDataKeyword = (keyword) => {
     } else {
       dbRef.orderByChild('url').equalTo(`${keyword}`).on("value", function (snapshot) {
         snapshot.forEach((dataProfile) => {
-          profile.push(dataProfile.val())
+          let newProfile = dataProfile.val()
+          newProfile.key = dataProfile.key
+          profile.push(newProfile)
         })
         dispatch(getDataProfile(profile))
       })

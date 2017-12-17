@@ -15,6 +15,7 @@ class App extends Component {
           <div>
             <Route exact path="/" component={Home} />
             <Route exact path="/list" component={DataListProfile} />
+           
           </div>
         </Router>
       </Provider>

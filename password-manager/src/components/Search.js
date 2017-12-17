@@ -22,6 +22,9 @@ class Search extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.getKeyword(this.state.keyword)
+    this.setState({
+      keyword: ''
+    })
   }
 
 
@@ -31,9 +34,9 @@ class Search extends Component {
         <form>
           <div className="form-inline">
             <input type="text" className="form-control" placeholder="Search by url" value={this.state.keyword} onChange={this.handleChange} />
-              <button type="button" className="btn btn-default" onClick={this.handleSubmit}>
-                <span className="glyphicon glyphicon-search"></span>
-              </button>
+            <button type="button" className="btn btn-default" onClick={this.handleSubmit}>
+              <span className="glyphicon glyphicon-search"></span>
+            </button>
           </div>
         </form>
       </div>
