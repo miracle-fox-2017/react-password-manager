@@ -15,10 +15,12 @@ class TableWidget extends React.Component{
         password: '',
         createdAt: '',
         updatedAt: ''
-      }
+      },
+      search: ''
     }
     this.onChangeState = this.onChangeState.bind(this)
     this.setHandleEdit = this.setHandleEdit.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
   onClickDelete (id) {
@@ -41,21 +43,45 @@ class TableWidget extends React.Component{
 
   setHandleEdit (e) {
     e.preventDefault();
-    // console.log(this.state.account)
     this.props.editTheAccount(this.state.account.id, this.state.account)
   }
 
   onChangeState (e) {
     let state = this.state.account
     state[e.target.name] = e.target.value
-   
     this.setState(state)
   }
+
+  handleSearch (e) {
+    this.setState({
+      search: e.target.value
+    })
+
+  }
   render () {
+    
     const { url, username, password} = this.state.account
+    const searchName = this.props.accounts.filter(
+      (account) => {
+        return account.username.indexOf(this.state.search) !== -1
+      }
+    )
+    
     return (
       <div className="container-fluid">
-      <Form/>
+      <div>
+        <Form/>
+        <hr/>
+        <br/>
+      </div>
+      <div>
+        <div className="form-group">
+          <label>Search by</label>
+          <input type="text" className="form-control" placeholder="name ..." onChange={this.handleSearch}/>
+        </div>
+      </div>
+      
+      
       <table className="table table-hover">
         <thead>
           <tr>
@@ -68,7 +94,7 @@ class TableWidget extends React.Component{
           </tr>
         </thead>  
         <tbody>
-          { this.props.accounts.map((account, index) => {
+          { searchName.map((account, index) => {
             return (
               <tr className="table-success" key={index}>
                 <td>{account.url}</td>
