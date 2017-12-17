@@ -42,6 +42,6 @@ $ git clone git@github.com:fariswd/react-password-manager.git
 $ cd react-password-manager
 $ npm install
 $ npm start
-``
+```
 
 :rocket:
