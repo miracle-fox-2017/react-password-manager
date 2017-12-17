@@ -6,6 +6,9 @@ export const allUsers = (state = initialState, action) => {
     case 'GET_USERS':
       state.users = action.allusers
       return {...state}
+    case 'SEARCH_USERS':
+      state.users = action.allusers
+      return {...state}
     default:
       return state
   }

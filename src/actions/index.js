@@ -58,10 +58,35 @@ export const updateUser = user => {
 
 export const searchUsers = keyword => {
   console.log('YANG DI ACAR', keyword)
-  db.orderByChild("password").equalTo(keyword).on("child_added", function(data) {
-    console.log("Equal to filter: " + data.val().password)
-  })
-  return {
-    type: 'SEARCH_USERS'
+  return dispatch => {
+    if(keyword.trim() !== ''){
+      db.orderByChild("password").equalTo(keyword).on("child_added", function(data) {
+        if(data){
+          dispatch ({
+            type: 'SEARCH_USERS',
+            allusers: [data.val()]
+          })
+        } else {
+          dispatch ({
+            type: 'SEARCH_USERS',
+            allusers: []
+          })
+        }
+      })
+    } else {
+      db.on('value', function(snapshot) {
+        let getusers = []
+        snapshot.forEach(function(anakSnap) {
+          const dedekKey = anakSnap.key
+          const dedekSnap = anakSnap.val()
+          dedekSnap.key = dedekKey
+          getusers.push(dedekSnap)
+        })
+        dispatch({
+          type: 'GET_USERS',
+          allusers: getusers
+        })
+      })
+    }
   }
 }
