@@ -16,7 +16,8 @@ class TableWidget extends React.Component{
         createdAt: '',
         updatedAt: ''
       },
-      search: ''
+      search: '',
+      errors: []
     }
     this.onChangeState = this.onChangeState.bind(this)
     this.setHandleEdit = this.setHandleEdit.bind(this)
@@ -36,7 +37,36 @@ class TableWidget extends React.Component{
         password: this.props.accounts[index].password,
         createdAt: this.props.accounts[index].createdAt,
         updatedAt: new Date()
-      }
+      },
+      errors: []
+    })
+  }
+
+  setPassword (password) {
+    console.log('password', password)
+    this.setState({
+      error: [
+        {
+          status: false,
+          text: 'Password should must contain number'
+        },
+        {
+          status: false,
+          text: 'Password should must contain character'
+        },
+        {
+          status: false,
+          text: 'Password should must contain Uppercase'
+        },
+        {
+          status: false,
+          text: 'Password should must contain special character (@#$%^&*)'
+        },
+        {
+          status: false,
+          text: 'Password length should more than 8'
+        }
+      ]
     })
 
   }
@@ -50,6 +80,65 @@ class TableWidget extends React.Component{
     let state = this.state.account
     state[e.target.name] = e.target.value
     this.setState(state)
+
+    this.setState({
+      errors: [
+        {
+          status: false,
+          text: 'Password should must contain number'
+        },
+        {
+          status: false,
+          text: 'Password should must contain character'
+        },
+        {
+          status: false,
+          text: 'Password should must contain Uppercase'
+        },
+        {
+          status: false,
+          text: 'Password should must contain special character (@#$%^&*)'
+        },
+        {
+          status: false,
+          text: 'Password length should more than 8'
+        }
+      ]
+    })
+
+    let setPassword = this.state.account.password.split("")
+    let uppercase = /[A-Z]/
+    let character = /[a-z]/
+    let number = /\d/
+    let char = /[@#$%^&*]/
+
+    if (setPassword.length >= 8){
+      this.setState(state => {
+        state.errors[4].status = true
+      })
+    }
+
+    setPassword.map(pass => {
+      if(number.test(pass)){
+        this.setState(state => {
+          state.errors[0].status = true
+        })
+      } else if (character.test(pass)) {
+        this.setState(state => {
+          state.errors[1].status = true
+        })
+      } else if (uppercase.test(pass)) {
+        this.setState(state => {
+          state.errors[2].status = true
+        })
+      } else if (char.test(pass)) {
+        this.setState(state => {
+          state.errors[3].status = true
+        })
+      }
+
+    })
+
   }
 
   handleSearch (e) {
@@ -58,8 +147,9 @@ class TableWidget extends React.Component{
     })
 
   }
+
+  
   render () {
-    
     const { url, username, password} = this.state.account
     const searchName = this.props.accounts.filter(
       (account) => {
@@ -136,6 +226,23 @@ class TableWidget extends React.Component{
                     <div className="form-group">
                       <label>Password</label>
                       <input type="password" className="form-control" name="password" value={password} onChange= {this.onChangeState}/>
+                    </div>
+                    <div>
+                      <h3>Password Strength: </h3>
+                      <table class="table table-hover">
+                        <tbody>
+                          <th scope="row">status</th>
+                          { this.state.errors.map((error, index) => {
+                            return (
+                              <tr key={index}>
+                                <td>{error.status ? "contain" :"not contain"}</td>
+                                <td>{error.text}</td>
+                              </tr>
+                            )
+                          })}
+                        
+                        </tbody>
+                      </table>
                     </div>
                     <button className="ui button" type="submit">Save</button>
                   </fieldset>

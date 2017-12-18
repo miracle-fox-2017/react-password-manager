@@ -15,7 +15,8 @@ class Form extends React.Component {
         password: '',
         createdAt: new Date(),
         updatedAt: ''
-      }
+      },
+      errors: []
     }
     this.onChangeData = this.onChangeData.bind(this)
     this.postData = this.postData.bind(this)
@@ -30,8 +31,34 @@ class Form extends React.Component {
   onChangeData (e) {
     let state = this.state.account
     state[e.target.name] = e.target.value
+  }
 
-  } 
+  setPassword (password) {
+    this.setState({
+      error: [
+        {
+          status: false,
+          text: 'Password should must contain number'
+        },
+        {
+          status: false,
+          text: 'Password should must contain character'
+        },
+        {
+          status: false,
+          text: 'Password should must contain Uppercase'
+        },
+        {
+          status: false,
+          text: 'Password should must contain special character (@#$%^&*)'
+        },
+        {
+          status: false,
+          text: 'Password length should more than 8'
+        }
+      ]
+    })
+  }
   render () {
     const { url, username, password } = this.state.account
     return (
@@ -50,9 +77,21 @@ class Form extends React.Component {
               <label>Password</label>
               <input type="password" className="form-control" name="password" placeholder="****" onChange={this.onChangeData}/>
             </div>
+            <div>
+              <table class="table table-hover">
+                <tbody>
+                  <th scope="row">Active</th>
+                  { this.state.error}
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                </tbody>
+              </table>
+            </div>
             <button className="ui button" type="submit">Save</button>
           </fieldset>
         </form>
+        
       </div>
     )
   }  
