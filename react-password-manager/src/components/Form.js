@@ -4,7 +4,7 @@ import { create, postAccount } from '../actions/actionManager'
 import Chance from 'chance'
 
 const chance = new Chance()
-class Form extends React.Component {
+export class Form extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -139,7 +139,7 @@ class Form extends React.Component {
                   </tbody>
                 </table>
               </div>
-            <button className="ui button" type="submit">Save</button>
+            <button className="btn btn-info" type="submit">Save</button>
           </fieldset>
         </form>
         
