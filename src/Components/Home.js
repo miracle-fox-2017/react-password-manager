@@ -139,6 +139,8 @@ class Home extends Component {
 			      <td className="table-info" >owner</td>
 			      <td className="table-info" >username</td>
 			      <td className="table-info" >password</td>
+			      <td className="table-info" >createdAt</td>
+			      <td className="table-info" >updatedAt</td>
 			      <td className="table-info" > Edit </td>
 			      <td className="table-info" > Delete </td> 
 			    </tr>

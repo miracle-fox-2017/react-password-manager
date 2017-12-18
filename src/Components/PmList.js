@@ -14,6 +14,8 @@ class PmList extends Component{
 		      <td>{ this.props.pmList.owner }</td>
 		      <td>{ this.props.pmList.username }</td>
 		      <td>{ this.props.pmList.password }</td>
+		      <td>{ this.props.pmList.createdAt }</td>
+		      <td>{ this.props.pmList.updatedAt }</td>
 		      <td> <Link to={{
 		      	pathname: `/pm/${this.props.pmList.key}`,
 		      	state: {
