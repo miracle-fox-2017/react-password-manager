@@ -1,6 +1,7 @@
 import database from '../firebase'
 export const ADD_DATA = 'ADD_DATA'
 export const GET_ALL_DATA = 'GET_ALL_DATA'
+export const DELETE_DATA = 'DELETE_DATA'
 
 export function getAllData (usersData) {
   return {
@@ -23,6 +24,20 @@ export function addData (payload) {
       dispatch({
         type: ADD_DATA,
         payload: payload
+      })
+    })
+    .catch(error => console.error(error))
+  }
+}
+
+export function deleteData (payload) {
+  return dispatch => {
+    const dbDir = database.ref(`/usersdata/${payload}`)
+    dbDir.remove()
+    .then(() => {
+      dispatch({
+        type: DELETE_DATA,
+        payload
       })
     })
     .catch(error => console.error(error))

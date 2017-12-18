@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Button, Modal, Form } from 'semantic-ui-react'
+import { Menu, Button, Modal, Form, Checkbox } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { addData, watchUsersData } from '../actions'
 
@@ -10,7 +10,13 @@ class MenuExampleSecondary extends Component {
       open: false,
       url: '',
       username: '',
-      password: ''
+      password: '',
+      upperCasePassword: false,
+      lowerCasePassword: false,
+      specialCharPassword: false,
+      numberPassword: false,
+      lengthPassword: false,
+      button: true
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,6 +25,70 @@ class MenuExampleSecondary extends Component {
     const target = event.target
     const value = target.value
     const name = target.name
+
+    if (name === 'password') {
+
+      //Regex validator
+      const uppercase = /[A-Z]/g
+      const lowercase = /[a-z]/g
+      const specialcase = /[.!@#$%^&*()_+-=]/g
+      const numcase = /[0-9]/g
+
+      //tempData
+      let upPass = false
+      let lowPass = false
+      let spcPass = false
+      let numPass = false
+      let lengthPass = false
+      let button = true
+
+      if (value.match(uppercase)) {
+        upPass = true
+      } else {
+        upPass = false
+      }
+
+      if (value.match(lowercase)) {
+        console.log('masuk low')
+        lowPass = true
+      } else {
+        lowPass = false
+      }
+
+      if (value.match(specialcase)) {
+        spcPass = true
+      } else {
+        spcPass = false
+      }
+
+      if (value.match(numcase)) {
+         numPass= true
+      } else {
+        numPass = false
+      }
+
+      if (value.length > 5) {
+         lengthPass= true
+      } else {
+        lengthPass= false
+      }
+
+      if ( upPass && lowPass && spcPass && numPass && lengthPass) {
+        button = false
+      } else {
+        button = true
+      }
+
+      this.setState({
+        upperCasePassword: upPass,
+        lowerCasePassword: lowPass,
+        specialCharPassword: spcPass,
+        numberPassword: numPass,
+        lengthPassword: lengthPass,
+        button: button
+      })
+    }
+
     this.setState({
       [name]: value
     })
@@ -59,7 +129,15 @@ class MenuExampleSecondary extends Component {
           </Form.Field>
           <Form.Field>
             <label>Password</label>
-            <input type='password' placeholder='Username' name='password' value={this.state.password} onChange={(e) => this.handleInputChange(e)} />
+            <input type='password' placeholder='Password' name='password' value={this.state.password} onChange={(e) => this.handleInputChange(e)} />
+          </Form.Field>
+          <Form.Field>
+            <p>Ini tempat password</p>
+            <Checkbox label='Memiliki satu karakter huruf besar.' checked={this.state.upperCasePassword} /><br/>
+            <Checkbox label='Memiliki satu karakter huruf kecil.' checked={this.state.lowerCasePassword} /><br/>
+            <Checkbox label='Memiliki satu karakter spesial.' checked={this.state.specialCharPassword}/><br/>
+            <Checkbox label='Memiliki satu karakter angka.' checked={this.state.numberPassword}/><br/>
+            <Checkbox label='Memiliki panjang lebih dari 5 karakter.' checked={this.state.lengthPassword}/><br/>
           </Form.Field>
         </Form>
         </Modal.Content>
@@ -67,7 +145,7 @@ class MenuExampleSecondary extends Component {
           <Button color='black' onClick={this.close}>
             Cancel
           </Button>
-          <Button positive icon='checkmark' labelPosition='right' content="Add New Data" onClick={() => this.handleSubmit()} />
+          <Button positive icon='checkmark' labelPosition='right' content="Add New Data" onClick={() => this.handleSubmit()} disabled={this.state.button} />
         </Modal.Actions>
       </Modal>
     </div>
