@@ -36,43 +36,40 @@ export class Input extends Component {
   onChanges = (e) => {
     let name = e.target.name
     let value = e.target.value
+    let STATUSURL = null
+    let SAVEURL = false
+    let STATUSUSERNAME = null
+    let SAVEUSERNAME = false
     if(name === 'url'){
       let trueUrl = /^[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/
       if(value.trim() === ''){
-        this.setState({
-          statusURL: 'URL tidak boleh kosong',
-          saveURL: false
-        })
+        STATUSURL = 'URL tidak boleh kosong'
+        SAVEURL = false
       } else if (!trueUrl.test(value)) {
-        this.setState({
-          statusURL: 'URL belum benar',
-          saveURL: false
-        })
+        STATUSURL = 'URL belum benar'
+        SAVEURL = false
       } else {
-        this.setState({
-          statusURL: null,
-          saveURL: true
-        })
+        STATUSURL = null
+        SAVEURL = true
       }
-    }  if(name === 'username') {
+    } 
+    if(name === 'username') {
       if(value.trim() === ''){
-        this.setState({
-          statusUsername: 'Username tidak boleh kosong',
-          saveUsername: false
-        })
+        STATUSUSERNAME = 'Username tidak boleh kosong'
+        SAVEUSERNAME = false
       } else if(!/.{5,}/.test(value)){
-        this.setState({
-          statusUsername: 'Username tidak kurang dari 5 karakter',
-          saveUsername: false
-        })
+        STATUSUSERNAME = 'Username tidak kurang dari 5 karakter'
+        SAVEUSERNAME = false
       } else {
-        this.setState({
-          statusUsername: null,
-          saveUsername: true
-        })
+        STATUSUSERNAME = null
+        SAVEUSERNAME = true
       }
     }
     this.setState({
+      saveURL: SAVEURL,
+      saveUsername: SAVEUSERNAME,
+      statusURL: STATUSURL,
+      statusUsername: STATUSUSERNAME,
       form: {
         [name]: value
       }
@@ -81,74 +78,64 @@ export class Input extends Component {
   onChangesValidation = (e) => {
     let strengthPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{5,}$/
     let password = e.target.value
+    let ERRORSTATUS = null
+    let SAVEPASSWORD = null
+    let LOWERCASE = true
+    let UPPERCASE = true
+    let SYMBOL = true
+    let NUMBER = true
+    let CHARACTER = true
     if(password.trim() === ''){
-      this.setState({
-        statusError: 'Password tidak boleh kosong',
-        savePassword: false
-      })
+      ERRORSTATUS = 'Password tidak boleh kosong'
+      SAVEPASSWORD = false
     } 
     if(!/(?=.*?[a-z])/.test(password)) {
-      this.setState({
-        statusError: 'Password harus memiliki setidaknya 1 huruf kecil',
-        lower_case:false,
-        savePassword: false
-      })
+      ERRORSTATUS = 'Password harus memiliki setidaknya 1 huruf kecil'
+      LOWERCASE = false
+      SAVEPASSWORD = false
     } else {
-      this.setState({
-        lower_case:true,
-      })
+      LOWERCASE =true
     }
      if(!/(?=.*?[A-Z])/.test(password)) {
-      this.setState({
-        statusError: 'Password harus memiliki setidaknya 1 huruf besar',
-        upper_case:false,
-        savePassword: false
-      })
+      ERRORSTATUS = 'Password harus memiliki setidaknya 1 huruf besar'
+      UPPERCASE = false
+      SAVEPASSWORD = false
     } else {
-      this.setState({
-        upper_case:true,
-      })
+      UPPERCASE = true
     }
      if(!/(?=.*?[0-9])/.test(password)) {
-      this.setState({
-        statusError: 'Password harus memiliki setidaknya 1 angka',
-        number: false,
-        savePassword: false
-      })
+      ERRORSTATUS = 'Password harus memiliki setidaknya 1 angka'
+      NUMBER = false
+      SAVEPASSWORD = false
     } else {
-      this.setState({
-        number:true,
-      })
+      NUMBER = true
     }
      if(!/(?=.*?[^\w\s])/.test(password)) {
-      this.setState({
-        statusError: 'Password harus memiliki setidaknya 1 symbol',
-        symbol: false,
-        savePassword: false
-      })
+      ERRORSTATUS = 'Password harus memiliki setidaknya 1 symbol'
+      SYMBOL = false
+      SAVEPASSWORD = false
     } else {
-      this.setState({
-        symbol:true,
-      })
+      SYMBOL = true
     }
      if(!/.{5,}/.test(password)) {
-      this.setState({
-        statusError: 'Password harus memiliki setidaknya 5 karakter',
-        character: false,
-        savePassword: false
-      })
+      ERRORSTATUS = 'Password harus memiliki setidaknya 5 karakter'
+      CHARACTER = false
+      SAVEPASSWORD = false
     } else {
-      this.setState({
-        character:true,
-      })
+      CHARACTER = true
     }
      if(strengthPassword.test(password)) {
-      this.setState({
-        statusError: null,
-        savePassword: true
-      })
+      ERRORSTATUS = null
+      SAVEPASSWORD = true
     }
     this.setState({
+      statusError: ERRORSTATUS,
+      savePassword: SAVEPASSWORD,
+      lower_case: LOWERCASE,
+      upper_case: UPPERCASE,
+      symbol: SYMBOL,
+      number: NUMBER,
+      character: CHARACTER,
       form: {
         [e.target.name]: password
       }

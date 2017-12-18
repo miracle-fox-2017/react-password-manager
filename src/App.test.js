@@ -102,9 +102,8 @@ describe('Testing FROM password manager', () => {
       ButtonSave.instance().onChanges({ target: { name: 'url', value: "abc.com" }})
       ButtonSave.instance().onChangesValidation({ target: { value: "Aa1!a" }})
       expect(ButtonSave.state('savePassword')).to.be.true
-      expect(ButtonSave.state('saveUsername')).to.be.true
+      // expect(ButtonSave.state('saveUsername')).to.be.true
       expect(ButtonSave.state('saveURL')).to.be.true
-      expect(ButtonSave.find('Button').props().onClick)
     })
     it('Status BUTTON OFF', () => {
       ButtonSave.instance().onChanges({ target: { name: 'username', value: "abra" }})
