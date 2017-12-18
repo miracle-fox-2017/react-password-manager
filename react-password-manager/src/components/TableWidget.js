@@ -29,21 +29,21 @@ class TableWidget extends React.Component{
   }
 
   onClickEdit (index) {
+    let date = new Date()
     this.setState({
       account: {
-        id: this.props.accounts[index].id,
+        key: this.props.accounts[index].key,
         url: this.props.accounts[index].url,
         username: this.props.accounts[index].username,
         password: this.props.accounts[index].password,
         createdAt: this.props.accounts[index].createdAt,
-        updatedAt: new Date()
+        updatedAt: date.toString()
       },
       errors: []
     })
   }
 
   setPassword (password) {
-    console.log('password', password)
     this.setState({
       error: [
         {
@@ -73,7 +73,8 @@ class TableWidget extends React.Component{
 
   setHandleEdit (e) {
     e.preventDefault();
-    this.props.editTheAccount(this.state.account.id, this.state.account)
+    // console.log(this.state)
+    this.props.editTheAccount(this.state.account.key, this.state.account)
   }
 
   onChangeState (e) {
@@ -150,6 +151,7 @@ class TableWidget extends React.Component{
 
   
   render () {
+    console.log(this.props.accounts[0])
     const { url, username, password} = this.state.account
     const searchName = this.props.accounts.filter(
       (account) => {
@@ -192,7 +194,7 @@ class TableWidget extends React.Component{
                 <td>{account.password}</td>
                 <td>{account.createdAt}</td>
                 <td>{account.updatedAt}</td>
-                <td><button type="button" className="btn btn-danger" onClick={(id) => {this.onClickDelete(account.id)}}>Delete</button> 
+                <td><button type="button" className="btn btn-danger" onClick={(id) => {this.onClickDelete(account.key)}}>Delete</button> 
                 <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={(data) => {this.onClickEdit(index)}}>
                     Edit
                   </button>
