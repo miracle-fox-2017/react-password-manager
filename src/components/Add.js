@@ -6,7 +6,7 @@ import Validator from './Validator';
 
 import './Add.css';
 
-class Add extends Component {
+export class Add extends Component {
   constructor(){
     super();
     this.state = {

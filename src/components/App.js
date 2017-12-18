@@ -8,7 +8,7 @@ import Navbar from './Navbar';
 import Home from './Home';
 import Add from './Add';
 
-export default class App extends Component {
+export class App extends Component {
   render(){
     return(
       <Provider store={store}>
@@ -23,3 +23,5 @@ export default class App extends Component {
     )
   }
 }
+
+export default App;
