@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import { deleteData } from '../actions'
 
 class TableExamplePagination extends Component {
-  constructor () {
-    super()
-  }
   deleteUserData (userID) {
     var r = window.confirm("Yakin ngapus tong?!");
     if (r === true) {
@@ -14,7 +11,6 @@ class TableExamplePagination extends Component {
     }
   }
   render () {
-    console.log('di render =====', this.props)
     return (
       this.props.usersData === null? (
         <p>Mohon Tunggu</p>
@@ -30,9 +26,8 @@ class TableExamplePagination extends Component {
         </Table.Header>
         <Table.Body>
           {Object.keys(this.props.usersData).map((key, index) => {
-            const tempData = this.props.usersData[key]
             return (
-              <Table.Row>
+              <Table.Row key={index}>
                 <Table.Cell>{this.props.usersData[key].url}</Table.Cell>
                 <Table.Cell>{this.props.usersData[key].username}</Table.Cell>
                 <Table.Cell>{this.props.usersData[key].password}</Table.Cell>
@@ -62,7 +57,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log('mapstate =====', state)
   return {
     usersData: state.userData
   }

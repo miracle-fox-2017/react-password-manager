@@ -100,6 +100,18 @@ class MenuExampleSecondary extends Component {
       password: this.state.password
     }
     this.props.addNewData(userData)
+    this.setState({
+      url: '',
+      username: '',
+      password: '',
+      open: false,
+      upperCasePassword: false,
+      lowerCasePassword: false,
+      specialCharPassword: false,
+      numberPassword: false,
+      lengthPassword: false,
+      button: true
+    })
   }
   show = dimmer => () => this.setState({ dimmer, open: true })
   close = () => this.setState({ open: false })
@@ -110,7 +122,7 @@ class MenuExampleSecondary extends Component {
     return (
     <div>
       <Menu secondary>
-        <Menu.Item name='home' onClick={this.handleItemClick} />
+        <Menu.Item name='Password Manager'/>
         <Menu.Menu position='right'>
           <Menu.Item name='add new data' onClick={this.show('blurring')} />
         </Menu.Menu>
