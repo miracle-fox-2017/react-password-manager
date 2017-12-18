@@ -31,11 +31,11 @@ class Form extends React.Component {
   onChangeData (e) {
     let state = this.state.account
     state[e.target.name] = e.target.value
-  }
 
-  setPassword (password) {
+    this.setState(state)
+
     this.setState({
-      error: [
+      errors: [
         {
           status: false,
           text: 'Password should must contain number'
@@ -58,7 +58,41 @@ class Form extends React.Component {
         }
       ]
     })
+
+    let setPassword = this.state.account.password.split("")
+    let uppercase = /[A-Z]/
+    let character = /[a-z]/
+    let number = /\d/
+    let char = /[@#$%^&*]/
+
+    if (setPassword.length >= 8){
+      this.setState(state => {
+        state.errors[4].status = true
+      })
+    }
+
+    setPassword.map(pass => {
+      if(number.test(pass)){
+        this.setState(state => {
+          state.errors[0].status = true
+        })
+      } else if (character.test(pass)) {
+        this.setState(state => {
+          state.errors[1].status = true
+        })
+      } else if (uppercase.test(pass)) {
+        this.setState(state => {
+          state.errors[2].status = true
+        })
+      } else if (char.test(pass)) {
+        this.setState(state => {
+          state.errors[3].status = true
+        })
+      }
+
+    })
   }
+
   render () {
     const { url, username, password } = this.state.account
     return (
@@ -78,7 +112,7 @@ class Form extends React.Component {
               <input type="password" className="form-control" name="password" placeholder="****" onChange={this.onChangeData}/>
             </div>
             <div>
-              <table class="table table-hover">
+              <table className="table table-hover">
                 <tbody>
                   <th scope="row">Active</th>
                   { this.state.error}
@@ -88,6 +122,23 @@ class Form extends React.Component {
                 </tbody>
               </table>
             </div>
+            <div>
+              <h3>Password Strength: </h3>
+                <table className="table table-hover">
+                  <tbody>
+                    <th scope="row">status</th>
+                    { this.state.errors.map((error, index) => {
+                      return (
+                      <tr key={index}>
+                        <td>{error.status ? "contain" :"not contain"}</td>
+                          <td>{error.text}</td>
+                        </tr>
+                      )
+                    })}
+                        
+                  </tbody>
+                </table>
+              </div>
             <button className="ui button" type="submit">Save</button>
           </fieldset>
         </form>
