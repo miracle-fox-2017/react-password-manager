@@ -3,6 +3,7 @@ export const ADD_DATA = 'ADD_DATA'
 export const GET_ALL_DATA = 'GET_ALL_DATA'
 export const DELETE_DATA = 'DELETE_DATA'
 export const SEARCH_DATA = 'SEARCH_DATA'
+export const SET_UPDATE = 'SET_UPDATE'
 
 export function getAllData (usersData) {
   return {
@@ -62,5 +63,17 @@ export function searchData (payload) {
         })
       })
     }
+  }
+}
+export function setUpdate (payload) {
+  return dispatch => {
+    database.ref(`/usersdata/${payload}`).once('value')
+    .then((snapshot) => {
+      dispatch({
+        type: SET_UPDATE,
+        payload: snapshot.val()
+      })
+    })
+    .catch(error => console.error(error))
   }
 }
