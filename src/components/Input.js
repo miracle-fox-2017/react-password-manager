@@ -34,7 +34,6 @@ class Input extends Component {
     }
   }
   onChanges = (e) => {
-    let state = this.state.form
     let name = e.target.name
     let value = e.target.value
     if(name === 'url'){
@@ -73,12 +72,16 @@ class Input extends Component {
         })
       }
     }
-    this.setState(state[name]= value)
+    // let newState = 
+    this.setState({
+      form: {
+        [name]: value
+      }
+    })
   }
   onChangesValidation = (e) => {
     let strengthPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{5,}$/
     let password = e.target.value
-    let state = this.state.form
     if(password.trim() === ''){
       this.setState({
         statusError: 'Password tidak boleh kosong',
@@ -146,7 +149,11 @@ class Input extends Component {
         savePassword: true
       })
     }
-    this.setState(state[e.target.name]= password)
+    this.setState({
+      form: {
+        [e.target.name]: password
+      }
+    })
   }
   render() {
     return (
@@ -159,6 +166,7 @@ class Input extends Component {
             >
             <TextInput 
               name='url' 
+              type='text'
               value={ this.state.form.url } 
               onDOMChange={ this.onChanges } 
               />
@@ -170,6 +178,7 @@ class Input extends Component {
             >
             <TextInput 
               name='username' 
+              type='text'
               value={ this.state.form.username } 
               onDOMChange={ this.onChanges } 
               />
