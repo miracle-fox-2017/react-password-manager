@@ -47,6 +47,12 @@ describe('Testing Password Widget Component', () => {
       name: 'sitePassword', value: 'Ad2345!'
     }})
 
+    expect(wrapper.find('#check-lowercase').hasClass('alert alert-success')).toEqual(true);
+    expect(wrapper.find('#check-uppercase').hasClass('alert alert-success')).toEqual(true);
+    expect(wrapper.find('#check-special').hasClass('alert alert-success')).toEqual(true);
+    expect(wrapper.find('#check-number').hasClass('alert alert-success')).toEqual(true);
+    expect(wrapper.find('#check-length').hasClass('alert alert-success')).toEqual(true);
+
     expect(wrapper.state().isLowecaseValid).toEqual(true);
     expect(wrapper.state().isUppercaseValid).toEqual(true);
     expect(wrapper.state().isSpecialValid).toEqual(true);
@@ -64,6 +70,8 @@ describe('Testing Password Widget Component', () => {
       }
     )
 
+    
+    expect(wrapper.find('#check-lowercase').hasClass('alert alert-success')).toEqual(true);
     expect(wrapper.state().isLowecaseValid).toEqual(true);
     expect(wrapper.state().isUppercaseValid).toEqual(false);
     expect(wrapper.state().isSpecialValid).toEqual(false);
@@ -81,6 +89,7 @@ describe('Testing Password Widget Component', () => {
       }
     )
 
+    expect(wrapper.find('#check-uppercase').hasClass('alert alert-success')).toEqual(true);
     expect(wrapper.state().isLowecaseValid).toEqual(false);
     expect(wrapper.state().isUppercaseValid).toEqual(true);
     expect(wrapper.state().isSpecialValid).toEqual(false);
@@ -98,6 +107,7 @@ describe('Testing Password Widget Component', () => {
       }
     )
 
+    expect(wrapper.find('#check-special').hasClass('alert alert-success')).toEqual(true);
     expect(wrapper.state().isLowecaseValid).toEqual(false);
     expect(wrapper.state().isUppercaseValid).toEqual(false);
     expect(wrapper.state().isSpecialValid).toEqual(true);
@@ -115,6 +125,7 @@ describe('Testing Password Widget Component', () => {
       }
     )
 
+     expect(wrapper.find('#check-number').hasClass('alert alert-success')).toEqual(true);
     expect(wrapper.state().isLowecaseValid).toEqual(false);
     expect(wrapper.state().isUppercaseValid).toEqual(false);
     expect(wrapper.state().isSpecialValid).toEqual(false);
@@ -132,6 +143,7 @@ describe('Testing Password Widget Component', () => {
       }
     )
 
+    expect(wrapper.find('#check-length').hasClass('alert alert-success')).toEqual(true);
     expect(wrapper.state().isLengthValid).toEqual(true);
   })
 })
