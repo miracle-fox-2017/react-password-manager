@@ -30,7 +30,7 @@ describe('Password Management', () => {
 
 	test('Password Valid', () => {
 		const wrapper = shallow(<Home />, { context: { store } } ).dive()		
-		wrapper.find('#exampleInputPassword1').simulate('change', {target: { name:'password', value: 'a2!@3saA'}})
+		wrapper.find('#changePassword').simulate('change', {target: { name:'password', value: 'a2!@3saA'}})
 		expect(wrapper.state().checkLC).toEqual('alert alert-dismissible alert-success')
 		expect(wrapper.state().checkUC).toEqual('alert alert-dismissible alert-success')
 		expect(wrapper.state().checkNum).toEqual('alert alert-dismissible alert-success')
@@ -41,7 +41,7 @@ describe('Password Management', () => {
 
 	test('Password LowerCase Invalid', () => {
 		const wrapper = shallow(<Home />, { context: { store } } ).dive()		
-		wrapper.find('#exampleInputPassword1').simulate('change', {target: { name:'password', value: 'A2!@3A'}})
+		wrapper.find('#changePassword').simulate('change', {target: { name:'password', value: 'A2!@3A'}})
 		expect(wrapper.state().checkLC).toEqual('alert alert-dismissible alert-danger')
 		expect(wrapper.state().checkUC).toEqual('alert alert-dismissible alert-success')
 		expect(wrapper.state().checkNum).toEqual('alert alert-dismissible alert-success')
@@ -51,7 +51,7 @@ describe('Password Management', () => {
 
 	test('Password UpperCase Invalid', () => {
 		const wrapper = shallow(<Home />, { context: { store } } ).dive()		
-		wrapper.find('#exampleInputPassword1').simulate('change', {target: { name:'password', value: 'a2!@3a'}})
+		wrapper.find('#changePassword').simulate('change', {target: { name:'password', value: 'a2!@3a'}})
 		expect(wrapper.state().checkLC).toEqual('alert alert-dismissible alert-success')
 		expect(wrapper.state().checkUC).toEqual('alert alert-dismissible alert-danger')
 		expect(wrapper.state().checkNum).toEqual('alert alert-dismissible alert-success')
@@ -61,7 +61,7 @@ describe('Password Management', () => {
 
 	test('Password Number Invalid', () => {
 		const wrapper = shallow(<Home />, { context: { store } } ).dive()		
-		wrapper.find('#exampleInputPassword1').simulate('change', {target: { name:'password', value: 'aw!@cA'}})
+		wrapper.find('#changePassword').simulate('change', {target: { name:'password', value: 'aw!@cA'}})
 		expect(wrapper.state().checkLC).toEqual('alert alert-dismissible alert-success')
 		expect(wrapper.state().checkUC).toEqual('alert alert-dismissible alert-success')
 		expect(wrapper.state().checkNum).toEqual('alert alert-dismissible alert-danger')
@@ -71,7 +71,7 @@ describe('Password Management', () => {
 
 	test('Password Length Invalid', () => {
 		const wrapper = shallow(<Home />, { context: { store } } ).dive()		
-		wrapper.find('#exampleInputPassword1').simulate('change', {target: { name:'password', value: 'aA1@'}})
+		wrapper.find('#changePassword').simulate('change', {target: { name:'password', value: 'aA1@'}})
 		expect(wrapper.state().checkLC).toEqual('alert alert-dismissible alert-success')
 		expect(wrapper.state().checkUC).toEqual('alert alert-dismissible alert-success')
 		expect(wrapper.state().checkNum).toEqual('alert alert-dismissible alert-success')
@@ -81,11 +81,26 @@ describe('Password Management', () => {
 
 	test('Password SpecialCharacter Invalid', () => {
 		const wrapper = shallow(<Home />, { context: { store } } ).dive()		
-		wrapper.find('#exampleInputPassword1').simulate('change', {target: { name:'password', value: 'A2asd3A'}})
+		wrapper.find('#changePassword').simulate('change', {target: { name:'password', value: 'A2asd3A'}})
 		expect(wrapper.state().checkLC).toEqual('alert alert-dismissible alert-success')
 		expect(wrapper.state().checkUC).toEqual('alert alert-dismissible alert-success')
 		expect(wrapper.state().checkNum).toEqual('alert alert-dismissible alert-success')
 		expect(wrapper.state().checkLength).toEqual('alert alert-dismissible alert-success')
 		expect(wrapper.state().checkSpecial).toEqual('alert alert-dismissible alert-danger')		
-	})				
+	})	
+
+	test('Submit', () => {
+		const wrapper = shallow(<Home />, { context: { store } } ).dive()
+		wrapper.find('#changeUrl').simulate('change', {target: { name:'url', value: 'www.jest.com'}})
+		wrapper.find('#changeOwner').simulate('change', {target: { name:'owner', value: 'jest'}})
+		wrapper.find('#changeUsername').simulate('change', {target: { name:'username', value: 'jestua'}})
+		wrapper.find('#changePassword').simulate('change', {target: { name:'password', value: 'a@13sA'}})
+		wrapper.find('#savePM').simulate('click', {
+			url: wrapper.state().url,
+			owner: wrapper.state().owner,
+			username: wrapper.state().username,
+			password: wrapper.state().password
+		} )	
+		console.log(wrapper.state())
+	})					
 })

@@ -106,7 +106,7 @@ class Home extends Component {
 	}
 
 	savePM(e) {		
-	e.preventDefault()
+	// e.preventDefault()
 	if( this.state.checkLC      === 'alert alert-dismissible alert-success' &&
 		this.state.checkUC      === 'alert alert-dismissible alert-success' &&
 		this.state.checkNum     === 'alert alert-dismissible alert-success' &&
@@ -120,7 +120,7 @@ class Home extends Component {
 			password: this.state.password,
 			createdAt: new Date().toISOString(),
 			updatedAt: null
-	    }				    	
+	    }				  	
 			add_pm(newPM)	
 			this.clearState()
 		}else{
@@ -169,19 +169,19 @@ class Home extends Component {
 					  <fieldset>
 					    <div className="form-group">
 					      <label>Url</label>
-					      <input type="text" name="url" onChange={(e) => this.changeHandler(e)} className="form-control" placeholder="Url" />					     
+					      <input type="text" name="url" id="changeUrl" onChange={(e) => this.changeHandler(e)} className="form-control" placeholder="Url" />					     
 					    </div>
 					    <div className="form-group">
 					      <label>Owner</label>
-					      <input name="owner" onChange={(e) => this.changeHandler(e)} type="text" className="form-control" placeholder="Owner" />					     
+					      <input name="owner" id="changeOwner" onChange={(e) => this.changeHandler(e)} type="text" className="form-control" placeholder="Owner" />					     
 					    </div>					    
 					    <div className="form-group">
 					      <label>Username</label>
-					      <input name="username" onChange={(e) => this.changeHandler(e)} type="text" className="form-control" placeholder="Username" />					     
+					      <input name="username" id="changeUsername" onChange={(e) => this.changeHandler(e)} type="text" className="form-control" placeholder="Username" />					     
 					    </div>					    
 					    <div className="form-group">
 					      <label>Password</label>
-					      <input name="password" onChange={(e) => this.passwordHandler(e)} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+					      <input name="password" onChange={(e) => this.passwordHandler(e)} type="password" className="form-control" id="changePassword" placeholder="Password" />
 					    </div>				    
 					  </fieldset>
 					</form>
@@ -196,7 +196,7 @@ class Home extends Component {
 
 				      </div>
 				      <div className="modal-footer">
-				        <button onClick={(e) => this.savePM(e)}type="button" data-dismiss='modal' className="btn btn-primary">Submit</button>
+				        <button onClick={(e) => this.savePM(e)}type="button" id="savePM" data-dismiss='modal' className="btn btn-primary">Submit</button>
 				        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
 				      </div>
 				    </div>
