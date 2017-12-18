@@ -10,7 +10,7 @@ import Label from 'grommet/components/Label'
 import Status from 'grommet/components/icons/Status'
 import PlatformCloudlinuxIcon from 'grommet/components/icons/base/PlatformCloudlinux'
 
-class Input extends Component {
+export class Input extends Component {
   constructor(){
     super()
     this.state = {
@@ -54,7 +54,7 @@ class Input extends Component {
           saveURL: true
         })
       }
-    } else if(name === 'username') {
+    }  if(name === 'username') {
       if(value.trim() === ''){
         this.setState({
           statusUsername: 'Username tidak boleh kosong',
@@ -72,7 +72,6 @@ class Input extends Component {
         })
       }
     }
-    // let newState = 
     this.setState({
       form: {
         [name]: value
@@ -166,6 +165,7 @@ class Input extends Component {
             >
             <TextInput 
               name='url' 
+              id="url"
               type='text'
               value={ this.state.form.url } 
               onDOMChange={ this.onChanges } 
