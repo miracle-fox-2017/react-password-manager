@@ -4,6 +4,7 @@ export const GET_ALL_DATA = 'GET_ALL_DATA'
 export const DELETE_DATA = 'DELETE_DATA'
 export const SEARCH_DATA = 'SEARCH_DATA'
 export const SET_UPDATE = 'SET_UPDATE'
+export const UPDATE_DATA = 'UPDATE_DATA'
 
 export function getAllData (usersData) {
   return {
@@ -75,5 +76,20 @@ export function setUpdate (payload) {
       })
     })
     .catch(error => console.error(error))
+  }
+}
+export function updateData (payload) {
+  return dispatch => {
+    database.ref(`/usersdata/${payload.key}`).set({
+      url: payload.userData.url,
+      username: payload.userData.username,
+      password: payload.userData.password
+    })
+    .then(() => {
+      dispatch({
+        type: UPDATE_DATA,
+        payload
+      })
+    })
   }
 }

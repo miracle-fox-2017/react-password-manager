@@ -1,4 +1,4 @@
-import { ADD_DATA, GET_ALL_DATA, DELETE_DATA, SEARCH_DATA, SET_UPDATE } from '../actions'
+import { ADD_DATA, GET_ALL_DATA, DELETE_DATA, SEARCH_DATA, SET_UPDATE, UPDATE_DATA } from '../actions'
 
 const initialState = {
   userData: {},
@@ -26,6 +26,8 @@ function pmApp(state = initialState, action) {
         ...state,
         updatedData: action.payload
       }
+    case UPDATE_DATA:
+      return state
     default:
       return state
   }
