@@ -40,7 +40,6 @@ class Addpassword extends Component {
         visiblehurufbesar: true
       })
       besar = false
-      console.log('besar:', besar);
     }
 
     if(!(/[a-z]/.test(this.state.newpass.password))) {
@@ -49,7 +48,6 @@ class Addpassword extends Component {
       })
 
       kecil = false
-      console.log('kecil:',kecil)
     }
 
     if(!(/[0-9]/.test(this.state.newpass.password))) {
@@ -58,7 +56,6 @@ class Addpassword extends Component {
       })
 
       angka = false
-      console.log('angka:', angka)
     }
 
     if(!(/[#$@!&%]/.test(this.state.newpass.password))) {
@@ -67,7 +64,6 @@ class Addpassword extends Component {
       })
 
       spesial = false
-      console.log('spesial:', spesial)
     }
 
     if(!(/[a-zA-Z0-9#$@!&%]{5}$/.test(this.state.newpass.password))) {
@@ -76,7 +72,6 @@ class Addpassword extends Component {
       })
 
       panjang = false
-      console.log('panjang:', panjang)
     }
 
     if(besar && kecil && spesial && angka && panjang) {
@@ -100,27 +95,30 @@ class Addpassword extends Component {
 
   render() {
     if(this.state.visiblehurufbesar) {
-      var pesanbesar = <p id="emailHelp" class="form-text text-muted">Password harus memiliki setidaknya 1 huruf besar</p>
+      var pesanbesar = <p id="widgetValidasiHurufBesar" className="form-text text-muted">Password harus memiliki setidaknya 1 huruf besar</p>
     }
 
     if(this.state.visiblehurufkecil) {
-      var pesankecil = <p id="emailHelp" class="form-text text-muted">Password harus memiliki setidaknya 1 huruf kecil</p>
+      var pesankecil = <p id="widgetValidasiHurufKecil" className="form-text text-muted">Password harus memiliki setidaknya 1 huruf kecil</p>
     }
 
     if(this.state.visibleangka) {
-      var pesanangka = <p id="emailHelp" class="form-text text-muted">Password harus memiliki setidaknya 1 angka</p>
+      var pesanangka = <p id="widgetValidasiAngka" className="form-text text-muted">Password harus memiliki setidaknya 1 angka</p>
     }
 
     if(this.state.visiblespecialchar) {
-      var pesanspesial = <p id="emailHelp" class="form-text text-muted">Password harus memiliki setidaknya 1 spesial karakter(#$@!&%)</p>
+      var pesanspesial = <p id="widgetValidasiSpesialChar" className="form-text text-muted">Password harus memiliki setidaknya 1 spesial karakter(#$@!&%)</p>
     }
 
     if(this.state.visiblelength) {
-      var pesanlength = <p id="emailHelp" class="form-text text-muted">Password harus minimal 5 karakter</p>
+      var pesanlength = <p id="widgetValidasiLength" className="form-text text-muted">Password harus minimal 5 karakter</p>
     }
     return (
       <div>
-        <form onSubmit={this.handleSave}>
+        <form onSubmit={(e) => {
+          e.preventDefault()
+          this.handleSave(e)
+        }}>
           <fieldset>
             <legend>Password Form</legend>
             <div className="form-group">

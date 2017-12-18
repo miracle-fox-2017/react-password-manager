@@ -107,23 +107,23 @@ class EditPassword extends Component {
 
   render() {
     if(this.state.visiblehurufbesar) {
-      var pesanbesar = <p id="emailHelp" class="form-text text-muted">Password harus memiliki setidaknya 1 huruf besar</p>
+      var pesanbesar = <p id="emailHelp" className="form-text text-muted">Password harus memiliki setidaknya 1 huruf besar</p>
     }
 
     if(this.state.visiblehurufkecil) {
-      var pesankecil = <p id="emailHelp" class="form-text text-muted">Password harus memiliki setidaknya 1 huruf kecil</p>
+      var pesankecil = <p id="emailHelp" className="form-text text-muted">Password harus memiliki setidaknya 1 huruf kecil</p>
     }
 
     if(this.state.visibleangka) {
-      var pesanangka = <p id="emailHelp" class="form-text text-muted">Password harus memiliki setidaknya 1 angka</p>
+      var pesanangka = <p id="emailHelp" className="form-text text-muted">Password harus memiliki setidaknya 1 angka</p>
     }
 
     if(this.state.visiblespecialchar) {
-      var pesanspesial = <p id="emailHelp" class="form-text text-muted">Password harus memiliki setidaknya 1 spesial karakter(#$@!&%)</p>
+      var pesanspesial = <p id="emailHelp" className="form-text text-muted">Password harus memiliki setidaknya 1 spesial karakter(#$@!&%)</p>
     }
 
     if(this.state.visiblelength) {
-      var pesanlength = <p id="emailHelp" class="form-text text-muted">Password harus minimal 5 karakter</p>
+      var pesanlength = <p id="emailHelp" className="form-text text-muted">Password harus minimal 5 karakter</p>
     }
     return (
         <div className="container">

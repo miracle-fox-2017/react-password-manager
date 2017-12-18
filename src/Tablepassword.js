@@ -38,7 +38,7 @@ class Tablepassword extends Component {
     else {
       this.props.searchallpassword(this.state.cari)
     }
-    
+
   }
 
   validatefield
@@ -67,10 +67,10 @@ class Tablepassword extends Component {
       <div style={{marginTop:40+'px'}}>
         <form onSubmit={this.handleSearch}>
           <fieldset>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Search</label>
-              <input type="text" class="form-control" name="cari" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Pencarian URL" value={this.state.cari} onChange={this.handleChange}/>
-              <small id="emailHelp" class="form-text text-muted">Masukkan kata kunci pencarian</small>
+            <div className="form-group">
+              <label htmlFor="exampleInputEmail1">Search</label>
+              <input type="text" className="form-control" name="cari" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Pencarian URL" value={this.state.cari} onChange={this.handleChange}/>
+              <small id="emailHelp" className="form-text text-muted">Masukkan kata kunci pencarian</small>
               <button type="submit" className="btn btn-primary">cari</button>
             </div>
           </fieldset>
