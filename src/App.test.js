@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Adapter from 'enzyme-adapter-react-16'
 import Enzyme, { mount, shallow } from 'enzyme'
+import sinon from 'sinon'
 import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import store from './store'
+import Firebase from './firebase'
+const db = Firebase.database()
 
 import App from './App';
 import AddPassword from './components/AddPassword'
@@ -99,12 +102,27 @@ it('input a password: hackersejA7!, will false', () => {
       <AddPassword />
     </Provider>
   )
+  wrapper.find('input').at(0).simulate('change', {target: {value: 'hacktiv8.com'}});
+  wrapper.find('input').at(1).simulate('change', {target: {value: 'capung'}});
   wrapper.find('input').at(2).simulate('change', {target: {value: 'hackersejA7!'}});
   const uppercase = wrapper.find('div').at(7).children().at(1).children().hasClass('fa-check')
   const lowercase = wrapper.find('div').at(7).children().at(2).children().hasClass('fa-check')
   const special = wrapper.find('div').at(7).children().at(3).children().hasClass('fa-check')
   const number = wrapper.find('div').at(7).children().at(4).children().hasClass('fa-check')
   const length = wrapper.find('div').at(7).children().at(5).children().hasClass('fa-check')
+  wrapper.find('button').at(0).simulate('click')
+  const dummyUser = {
+    id: '1',
+    url: 'hacktiv8.com',
+    username: "capung",
+    password: "hackersejA7!",
+    createdAt: Date(),
+    updatedAt: ''
+  }
+  wrapper.update()
+  // const submitHandler = sinon.spy();
+  // console.log(submitHandler)
+  // spyOn(AddPassword.prototype, 'submitHandler')
   expect(uppercase).toEqual(true)
   expect(lowercase).toEqual(true)
   expect(special).toEqual(true)
