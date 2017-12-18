@@ -155,11 +155,11 @@ class FormPage extends Component {
         <Form>
           <Form.Field required>
             <label>URL</label>
-            <input name='url' placeholder='URL Web/Application' value={this.state.url} onChange={(e) => this.inputHandle(e)}/>
+            <input name='url' placeholder='URL Web/Application' type='text' value={this.state.url} onChange={(e) => this.inputHandle(e)}/>
           </Form.Field>
           <Form.Field required>
             <label>Username</label>
-            <input name='username' placeholder='Username' value={this.state.username} onChange={(e) => this.inputHandle(e)}/>
+            <input name='username' placeholder='Username' type='text' value={this.state.username} onChange={(e) => this.inputHandle(e)}/>
           </Form.Field>
           <Form.Field required>
             <label>Password</label>
