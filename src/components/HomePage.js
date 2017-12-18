@@ -10,7 +10,8 @@ class HomePage extends Component {
     this.state = {
         url: 'ini url',
         username: 'ini username',
-        password: 'ini password'
+        password: 'ini password',
+        enableEdit: false
     }
   }
 
@@ -25,7 +26,8 @@ class HomePage extends Component {
     const newProfile = {
       url: this.state.url,
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
+      enableEdit: false
     }
     alert('Ini datanya lho ', newProfile)
     this.props.sendContact(newProfile)
