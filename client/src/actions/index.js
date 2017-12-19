@@ -40,21 +40,21 @@ export const edit_user = (data) => {
 
 
 export const getUserAPI = (dispatch) => {
-    return firebase.database().ref().child('reactpwdmngr/user').on('value', snapshot => {
-      console.log('SNAPSHOT', snapshot.val());
-      let data = []
-        for(var idx in snapshot.val()) {
-          data.push({
+    return (dispatch) => {
+      return firebase.database().ref().child('reactpwdmngr/user').on('value', snapshot => {
+        let obj = []
+        for (var idx in snapshot.val()) {
+          obj.push({
             id: idx,
-            url:  snapshot.val()[idx].url,
             username: snapshot.val()[idx].username,
             password: snapshot.val()[idx].password,
             createdAt: snapshot.val()[idx].createdAt,
             updatedAt: snapshot.val()[idx].updatedAt
           })
         }
-        dispatch(get_user_all(data))
+        dispatch(get_user_all(obj))
     })
+  }
 }
 
 export const postUser = (form) => {
