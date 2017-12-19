@@ -37,20 +37,28 @@ export const sendUserData = (contact) => {
     db.ref('/contacts/profile').push({
       url: contact.url,
       username: contact.username,
-      password: contact.password,
-      enableEdit: contact.enableEdit
+      password: contact.password
     })
     dispatch(getUserData())
   }
 }
 
 export const updateProfile = (updateProfile) => {
+  console.log('dapet gak datanya ?', updateProfile)
   return (dispatch) => {
-    db.ref(`/contacts/profile/${updateProfile.key}`.update({
+    db.ref(`/contacts/profile/${updateProfile.key}`).set({
       url: updateProfile.url,
       username: updateProfile.username,
       password: updateProfile.password
-    }))
+    })
+    dispatch(getUserData())
+  }
+}
+
+export const removeProfile = (key) => {
+  console.log('ini keynya ', key)
+  return (dispatch) => {
+    db.ref(`/contacts/profile/${key}`).remove()
     dispatch(getUserData())
   }
 }

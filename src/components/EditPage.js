@@ -1,31 +1,38 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {updateProfile} from '../action'
 
-import { sendUserData } from '../action'
-import ProfileCard from './ProfileCard'
-
-class HomePage extends Component {
-  constructor(props) {
+class EditProfile extends Component {
+  constructor(props){
     super(props)
     this.state = {
-      url: 'ini url',
-      username: 'ini username',
-      password: 'ini password',
+      key: '',
+      url: '',
+      username: '',
+      password: '',
       upperCasePass: false,
       lowerCasePass: false,
       hasSpecialChar: false,
       hasNumber: false,
       achieveMinLength: false,
-      validPassword: false,
-      status: 'added !'
+      validPassword: false
     }
   }
 
+  componentWillMount() {
+    console.log('testing aja',this.props.profile);
+    this.setState({
+      key: this.props.profile.key,
+      url: this.props.profile.url,
+      username: this.props.profile.username,
+      password: this.props.profile.password
+    })
+  }
+
   updateProfile (event) {
-    console.log('event yang terjadi =====', event.target.value);
     this.setState({
       [event.target.name]: event.target.value
-    })        
+    })
     if (event.target.name === 'password') {
       const valPass = event.target.value
       const lengthMin = this.minLengthCheck(valPass)
@@ -37,6 +44,73 @@ class HomePage extends Component {
     }
   }
 
+  saveProfile () {
+    const update = {
+      key: this.state.key,
+      url: this.state.url,
+      username: this.state.username,
+      password: this.state.password
+    }
+    this.setState({
+      redirectstate: true
+    })
+    console.log(update)
+    this.props.updating(update)
+    this.props.history.push('/')
+  }
+
+  render () {
+    return (
+      <div>
+        <h2>Edit Page</h2>
+      <div className="form-group">
+        <label htmlFor="inputURL">URL</label>
+        <input type="text" className="form-control" id="inputURL"
+          name="url"
+          value={this.state.url}
+          onChange={this.updateProfile.bind(this)} />
+      </div>
+      <div className="form-group">
+        <label htmlFor="inputUsername">Username</label>
+        <input type="text" className="form-control" id="inputUsername"
+          name="username"
+          value={this.state.username}
+          onChange={this.updateProfile.bind(this)}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="inputPassword">Password</label>
+        <input type="password" className="form-control" id="inputPassword"
+          name="password"
+          value={this.state.password}
+          onChange={this.updateProfile.bind(this)} />
+      </div>
+        <h4 className="text-warning">Password Strength : </h4>
+        <p>
+          {this.callMinLength.call(this)}
+          Minimum length 8 character
+        </p>
+        <p>
+          {this.callUpperCase.call(this)}
+          At least has one upper case character
+        </p>
+        <p>
+          {this.callLowerCase.call(this)}
+          At least has one lower case character
+        </p>
+        <p>
+          {this.callSpecialChar.call(this)}
+          At least has one special character (!@#$%^&*...)
+        </p>
+        <p>
+          {this.callnumber.call(this)}
+          At least has one number character
+        </p>
+      <button onClick={this.saveProfile.bind(this)}>Save</button>
+      </div>
+    )
+  }
+
   minLengthCheck(valPass) {
     if (valPass.length >= 8) {
       this.setState({ achieveMinLength: true })
@@ -46,7 +120,7 @@ class HomePage extends Component {
       return false
     }
   }
-
+  
   upperCaseCheck(valPass) {
     if (/[A-Z]/.test(valPass)) {
       this.setState({ upperCasePass: true })
@@ -56,7 +130,7 @@ class HomePage extends Component {
       return false
     }
   }
-
+  
   lowerCaseCheck(valPass) {
     if (/[a-z]/.test(valPass)) {
       console.log('tes in lowercase', valPass)
@@ -67,7 +141,7 @@ class HomePage extends Component {
       return false
     }
   }
-
+  
   numberCheck(valPass) {
     if (/\d+/g.test(valPass)) {
       this.setState({ hasNumber: true })
@@ -77,7 +151,7 @@ class HomePage extends Component {
       return false
     }
   }
-
+  
   specialCharCheck(valPass) {
     if (/[^A-Za-z0-9]/g.test(valPass) && /\S/g.test(valPass)) {
       this.setState({ hasSpecialChar: true })
@@ -87,83 +161,14 @@ class HomePage extends Component {
       return false
     }
   }
-
-
+  
+  
   isValidPass(upper, lower, number, specialChar, lengthPass) {
     if (upper && lower && number && specialChar && lengthPass) {
       this.setState({ validPassword: true })
     } else {
       this.setState({ validPassword: false })
     }
-  }
-
-  inputProfile () {
-    const newProfile = {
-      url: this.state.url,
-      username: this.state.username,
-      password: this.state.password
-    }
-    this.props.sendContact(newProfile)
-  }
-
-  render () {
-    return (
-      <div>
-      <form className="container">
-        <fieldset>
-          <legend>Password Form</legend>
-            <div className="form-group">
-              <label htmlFor="inputURL">URL</label>
-              <input type="text" className="form-control" id="inputURL"
-                name="url" 
-                value={this.state.url} 
-                onChange={this.updateProfile.bind(this)} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="inputUsername">Username</label>
-              <input type="text" className="form-control" id="inputUsername"
-                name="username" 
-                value={this.state.username} 
-                onChange={this.updateProfile.bind(this)}
-              />
-            </div>
-            <div className="form-group">
-               <label htmlFor="inputPassword">Password</label>
-              <input type="password" className="form-control" id="inputPassword" 
-                name="password"
-                value={this.state.password} 
-                onChange={this.updateProfile.bind(this)}/>
-            </div>
-            <h4 className="text-warning">Password Strength : </h4>
-            <p>
-              {this.callMinLength.call(this)}
-              Minimum length 8 character
-                            </p>
-            <p>
-              {this.callUpperCase.call(this)}
-              At least has one upper case character
-                            </p>
-            <p>
-              {this.callLowerCase.call(this)}
-              At least has one lower case character
-                            </p>
-            <p>
-              {this.callSpecialChar.call(this)}
-              At least has one special character (!@#$%^&*...)
-                            </p>
-            <p>
-              {this.callnumber.call(this)}
-              At least has one number character
-                            </p>
-            <button type="submit" className="btn btn-primary" 
-             onClick={() => this.inputProfile()}>Save</button>
-        </fieldset>
-      </form>
-      <div className="row">
-          <ProfileCard />
-      </div>
-      </div>
-    )
   }
 
   callMinLength() {
@@ -201,19 +206,26 @@ class HomePage extends Component {
       return <span>[   ] - </span>
     }
   }
+
 }
 
-const mapStateToProps = (state) => {
-  console.log('%c ================ini mapState')
+
+const mapStateToProps = (state, props) => {
+  console.log('map state ', props)
+  console.log('ini statenya ', state)
+  let result = state.find(a => a.key === props.match.params.id)
+  console.log('hasilnya ', result);
   return {
-    contacts: state
+    profile: result
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendContact: (contact) => dispatch(sendUserData(contact))
+    updating: (profile) => {
+      dispatch(updateProfile(profile))
+    }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile)
