@@ -49,6 +49,7 @@ class Home extends React.Component {
               </thead>
               <tbody>
               {this.props.user.map((data, index)=> {
+                console.log('isi data', data);
                 return(
                   <tr>
                   <td>{data.url}</td>

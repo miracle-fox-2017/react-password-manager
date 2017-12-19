@@ -46,6 +46,7 @@ export const getUserAPI = (dispatch) => {
         for (var idx in snapshot.val()) {
           obj.push({
             id: idx,
+            url: snapshot.val()[idx].url,
             username: snapshot.val()[idx].username,
             password: snapshot.val()[idx].password,
             createdAt: snapshot.val()[idx].createdAt,
