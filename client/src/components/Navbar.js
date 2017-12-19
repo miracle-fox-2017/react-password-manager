@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Link } from 'react-router-dom'
 import Home from './Home'
 import Form from './Form'
-
+import Edit from './Edit'
 class Navbar extends React.Component {
   render () {
     return (
@@ -29,6 +29,7 @@ class Navbar extends React.Component {
         </nav>
         <Route exact path="/" component={Home}/>
         <Route exact path="/form" component={Form}/>
+        <Route exact path="/edit/:id" component={Edit}/>
       </div>
 
     )

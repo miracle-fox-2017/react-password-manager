@@ -20,16 +20,6 @@ export const get_user_one = (data) => {
   }
 }
 
-export const edit_user = (data) => {
-  return {
-    type: 'EDIT_USER',
-    payload: {
-      data
-    }
-  }
-}
-
-
 export const getUserAPI = (dispatch) => {
     return (dispatch) => {
       return firebase.database().ref().child('reactpwdmngr/user').on('value', snapshot => {
@@ -80,3 +70,16 @@ export const delete_user = (id) => {
     return firebase.database().ref('reactpwdmngr/user/' + id).remove();
   };
 };
+
+
+export const edit_user = (data) => {
+  return (dispatch) => {
+    return firebase.database().ref('reactpwdmngr/user/' + data.id).set({
+      username: data.username,
+      password: data.password,
+      editedat: data.editedat,
+      createat: data.createat,
+      url: data.url
+    });
+  }
+}

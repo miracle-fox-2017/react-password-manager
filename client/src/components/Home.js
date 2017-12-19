@@ -74,7 +74,7 @@ class Home extends React.Component {
                   <td>{data.password}</td>
                   <td>{data.createdAt}</td>
                   <td>{data.updatedAt}</td>
-                  <td><Link to={'/' + data.id}><p onClick={()=> this.edit(data.id)}><span className=" glyphicon glyphicon-pencil"></span></p></Link></td>
+                  <td><Link to={'/edit/' + data.id}><span className=" glyphicon glyphicon-pencil"></span></Link></td>
                   <td><a href="#"><p onClick={ ()=> this.delete(data.id)}><span className=" glyphicon glyphicon-trash"></span></p></a></td>
                   </tr>
                 )
