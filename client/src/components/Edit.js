@@ -18,7 +18,6 @@ class Edit extends React.Component {
       specialCase: false, // KARAKTER SPECIAL
       minimalCase: false, // MINIMAL 1 ANGKA
       lengthCase: false, // MINIMAL 5 KARAKTER
-      redirect: false
     }
     this.editUrl = this.editUrl.bind(this)
     this.editUsername = this.editUsername.bind(this)
@@ -92,16 +91,12 @@ class Edit extends React.Component {
         updatedAt: this.tanggal(new Date())
       }
       this.props.edit_user(edit)
-      alert('Success Edit to Firebase')
       e.preventDefault()
-      this.setDefault()
-      this.setState({
-        redirect: true
-      })
+      alert('Sukses Edit Form!!')
+      this.props.history.push('/')
     } else {
       alert('GAGAL EDIT KARENA VALIDATION');
       e.preventDefault()
-      this.setDefault()
     }
   }
 
@@ -116,9 +111,7 @@ class Edit extends React.Component {
 
   render () {
     return (
-
       <div className="container">
-      {this.state.redirect && <Redirect to={'/'} />}
       <form>
         <fieldset>
           <div className="form-group">
@@ -143,7 +136,7 @@ class Edit extends React.Component {
 
           <div className="form-group">
             <div className="col-lg-10 col-lg-offset-2">
-              <button type="submit" onClick={ () => this.editUser()} className="btn btn-primary">Edit</button>
+              <button onClick={this.editUser} className="btn btn-primary">Edit</button>
             </div>
           </div>
         </fieldset>
