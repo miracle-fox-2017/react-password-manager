@@ -20,6 +20,15 @@ export const get_user_one = (data) => {
   }
 }
 
+export const edit_user_to_reducer = (data) => {
+  return {
+    type: 'EDIT_USER',
+    payload: {
+      data
+    }
+  }
+}
+
 export const getUserAPI = (dispatch) => {
     return (dispatch) => {
       return firebase.database().ref().child('reactpwdmngr/user').on('value', snapshot => {
@@ -73,13 +82,20 @@ export const delete_user = (id) => {
 
 
 export const edit_user = (data) => {
+  console.log('masuk edit BROGHHHHH', data);
   return (dispatch) => {
-    return firebase.database().ref('reactpwdmngr/user/' + data.id).set({
+   firebase.database().ref('reactpwdmngr/user/' + data.id).set({
       username: data.username,
       password: data.password,
-      editedat: data.editedat,
-      createat: data.createat,
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt,
       url: data.url
-    });
+    })
+    .then(()=> {
+      dispatch({
+        type: 'EDIT_USER',
+        payload : data
+      })
+    })
   }
 }

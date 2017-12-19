@@ -7,6 +7,9 @@ const Form = (state=initialState, action) => {
     case 'GET_USER':
       state.form = action.payload.data
        return {...state}
+    case 'EDIT_USER':
+    console.log('ACTION PAYLOAD DI REDUCER');
+     return {...state}
     default:
       return state
   }
