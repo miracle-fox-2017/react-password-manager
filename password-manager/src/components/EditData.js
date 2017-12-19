@@ -27,7 +27,6 @@ class EditData extends Component {
     this.inputDataProfile = this.inputDataProfile.bind(this)
   }
 
-
   handleInputChange(event) {
     let profile = this.state.profile
     profile[event.target.name] = event.target.value
