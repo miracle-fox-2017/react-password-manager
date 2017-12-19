@@ -53,10 +53,10 @@ describe('Home component testing', () => {
   })
 })
 
-describe('Password widget', ()=> {
+describe('Password widget validation', ()=> {
   const wrapperHomeInput = shallow(<Home/>, { context: { store } } ).dive().find('input').at(2)
   const initialState = {
-    upperCase: true,
+    upperCase: true,//false
     lowerCase: true,
     oneNumber: true,
     specialCharacter: true,
@@ -70,10 +70,10 @@ describe('Password widget', ()=> {
   wrapper.simulate('change', {props: {password: '4meliaR@'}})
   const wrapperInput = wrapper.find('input')
   
-  it('Should have at least 1 uppercase character', ()=> {
+  it('Should have at least 1 uppercase word', ()=> {
     expect(wrapperInput.at(0).props().checked).toEqual(true)
   })
-  it('Should have at least 1 lowercase character', ()=> {
+  it('Should have at least 1 lowercase word', ()=> {
     expect(wrapperInput.at(1).props().checked).toEqual(true)
   })
   it('Should have at least 1 special character', ()=> {
