@@ -19,16 +19,6 @@ export const get_user_one = (data) => {
   }
 }
 
-export const delete_user = (data) => {
-  return {
-    type: 'DELETE_USER',
-    payload: {
-      data
-    }
-  }
-}
-
-
 export const edit_user = (data) => {
   return {
     type: 'EDIT_USER',
@@ -63,3 +53,9 @@ export const postUser = (form) => {
     return firebase.database().ref('reactpwdmngr/user').push(form)
   }
 }
+
+export const delete_user = (id) => {
+  return (dispatch) => {
+    return firebase.database().ref('reactpwdmngr/user/' + id).remove();
+  };
+};
