@@ -11,6 +11,7 @@ export const get_user_all = (data) => {
 }
 
 export const get_user_one = (data) => {
+  console.log('HASIL SEARCHING', data);
   return {
     type: 'GET_USER_ONE',
     payload: {
@@ -47,6 +48,26 @@ export const getUserAPI = (dispatch) => {
     })
   }
 }
+
+export const getUserByWord = (word) => {
+    return (dispatch) => {
+      return firebase.database().ref('reactpwdmngr').child('user').orderByChild('username').equalTo(`${word}`).on('value', snapshot => {
+        let obj = []
+        for (var idx in snapshot.val()) {
+          obj.push({
+            id: idx,
+            url: snapshot.val()[idx].url,
+            username: snapshot.val()[idx].username,
+            password: snapshot.val()[idx].password,
+            createdAt: snapshot.val()[idx].createdAt,
+            updatedAt: snapshot.val()[idx].updatedAt
+          })
+        }
+        dispatch(get_user_all(obj))
+      })
+    }
+}
+
 
 export const postUser = (form) => {
   return (dispatch) => {

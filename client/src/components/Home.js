@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { get_user_all, delete_user, getUserAPI } from '../actions/index'
+import { get_user_all, delete_user, getUserAPI, getUserByWord } from '../actions/index'
 import firebase from 'firebase'
 import { Route, Link } from 'react-router-dom'
 
@@ -13,19 +13,27 @@ class Home extends React.Component {
       username: '',
       password: '',
       createdAt: '',
-      updatedAt: ''
+      updatedAt: '',
+      keyWord: ''
     }
+    this.handleSearch = this.handleSearch.bind(this)
+    this.submitSearch = this.submitSearch.bind(this)
   }
 
   handleSearch (event) {
+    this.setState({
+      keyWord : event.target.value
+    })
+  }
 
+  submitSearch () {
+    this.props.getUserByWord(this.state.keyWord)
   }
 
   delete (id) {
-    console.log('masuk sini',id);
     this.props.delete_user(id);
   }
-  //ANEH DI APP MAU
+
   componentWillMount () {
     this.props.getUserAPI()
   }
@@ -35,9 +43,9 @@ class Home extends React.Component {
         <div className="container-fluid">
            <div id="custom-search-input">
               <div className="input-group col-md-12">
-                  <input type="text" className="  search-query form-control" placeholder="Search"/>
+                  <input type="text" className="  search-query form-control" placeholder="Search By USERNAME . . . . " onChange={this.handleSearch} value={this.state.keyWord}/>
                   <span className="input-group-btn">
-                      <button className="btn btn-danger" type="button">
+                      <button className="btn btn-danger" type="button" onClick={this.submitSearch}>
                           <span className=" glyphicon glyphicon-search"></span>
                       </button>
                   </span>
@@ -87,7 +95,8 @@ const mapState = (state) => {
 const mapAction = (dispatch) => {
   return {
     getUserAPI: () => dispatch(getUserAPI()),
-    delete_user: (id) => dispatch(delete_user(id))
+    delete_user: (id) => dispatch(delete_user(id)),
+    getUserByWord: (url) => dispatch(getUserByWord(url))
   }
 }
 
