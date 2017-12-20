@@ -3,7 +3,7 @@ import { Menu, Button, Modal, Form, Checkbox } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { addData, watchUsersData } from '../actions'
 
-class MenuExampleSecondary extends Component {
+export class MenuExampleSecondary extends Component {
   constructor() {
     super()
     this.state = {

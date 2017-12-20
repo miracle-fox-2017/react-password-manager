@@ -21,17 +21,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "test": "jest",
+    "test": "react-scripts test --env=jsdom",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
-  },
-  "jest": {
-    "setupFiles": [
-      "./src/test/jestsetup.js"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ]
   },
   "devDependencies": {
     "babel-jest": "^22.0.1",
