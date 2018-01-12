@@ -1,0 +1,46 @@
+@import "common";
+@import "input-wrapper";
+
+.form-wrapper {
+  width: 90%;
+  margin: auto;
+  padding: 25px;
+  overflow: hidden;
+  max-width: 700px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #FFF;
+  margin: 100px auto 75px auto;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.05);
+  .header-title {
+    color: #555;
+    display: block;
+    font-size: 40px;
+    font-weight: 300;
+    margin-bottom: 15px;
+    font-family: "Roboto Condensed",sans-serif;
+  }
+  @media screen and (max-width: 500px) {
+    .header-title {
+      font-size: 30px;
+    }
+  }
+  .btn {
+    float: right;
+    outline: none;
+  }
+  @include input-wrapper;
+  .validator-wrapper {
+    padding: 0;
+    margin: 65px 0 0 0;
+    li {
+      padding: 10px;
+      font-size: 14px;
+      list-style: none;
+      font-weight: bold;
+      margin: 10px 0 0 0;
+      box-sizing: border-box;
+      font-family: "Roboto Condensed",sans-serif;
+    }
+  }
+}

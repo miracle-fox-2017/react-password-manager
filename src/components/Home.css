@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed:300");
+html, body, #root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #F1F1F1; }
+
+.home-wrapper {
+  width: 90%;
+  max-width: 800px;
+  margin: 100px auto 75px auto; }
+  .home-wrapper .search-input {
+    color: #555;
+    width: 100%;
+    height: 40px;
+    outline: none;
+    font-size: 20px;
+    padding: 0 10px 0 10px;
+    box-sizing: border-box;
+    font-family: "Roboto",sans-serif; }
+  .home-wrapper .list-wrapper {
+    padding: 0;
+    width: 100%;
+    margin: auto;
+    padding: 15px;
+    overflow: hidden;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFF;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05); }
+    .home-wrapper .list-wrapper li {
+      padding: 15px;
+      list-style: none;
+      box-sizing: border-box;
+      transition-duration: 0.3s; }
+      .home-wrapper .list-wrapper li div {
+        padding: 0; }
+    .home-wrapper .list-wrapper li:hover {
+      border-radius: 5px;
+      background-color: #F1F1F1; }
+    .home-wrapper .list-wrapper span {
+      display: block; }
+    .home-wrapper .list-wrapper .info-label {
+      color: #555;
+      font-size: 16px;
+      font-weight: bold;
+      font-style: italic;
+      font-family: "Roboto"; }
+    .home-wrapper .list-wrapper .info-value {
+      font-size: 16px;
+      margin: 5px 0 10px 0;
+      font-family: "Roboto"; }
+    .home-wrapper .list-wrapper .action-group button {
+      outline: none;
+      margin-right: 5px; }
