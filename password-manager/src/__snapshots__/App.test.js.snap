@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders and match to snapshot 1`] = `
+<div>
+  <div
+    className="App"
+  >
+    <div
+      className="header text-center"
+    >
+      <header
+        className="App-header "
+      >
+        <h1
+          className="App-title"
+        >
+          Password Manager
+        </h1>
+      </header>
+    </div>
+    <div
+      className="text-center"
+      style={
+        Object {
+          "margin": "20px 0px",
+        }
+      }
+    >
+      <a
+        href="/list"
+        onClick={[Function]}
+      >
+        <button
+          className="btn btn-primary"
+          type="button"
+        >
+          Data List
+        </button>
+      </a>
+    </div>
+    <div
+      className="container"
+    >
+      <div
+        className="row row-centered"
+      >
+        <div
+          className="col-md-6 col-centered"
+        >
+          <form
+            className="inputForm"
+          >
+            <div
+              className="form-group"
+            >
+              URL:
+              <input
+                className="form-control"
+                name="url"
+                onChange={[Function]}
+                placeholder="Enter URL"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="form-group"
+            >
+              Username:
+              <input
+                className="form-control"
+                name="username"
+                onChange={[Function]}
+                placeholder="Enter Username"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="form-group"
+            >
+              Password:
+              <input
+                className="form-control"
+                name="password"
+                onChange={[Function]}
+                placeholder="Enter password"
+                type="password"
+                value=""
+              />
+            </div>
+          </form>
+          <div
+            className="text-center"
+            style={
+              Object {
+                "margin": "20px 0px",
+              }
+            }
+          >
+            <fieldset
+              className="checkbox text-left"
+              style={
+                Object {
+                  "margin": "20px 0px",
+                }
+              }
+            >
+              <p
+                className="text-center"
+              >
+                Password Strength :
+              </p>
+              <input
+                checked={false}
+                type="checkbox"
+              />
+               Password harus memiliki setidaknya satu karakter huruf besar (upper-case)
+              <br />
+              <input
+                checked={false}
+                type="checkbox"
+              />
+               Password harus memiliki setidaknya satu karakter huruf kecil (lower-case)
+              <br />
+              <input
+                checked={false}
+                type="checkbox"
+              />
+               Password harus memiliki setidaknya satu karakter spesial (#$%@!%&..)
+              <br />
+              <input
+                checked={false}
+                type="checkbox"
+              />
+               Password harus memiliki setidaknya satu angka
+              <br />
+              <input
+                checked={false}
+                type="checkbox"
+              />
+               Password harus memiliki panjang (length) lebih dari 5 karakter
+              <br />
+            </fieldset>
+          </div>
+          <button
+            className="btn btn-default"
+            onClick={[Function]}
+            type="submit"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
